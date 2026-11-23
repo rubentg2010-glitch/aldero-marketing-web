@@ -188,6 +188,7 @@
     return;
   }
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ ignoreMobileResize: true });
   if (SplitText) gsap.registerPlugin(SplitText);
   root.classList.add("anim-ok");
 
@@ -345,21 +346,15 @@
         v.classList.toggle("is-off", n < i);
       });
     };
-    ScrollTrigger.matchMedia({
-      "(min-width: 981px)": function () {
-        chapWrap.classList.add("is-live");
-        setChap(0);
-        var triggers = chapItems.map(function (c, n) {
-          return ScrollTrigger.create({ trigger: c, start: "top 55%", end: "bottom 55%", onToggle: function (self) { if (self.isActive) setChap(n); } });
-        });
-        return function () { chapWrap.classList.remove("is-live"); triggers.forEach(function (t) { t.kill(); }); };
-      },
-      "(max-width: 980px)": function () {
-        var ts = chapItems.map(function (c) {
-          return ScrollTrigger.create({ trigger: c, start: "top 75%", once: true, onEnter: function () { c.classList.add("is-in"); } });
-        });
-        return function () { ts.forEach(function (t) { t.kill(); }); };
-      }
+    chapWrap.classList.add("is-live");
+    setChap(0);
+    chapItems.forEach(function (c, n) {
+      ScrollTrigger.create({
+        trigger: c, start: function () { return window.innerWidth > 980 ? "top 55%" : "top 62%"; },
+        end: function () { return window.innerWidth > 980 ? "bottom 55%" : "bottom 62%"; },
+        invalidateOnRefresh: true,
+        onToggle: function (self) { if (self.isActive) setChap(n); }
+      });
     });
     gsap.utils.toArray("[data-chap-title]").forEach(function (t) {
       gsap.from(t, { yPercent: 40, opacity: 0, duration: 0.9, ease: ease, scrollTrigger: { trigger: t, start: "top 85%", once: true } });
@@ -427,7 +422,7 @@
 
   /* Galería horizontal de proyectos (escritorio) */
   var mm = gsap.matchMedia();
-  mm.add("(min-width: 861px)", function () {
+  mm.add("all", function () {
     var section = $("[data-work]");
     var track = $("[data-work-track]");
     if (!section || !track) return;
