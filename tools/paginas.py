@@ -398,96 +398,6 @@ def case_page(c):
                  back=("./#proyectos", "Todos los trabajos"), og_image=f"assets/img/{img}.jpg")
 
 
-# ---------------------------------------------------------------- guía
-GUIA = {
-    "slug": "guia-google-maps-malaga",
-    "title": "Cómo salir en Google Maps con tu negocio en Málaga | ALDERO",
-    "description": "Guía paso a paso para que tu negocio de Málaga salga en Google Maps: perfil de empresa, verificación, categoría, fotos, reseñas y errores que evitar.",
-    "h1": "Cómo salir en Google Maps con tu negocio en Málaga",
-    "wa": "Hola, he leído la guía de Google Maps de ALDERO MARKETING y quiero ayuda con la ficha de mi negocio.",
-}
-GUIA_PASOS = [
-    ("Crea o reclama tu perfil", "Entra en <strong>business.google.com</strong> con una cuenta de Google y busca tu negocio. A veces Google ya ha creado una ficha por su cuenta: si existe, reclámala en vez de crear otra. Si no, créala desde cero con el nombre real de tu negocio."),
-    ("Verifícalo", "Google te pedirá demostrar que el negocio es tuyo. El método lo elige Google: muchas veces es grabar un vídeo corto del negocio o de tus herramientas, y otras veces por teléfono, correo o carta. Hasta que no está verificado, la ficha no se muestra bien."),
-    ("Elige bien la categoría principal", "Es de lo que más cuenta. Elige la más concreta posible (por ejemplo, \"Taller mecánico\" y no \"Empresa\"). Después puedes añadir categorías secundarias para el resto de servicios."),
-    ("Dirección o zona de servicio", "Si tus clientes van a tu local, pon la dirección exacta. Si vas tú a casa del cliente, como un mecánico o un fontanero a domicilio, oculta la dirección y marca las zonas donde trabajas: Málaga, Torremolinos, Alhaurín…"),
-    ("Rellénalo entero", "Horario (también festivos), teléfono, web, una descripción clara de lo que haces y la lista de servicios. Cuanto más completa esté la ficha, más fácil es que Google la enseñe."),
-    ("Sube fotos reales", "Fachada, interior, trabajos terminados y tú o tu equipo. Las fotos reales dan confianza; las de banco de imágenes no."),
-    ("Consigue reseñas y contéstalas", "Pide a los clientes contentos que te dejen una reseña: mándales el enlace directo por WhatsApp justo después del trabajo. Responde a todas, también a las malas, con educación. Nunca compres reseñas: va contra las normas de Google."),
-    ("Mismos datos en todas partes", "Usa exactamente el mismo nombre, dirección y teléfono en tu ficha, tu web y tus redes. Si Google ve datos distintos, se fía menos."),
-    ("Ten una web que lo respalde", "Enlaza tu web en la ficha y deja claro en ella qué haces y en qué zona. Google cruza la información de la ficha y de la web."),
-    ("Mantén la ficha viva", "Sube fotos de vez en cuando, publica novedades y actualiza el horario si cambia. Una ficha abandonada transmite eso: abandono."),
-]
-GUIA_ERRORES = [
-    "Meter palabras clave en el nombre (\"Taller Pérez mecánico barato Málaga\"): va contra las normas de Google y te pueden suspender la ficha.",
-    "Tener dos fichas para el mismo negocio.",
-    "Poner una dirección donde no atiendes de verdad.",
-    "Dejar el horario sin actualizar y que la gente se encuentre la persiana bajada.",
-    "No contestar a las reseñas, sobre todo a las malas.",
-]
-
-
-def guide_page():
-    g = GUIA
-    url = f"{SITE}/{g['slug']}"
-    faq = [
-        ("¿Cuánto cuesta salir en Google Maps?", "Tener la ficha de empresa en Google es gratis. Lo que lleva trabajo es dejarla bien hecha y mantenerla; si no tienes tiempo, te la puedo montar yo."),
-        ("¿Cuánto se tarda en aparecer?", "Depende de la verificación y de lo fuerte que sea tu competencia en tu zona. No hay un plazo fijo: lo importante es tener la ficha completa, verificada y con reseñas."),
-        ("¿Puedo salir en Maps sin local?", "Sí. Si trabajas a domicilio, configura la ficha como negocio de zona de servicio y oculta tu dirección."),
-    ]
-    ld = {"@context": "https://schema.org", "@graph": [
-        {"@type": "Article", "@id": f"{url}#guia", "headline": g["h1"], "description": g["description"], "url": url,
-         "datePublished": TODAY, "dateModified": TODAY, "inLanguage": "es-ES",
-         "author": {"@type": "Person", "name": "Rubén Torres"}, "publisher": ORG, "image": f"{SITE}/assets/img/og-image.png"},
-        {"@type": "HowTo", "name": g["h1"], "step": [{"@type": "HowToStep", "position": i, "name": t, "text": re.sub("<[^>]+>", "", d)} for i, (t, d) in enumerate(GUIA_PASOS, 1)]},
-        breadcrumb_ld(g["slug"], "Guía: salir en Google Maps"),
-        faq_ld(url, faq),
-    ]}
-    toc = "".join(f'<li><a href="#paso-{i}">{t}</a></li>' for i, (t, _) in enumerate(GUIA_PASOS, 1))
-    pasos = "".join(f'<section class="guide__step" id="paso-{i}"><span class="guide__n">{i:02d}</span><div><h2>{t}</h2><p>{d}</p></div></section>' for i, (t, d) in enumerate(GUIA_PASOS, 1))
-    errores = "".join(f"<li>{e}</li>" for e in GUIA_ERRORES)
-    body = f'''    <article class="guide">
-      <header class="svc-hero guide__head">
-        <div class="container">
-          {crumbs("Guía: salir en Google Maps")}
-          <p class="kicker case-hero__k">Guía · SEO local</p>
-          <h1 class="svc-hero__title guide__title">{g["h1"]}</h1>
-          <p class="svc-hero__lead">Cuando alguien busca "fontanero en Málaga" o "peluquería cerca de mí", Google enseña un mapa con unos pocos negocios antes que cualquier web. Para salir ahí necesitas un <strong>Perfil de Empresa en Google</strong> (lo que antes se llamaba Google My Business) bien hecho. Te explico cómo, paso a paso.</p>
-          <p class="guide__meta">Por Rubén Torres · Aldero Marketing, Málaga · <time datetime="{TODAY}">noviembre de 2026</time></p>
-        </div>
-      </header>
-
-      <div class="container guide__grid">
-        <nav class="guide__toc" aria-label="Pasos de la guía">
-          <p class="guide__toc-k">En esta guía</p>
-          <ol>{toc}</ol>
-        </nav>
-        <div class="guide__body">
-          {pasos}
-          <section class="guide__box" aria-labelledby="errores">
-            <h2 id="errores">Errores que te pueden hundir la ficha</h2>
-            <ul>{errores}</ul>
-          </section>
-          <section class="guide__faq faq" aria-labelledby="faq">
-            <h2 class="svc-h2" id="faq">Preguntas frecuentes</h2>
-            <div class="faq__list">{faq_html(faq)}</div>
-          </section>
-        </div>
-      </div>
-
-      <section class="svc-cta">
-        <div class="container">
-          <h2 class="svc-cta__title">¿Te la monto yo?</h2>
-          <p class="svc-p">Si no tienes tiempo, te dejo la ficha hecha y la web preparada para Google. Y si ya la tienes, te digo gratis qué mejoraría.</p>
-          <a class="btn btn--blue btn--xl" href="{wa(g["wa"])}" target="_blank" rel="noopener">{WA_ICON} Hablar con Rubén</a>
-          <p class="svc-other">Más sobre esto: <a href="seo-local-malaga">SEO local en Málaga</a></p>
-        </div>
-      </section>
-    </article>'''
-    return shell(slug=g["slug"], title=g["title"], description=g["description"], ld=ld, body=body, wa_msg=g["wa"],
-                 back=("./", "Volver al inicio"), og_type="article")
-
-
 if __name__ == "__main__":
     for p in list(SERVICIOS_BASE) + SERVICIOS_NUEVOS:
         (ROOT / f"{p['slug']}.html").write_text(service_page(p), encoding="utf-8")
@@ -495,5 +405,3 @@ if __name__ == "__main__":
     for c in CASOS:
         (ROOT / f"{c['slug']}.html").write_text(case_page(c), encoding="utf-8")
         print("caso", c["slug"])
-    (ROOT / f"{GUIA['slug']}.html").write_text(guide_page(), encoding="utf-8")
-    print("guía", GUIA["slug"])

@@ -78,7 +78,7 @@ PAGES = [
         "case_text": "Oscar trabaja a domicilio por toda Málaga, sin local. Además de su web, le creé la ficha de Google Business como negocio a domicilio y di de alta la web en Google Search Console.",
         "steps": STEPS,
         "faq": [
-            ("¿Qué es el SEO local?", "Es el trabajo para que tu negocio salga en Google y en Google Maps cuando alguien busca lo que haces cerca de él, por ejemplo \"fontanero en Málaga\". Si quieres empezar por tu cuenta, tienes mi <a href=\"guia-google-maps-malaga\">guía para salir en Google Maps</a>."),
+            ("¿Qué es el SEO local?", "Es el trabajo para que tu negocio salga en Google y en Google Maps cuando alguien busca lo que haces cerca de él, por ejemplo \"fontanero en Málaga\"."),
             ("¿Cuánto tarda en notarse?", "El SEO no es inmediato. Depende de tu sector y de lo fuerte que sea tu competencia en tu zona. En la auditoría te explico qué se puede esperar en tu caso."),
             ("¿Me garantizas salir el primero?", "No, y desconfía de quien te lo garantice: nadie controla Google. Lo que sí hago es trabajar todo lo que depende de ti para que tengas las mejores opciones."),
             ("¿Necesito tener web?", "Con la ficha de Google ya se puede empezar, pero una web propia ayuda mucho a posicionar y a que se fíen de ti. Si no tienes, te la puedo hacer: mira <a href=\"diseno-web-malaga\">diseño web en Málaga</a>."),

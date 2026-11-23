@@ -353,6 +353,8 @@
         invalidateOnRefresh: true,
         onToggle: function (self) { if (self.isActive) setChap(n); }
       });
+      // En móvil cada capítulo lleva su visual: se anima al aparecer
+      ScrollTrigger.create({ trigger: c, start: "top 80%", once: true, onEnter: function () { c.classList.add("is-in"); } });
     });
     gsap.utils.toArray("[data-chap-title]").forEach(function (t) {
       gsap.from(t, { yPercent: 40, opacity: 0, duration: 0.9, ease: ease, scrollTrigger: { trigger: t, start: "top 85%", once: true } });
