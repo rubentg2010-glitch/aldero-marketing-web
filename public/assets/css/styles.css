@@ -471,8 +471,8 @@ ul, ol { padding: 0; list-style: none; }
 .il__in { display: block; height: 100%; transform: translateY(112%); will-change: transform; }
 .il img { display: block; height: auto; max-width: none; }
 @media (max-width: 720px) {
-  .intro__word { width: 82vw; }
-  .intro__line { margin-top: calc(82vw * 138 / 970 / 2 + 10px); }
+  .intro__word { width: 76vw; }
+  .intro__line { margin-top: calc(76vw * 138 / 970 / 2 + 10px); }
 }
 .intro__skip { position: absolute; right: clamp(16px, 3vw, 36px); bottom: clamp(16px, 3vw, 32px); padding: 10px 14px; border: 1px solid rgba(255, 255, 255, .16); border-radius: 999px; background: rgba(0, 0, 0, .35); color: rgba(242, 242, 238, .75); font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: color .2s, border-color .2s; }
 .intro__skip:hover, .intro__skip:focus-visible { color: #fff; border-color: rgba(255, 255, 255, .5); }

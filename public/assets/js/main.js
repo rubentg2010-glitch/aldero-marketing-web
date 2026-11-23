@@ -213,7 +213,6 @@
   }
 
   function playIntro() {
-    var isMobile = window.innerWidth < 720;
     var veil = $("[data-intro-veil]", introEl);
     var line = $("[data-intro-line]", introEl);
     var word = $("[data-intro-word]", introEl);
@@ -222,7 +221,7 @@
     var letterA = letters[0];
     var skipBtn = $("[data-intro-skip]", introEl);
     var finished = false;
-    var spread = Math.min(window.innerWidth * 0.05, 64);
+    var spread = word.offsetWidth * 0.045;   // separación inicial proporcional al logo: cabe entero en cualquier pantalla
 
     // Geometría de la "A" dentro del logotipo (coordenadas de la imagen de 970 × 138)
     var TRI = [[126, 36], [56, 112], [192, 112]];   // hueco interior de la A
@@ -272,10 +271,9 @@
     };
 
     gsap.set(letters, { x: function (i) { return (i - 2.5) * spread; } });
-    gsap.set(word, { scale: 1.1 });
+    gsap.set(word, { scale: 1.06 });
 
     var tl = gsap.timeline({ defaults: { ease: ease }, onComplete: finish });
-    tl.timeScale(isMobile ? 1.35 : 1);
 
     // 1 · Impacto: una línea azul atraviesa la pantalla
     tl.to(line, { scaleX: 1, duration: 0.62, ease: "expo.inOut" }, 0)
@@ -302,12 +300,12 @@
     function onKey(e) { if (e.key === "Escape" || e.key === "Enter" || e.key === " ") skip(); }
     function removeSkipListeners() {
       window.removeEventListener("wheel", skip);
-      window.removeEventListener("touchstart", skip);
+      window.removeEventListener("touchmove", skip);
       window.removeEventListener("keydown", onKey);
     }
     skipBtn.addEventListener("click", skip);
     window.addEventListener("wheel", skip, { passive: true, once: true });
-    window.addEventListener("touchstart", skip, { passive: true, once: true });
+    window.addEventListener("touchmove", skip, { passive: true, once: true });
     window.addEventListener("keydown", onKey);
   }
 
