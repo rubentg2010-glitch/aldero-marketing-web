@@ -85,6 +85,8 @@ def shell(*, slug, title, description, ld, body, wa_msg, back=("./#servicios", "
 {footer()}  <a class="wa-float" href="{wa(wa_msg)}" target="_blank" rel="noopener" aria-label="Escríbeme por WhatsApp">{WA_ICON}<span class="wa-float__label">WhatsApp</span></a>
   <script src="assets/js/faq.js?v={VERSION}" defer></script>
   <script src="assets/js/cookies.js?v={VERSION}" defer></script>
+  <!-- Cloudflare Web Analytics (sin cookies) -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{{"token": "4c95ed329a6e4298943473999409b360"}}'></script>
 </body>
 </html>
 '''
