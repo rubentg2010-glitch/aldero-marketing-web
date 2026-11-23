@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://petrato.net/sitemap.xml
+Sitemap: https://aldero.es/sitemap.xml
