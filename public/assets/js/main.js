@@ -207,7 +207,7 @@
     var introImgs = $$("img", introEl).map(function (img) {
       return img.complete ? Promise.resolve() : new Promise(function (r) { img.onload = r; img.onerror = r; });
     });
-    Promise.race([Promise.all(introImgs), new Promise(function (r) { setTimeout(r, 400); })]).then(playIntro, playIntro);
+    Promise.race([Promise.all(introImgs), new Promise(function (r) { setTimeout(r, 900); })]).then(playIntro, playIntro);
   } else {
     heroTl.play();
   }
@@ -271,7 +271,7 @@
     };
 
     gsap.set(letters, { x: function (i) { return (i - 2.5) * spread; } });
-    gsap.set(word, { scale: 1.06 });
+    gsap.set(word, { x: 0, y: 0, xPercent: 0, yPercent: 0, scale: 1.06, transformOrigin: "50% 50%" });
 
     var tl = gsap.timeline({ defaults: { ease: ease }, onComplete: finish });
 

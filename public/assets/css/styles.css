@@ -465,13 +465,14 @@ ul, ol { padding: 0; list-style: none; }
 .intro-on .intro { background: transparent; }
 .intro__veil { position: absolute; inset: 0; background: #000; will-change: clip-path; }
 .intro__line { position: absolute; left: 0; right: 0; top: 50%; height: 1px; margin-top: calc(min(70vw, 860px) * 138 / 970 / 2 + 14px); background: linear-gradient(90deg, transparent 0%, rgba(45, 91, 255, .35) 18%, #2D5BFF 40%, #C9D6FF 50%, #2D5BFF 60%, rgba(45, 91, 255, .35) 82%, transparent 100%); transform: scaleX(0); transform-origin: 50% 50%; will-change: transform, opacity; }
-.intro__word { position: absolute; left: 50%; top: 50%; width: min(70vw, 860px); aspect-ratio: 970 / 138; transform: translate(-50%, -50%); will-change: transform; }
+.intro__word { position: absolute; left: 50%; top: 50%; width: min(70vw, 860px); height: calc(min(70vw, 860px) * 138 / 970); margin: calc(min(70vw, 860px) * -69 / 970) 0 0 calc(min(70vw, 860px) / -2); will-change: transform; }
 .il { position: absolute; top: 0; bottom: 0; overflow: hidden; will-change: transform, opacity; }
 .il--a { z-index: 2; }
 .il__in { display: block; height: 100%; transform: translateY(112%); will-change: transform; }
-.il img { display: block; height: auto; max-width: none; }
+.il img { display: block; height: auto; max-width: none; flex: none; }
+.il__in { width: 100%; overflow: visible; }
 @media (max-width: 720px) {
-  .intro__word { width: 76vw; }
+  .intro__word { width: 76vw; height: calc(76vw * 138 / 970); margin: calc(76vw * -69 / 970) 0 0 -38vw; }
   .intro__line { margin-top: calc(76vw * 138 / 970 / 2 + 10px); }
 }
 .intro__skip { position: absolute; right: clamp(16px, 3vw, 36px); bottom: clamp(16px, 3vw, 32px); padding: 10px 14px; border: 1px solid rgba(255, 255, 255, .16); border-radius: 999px; background: rgba(0, 0, 0, .35); color: rgba(242, 242, 238, .75); font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: color .2s, border-color .2s; }
