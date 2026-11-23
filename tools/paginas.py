@@ -82,7 +82,7 @@ def shell(*, slug, title, description, ld, body, wa_msg, back=("./#servicios", "
 {body}
   </main>
 
-{footer()}  <a class="wa-float" href="{wa(wa_msg)}" target="_blank" rel="noopener" aria-label="Escríbeme por WhatsApp">{WA_ICON}<span class="wa-float__label">WhatsApp</span></a>
+{footer()}  <a class="wa-float" href="{wa(wa_msg)}" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">{WA_ICON}<span class="wa-float__label">WhatsApp</span></a>
   <script src="assets/js/faq.js?v={VERSION}" defer></script>
   <script src="assets/js/cookies.js?v={VERSION}" defer></script>
   <!-- Cloudflare Web Analytics (sin cookies) -->
@@ -136,7 +136,7 @@ def service_page(p):
     url = f"{SITE}/{p['slug']}"
     ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "Service", "@id": f"{url}#servicio", "name": p["service"], "serviceType": p["service"], "description": p["description"],
-         "provider": ORG, "areaServed": [{"@type": "City", "name": "Málaga"}, {"@type": "Country", "name": "España"}], "url": url},
+         "provider": ORG, "areaServed": p.get("area", [{"@type": "City", "name": "Málaga"}, {"@type": "Country", "name": "España"}]), "url": url},
         breadcrumb_ld(p["slug"], p["h1"]),
         faq_ld(url, p["faq"]),
     ]}
@@ -145,6 +145,9 @@ def service_page(p):
     steps = "".join(f'<li><span class="svc-steps__n">{i}</span><div><h3>{t}</h3><p>{d}</p></div></li>' for i, (t, d) in enumerate(STEPS, 1))
     case = OSCAR_CASE_BLOCK.format(text=p["case_text"], quote=OSCAR_QUOTE, arrow=ARROW) if p.get("case_text") else ""
     other = p["other"]
+    links = ""
+    if p.get("links"):
+        links = '<nav class="svc-links" aria-label="Más páginas">' + "".join(f'<a href="{h}">{t}</a>' for h, t in p["links"]) + "</nav>"
     body = f'''    <section class="svc-hero">
       <div class="container">
         {crumbs(p["h1"])}
@@ -176,7 +179,7 @@ def service_page(p):
 
 {case}    <section class="svc-sec" aria-labelledby="como">
       <div class="container">
-        <h2 class="svc-h2" id="como">Cómo trabajo</h2>
+        <h2 class="svc-h2" id="como">Cómo trabajamos</h2>
         <ol class="svc-steps">{steps}</ol>
       </div>
     </section>
@@ -191,9 +194,9 @@ def service_page(p):
     <section class="svc-cta">
       <div class="container">
         <h2 class="svc-cta__title">{p["cta_title"]}</h2>
-        <p class="svc-p">Cuéntame qué necesitas por WhatsApp. Te digo qué haría y cuánto costaría, sin compromiso.</p>
-        <a class="btn btn--blue btn--xl" href="{wa(p["wa"])}" target="_blank" rel="noopener">{WA_ICON} Hablar con Rubén</a>
-        <p class="svc-other">También te puede interesar: <a href="{other[0]}">{other[1]}</a></p>
+        <p class="svc-p">Cuéntanos qué necesitas por WhatsApp o con el <a href="./#contacto">formulario</a>. Te decimos qué haríamos y cuánto costaría, sin compromiso.</p>
+        <a class="btn btn--blue btn--xl" href="{wa(p["wa"])}" target="_blank" rel="noopener">{WA_ICON} Escríbenos por WhatsApp</a>
+        <p class="svc-other">También te puede interesar: <a href="{other[0]}">{other[1]}</a></p>{links}
       </div>
     </section>'''
     return shell(slug=p["slug"], title=p["title"], description=p["description"], ld=ld, body=body, wa_msg=p["wa"])
@@ -203,21 +206,21 @@ SERVICIOS_NUEVOS = [
     {
         "slug": "estudios-de-mercado",
         "service": "Estudios de mercado",
-        "title": "Estudios de mercado para negocios en Málaga | ALDERO",
-        "description": "Estudios de mercado para negocios de Málaga: qué hace tu competencia, qué busca la gente y dónde hay hueco para ti. Un resumen claro y por prioridades.",
+        "title": "Estudios de mercado para negocios | ALDERO MARKETING",
+        "description": "Estudios de mercado para negocios de toda España: qué hace tu competencia, qué busca la gente y dónde hay hueco para ti. Un resumen claro y por prioridades.",
         "h1": "Estudios de mercado",
         "h1_html": 'Estudios <span class="hl">de mercado</span>',
-        "lead": "Antes de gastar en una web o en anuncios, conviene saber dónde estás. Miro qué hace tu competencia, qué busca la gente y dónde hay hueco para ti.",
+        "lead": "Antes de gastar en una web o en anuncios, conviene saber dónde estás. Miramos qué hace tu competencia, qué busca la gente y dónde hay hueco para ti.",
         "cta": "Quiero mi estudio",
         "wa": "Hola, he visto la página de estudios de mercado de ALDERO MARKETING y quiero información para mi negocio.",
-        "includes_title": "Qué miro",
+        "includes_title": "Qué miramos",
         "includes": [
             ("Tu competencia", "Quién sale en Google por lo que haces, cómo se presenta y qué ofrece."),
             ("Lo que busca la gente", "Cómo te buscan de verdad y qué búsquedas tienen más interés en tu zona."),
             ("Cómo se venden los demás", "Mensajes, ofertas y puntos fuertes de los negocios que ya están."),
             ("Dónde hay hueco", "Lo que nadie está haciendo bien y tú puedes aprovechar."),
             ("Cómo estás tú", "Tu web, tu ficha de Google y tus redes, comparadas con las de tu competencia."),
-            ("Un resumen claro", "Qué haría yo en tu lugar, por prioridades. Sin informes de 80 páginas."),
+            ("Un resumen claro", "Qué haríamos en tu lugar, por prioridades. Sin informes de 80 páginas."),
         ],
         "who_title": "Para quién es",
         "who_text": "Para negocios que van a empezar, a cambiar o a invertir en marketing y quieren hacerlo sabiendo dónde pisan, no a ciegas.",
@@ -229,9 +232,9 @@ SERVICIOS_NUEVOS = [
         ],
         "faq": [
             ("¿Qué es un estudio de mercado?", "Es mirar con calma tu sector antes de tomar decisiones: quién es tu competencia, qué busca la gente y qué oportunidades hay. Para un negocio local no hace falta nada complicado, sino algo claro y útil."),
-            ("¿Cuánto cuesta?", "Depende de lo que quieras analizar y de tu sector. Escríbeme por WhatsApp, cuéntame tu caso y te paso un presupuesto cerrado y sin compromiso."),
-            ("¿Cuánto tarda?", "Depende del sector y de lo que haya que mirar. Te doy una fecha junto con el presupuesto."),
-            ("¿Qué recibo al final?", "Un resumen claro con lo que he visto y lo que haría yo, ordenado por prioridades. Te lo explico por WhatsApp y te resuelvo las dudas."),
+            ("¿Cuánto cuesta?", "Depende de lo que quieras analizar y de tu sector. Escríbenos, cuéntanos tu caso y te pasamos un presupuesto cerrado y sin compromiso."),
+            ("¿Cuánto tarda?", "Depende del sector y de lo que haya que mirar. Te damos una fecha junto con el presupuesto."),
+            ("¿Qué recibo al final?", "Un resumen claro con lo que hemos visto y lo que haríamos, ordenado por prioridades. Te lo explicamos y te resolvemos las dudas."),
             ("¿Sirve si mi negocio es pequeño?", "Sí, y es cuando más sentido tiene: con poco presupuesto conviene acertar a la primera."),
         ],
         "cta_title": "¿Vemos dónde está tu hueco?",
@@ -240,8 +243,8 @@ SERVICIOS_NUEVOS = [
     {
         "slug": "estrategia-digital",
         "service": "Estrategia digital",
-        "title": "Estrategia digital para negocios en Málaga | ALDERO",
-        "description": "Estrategia digital para negocios de Málaga: un plan sencillo para que tu negocio se vea en internet y te lleguen más clientes. Qué hacer y en qué orden.",
+        "title": "Estrategia digital para negocios | ALDERO MARKETING",
+        "description": "Estrategia digital para negocios de toda España: un plan sencillo para que tu negocio se vea en internet y te lleguen más clientes. Qué hacer y en qué orden.",
         "h1": "Estrategia digital",
         "h1_html": 'Estrategia <span class="hl">digital</span>',
         "lead": "Un plan sencillo para que tu negocio se vea en internet y te lleguen más clientes. Qué hacer, en qué orden y qué dejar para después.",
@@ -254,7 +257,7 @@ SERVICIOS_NUEVOS = [
             ("Qué canales usar", "Web, Google, redes o anuncios: solo los que tengan sentido para ti."),
             ("En qué orden", "Primero lo que antes da resultados; lo demás, después."),
             ("Cómo saber si funciona", "Qué mirar para comprobar que el plan va bien, sin complicaciones."),
-            ("Ponerlo en marcha", "Si quieres, lo hacemos juntos: web, SEO y lo que haga falta."),
+            ("Ponerlo en marcha", "Si quieres, lo hacemos nosotros: web, SEO y lo que haga falta."),
         ],
         "who_title": "Para quién es",
         "who_text": "Para negocios que saben que tienen que estar en internet pero no saben por dónde empezar, o que ya hacen cosas sueltas sin un plan detrás.",
@@ -262,14 +265,14 @@ SERVICIOS_NUEVOS = [
             "Publicas o pones anuncios pero no ves clientes",
             "No sabes si invertir en web, en redes o en Google",
             "Quieres crecer con un plan y no a base de pruebas",
-            "Prefieres hablar con una persona y no con una agencia grande",
+            "Prefieres un equipo cercano y no una agencia enorme",
         ],
         "faq": [
             ("¿Qué es una estrategia digital?", "Es decidir qué hacer en internet para conseguir clientes, en qué orden y cómo comprobar que funciona. Así no gastas tiempo ni dinero en cosas que no te traen nada."),
             ("¿Necesito tener ya una web?", "No. Precisamente el plan te dice si la necesitas, qué tiene que tener y qué hacer antes o después."),
-            ("¿Cuánto cuesta?", "Depende de tu negocio y de hasta dónde quieras llegar. Escríbeme por WhatsApp y te paso un presupuesto cerrado y sin compromiso."),
-            ("¿Me lo haces tú o solo me das el plan?", "Como prefieras: te puedo dar el plan para que lo hagas tú o ponerlo en marcha contigo."),
-            ("¿Trabajas solo en Málaga?", "Trabajo desde Málaga, para negocios de Málaga y del resto de España. Todo se puede hacer por WhatsApp."),
+            ("¿Cuánto cuesta?", "Depende de tu negocio y de hasta dónde quieras llegar. Escríbenos y te pasamos un presupuesto cerrado y sin compromiso."),
+            ("¿Lo hacéis vosotros o solo me dais el plan?", "Como prefieras: te damos el plan para que lo hagas tú o lo ponemos en marcha nosotros."),
+            ("¿Trabajáis solo en Málaga?", "No. Estamos en Málaga, pero trabajamos con negocios de toda España. Todo se puede hacer por WhatsApp, email o videollamada."),
         ],
         "cta_title": "¿Hacemos tu plan?",
         "other": ("diseno-web-malaga", "Diseño web en Málaga"),
@@ -283,7 +286,7 @@ CASOS = [
         "slug": "caso-oscar-posada",
         "name": "Oscar Posada Mecánico",
         "title": "Caso Oscar Posada: web y SEO local en Málaga | ALDERO",
-        "description": "Cómo le hice la web y la ficha de Google a Oscar Posada, mecánico a domicilio en Málaga: de tener solo un flyer a salir en Google con presupuesto por WhatsApp.",
+        "description": "Cómo le hicimos la web y la ficha de Google a Oscar Posada, mecánico a domicilio en Málaga: de tener solo un flyer a salir en Google con presupuesto por WhatsApp.",
         "kicker": "Caso real · Mecánico a domicilio",
         "lead": "Oscar trabaja a domicilio por toda la zona de Málaga, sin local. No tenía web: solo un flyer.",
         "img": ("proyecto-oscar", 1200, 750),
@@ -307,7 +310,7 @@ CASOS = [
         "slug": "caso-petrato",
         "name": "Petrato",
         "title": "Caso Petrato: tienda online de retratos de mascotas | ALDERO",
-        "description": "Cómo lancé Petrato, tienda online de retratos personalizados de mascotas: nombre, tienda propia, pagos con tarjeta, dominio, Search Console y campañas en redes.",
+        "description": "Cómo lanzamos Petrato, tienda online de retratos personalizados de mascotas: nombre, tienda propia, pagos con tarjeta, dominio, Search Console y campañas en redes.",
         "kicker": "Caso real · Tienda online",
         "lead": "Una tienda de retratos personalizados de mascotas que empezaba de cero.",
         "img": ("proyecto-petrato", 1440, 900),
@@ -374,7 +377,7 @@ def case_page(c):
 
     <section class="svc-sec" aria-labelledby="que-hice">
       <div class="container svc-split">
-        <h2 class="svc-h2" id="que-hice">Lo que hice</h2>
+        <h2 class="svc-h2" id="que-hice">Lo que hicimos</h2>
         <ol class="case-steps">{hice}</ol>
       </div>
     </section>
@@ -391,8 +394,8 @@ def case_page(c):
     <section class="svc-cta">
       <div class="container">
         <h2 class="svc-cta__title">¿Quieres algo así?</h2>
-        <p class="svc-p">Cuéntame qué necesitas por WhatsApp. Te digo qué haría y cuánto costaría, sin compromiso.</p>
-        <a class="btn btn--blue btn--xl" href="{wa(c["wa"])}" target="_blank" rel="noopener">{WA_ICON} Hablar con Rubén</a>
+        <p class="svc-p">Cuéntanos qué necesitas por WhatsApp o con el <a href="./#contacto">formulario</a>. Te decimos qué haríamos y cuánto costaría, sin compromiso.</p>
+        <a class="btn btn--blue btn--xl" href="{wa(c["wa"])}" target="_blank" rel="noopener">{WA_ICON} Escríbenos por WhatsApp</a>
         <p class="svc-other">Otro trabajo: <a href="{c["next"][0]}">{c["next"][1]}</a></p>
       </div>
     </section>'''
@@ -400,8 +403,10 @@ def case_page(c):
                  back=("./#proyectos", "Todos los trabajos"), og_image=f"assets/img/{img}.jpg")
 
 
+from contenido_landings import LANDINGS  # noqa: E402
+
 if __name__ == "__main__":
-    for p in list(SERVICIOS_BASE) + SERVICIOS_NUEVOS:
+    for p in list(SERVICIOS_BASE) + SERVICIOS_NUEVOS + LANDINGS:
         (ROOT / f"{p['slug']}.html").write_text(service_page(p), encoding="utf-8")
         print("servicio", p["slug"])
     for c in CASOS:

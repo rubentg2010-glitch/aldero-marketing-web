@@ -1,10 +1,22 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "aldero-marketing-web",
+  "main": "src/index.js",
   "compatibility_date": "2026-11-01",
   "assets": {
     "directory": "./public",
+    "binding": "ASSETS",
     "not_found_handling": "404-page",
-    "html_handling": "auto-trailing-slash"
-  }
+    "html_handling": "auto-trailing-slash",
+    "run_worker_first": ["/api/*"]
+  },
+  // Formulario de contacto: los mensajes se reenvían a esta dirección,
+  // que tiene que estar verificada en Cloudflare > Email Routing.
+  "send_email": [
+    { "name": "CONTACTO", "destination_address": "drprov11@gmail.com" }
+  ],
+  "vars": {
+    "CONTACTO_DESTINO": "drprov11@gmail.com"
+  },
+  "observability": { "enabled": true }
 }
