@@ -177,7 +177,8 @@ def page(p):
     </section>
   </main>
 
-{footer()}{wa_float(p["wa"])}  <script src="assets/js/cookies.js" defer></script>
+{footer()}{wa_float(p["wa"])}  <script src="assets/js/faq.js" defer></script>
+  <script src="assets/js/cookies.js" defer></script>
 </body>
 </html>
 '''

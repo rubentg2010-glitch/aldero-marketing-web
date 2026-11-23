@@ -965,3 +965,21 @@ html:not(.anim-ok) .chart__gap, html:not(.anim-ok) .chart__lbl { opacity: 1; }
 .footer__claim + .footer__logo { margin-top: clamp(36px, 5vw, 64px); }
 .project__media img { transition: none; }
 .project:hover .project__media img { transform: none; }
+
+/* ---------- Preguntas frecuentes: animación ---------- */
+.faq__item { position: relative; }
+.faq__item::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: linear-gradient(90deg, var(--blue), var(--blue-hi) 60%, transparent); transform: scaleX(0); transform-origin: 0 50%; transition: transform .7s var(--ease); }
+.faq__item.is-open::after, .faq__item[open]:not(.is-closing)::after { transform: scaleX(1); }
+.faq__item summary { position: relative; transition: color .35s var(--ease), padding-left .5s var(--ease); }
+.faq__item summary::before { content: ""; position: absolute; left: 0; top: 50%; width: 8px; height: 8px; margin-top: -4px; border-radius: 50%; background: var(--blue); transform: scale(0); transition: transform .45s var(--ease); }
+.faq__item.is-open summary, .faq__item[open]:not(.is-closing) summary { color: var(--white); padding-left: 22px; }
+.faq__item.is-open summary::before, .faq__item[open]:not(.is-closing) summary::before { transform: scale(1); }
+.faq__item summary::after { transition: transform .55s var(--ease), background-color .35s, border-color .35s; }
+.faq__item.is-open summary::after, .faq__item[open]:not(.is-closing) summary::after { transform: rotate(135deg); background-color: var(--blue); border-color: var(--blue); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 3v10M3 8h10' stroke='%23FFFFFF' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E"); }
+.faq__item summary:hover::after { border-color: var(--blue-hi); }
+.faq__body { overflow: hidden; }
+.faq__inner { padding-left: 22px; }
+.faq__inner p { padding: 0 0 26px; }
+@media (prefers-reduced-motion: reduce) {
+  .faq__item::after, .faq__item summary, .faq__item summary::before, .faq__item summary::after { transition: none; }
+}
