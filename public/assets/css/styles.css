@@ -1023,3 +1023,11 @@ html:not(.anim-ok) .chart__gap, html:not(.anim-ok) .chart__lbl { opacity: 1; }
 @media (max-width: 860px) {
   html.anim-ok .work { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
 }
+
+/* Posición de cada letra del logotipo en la intro (sin estilos en línea: la CSP los bloquea) */
+.il--1 { left: 0.000%; width: 23.814%; } .il--1 img { width: 419.913%; margin-left: 0.000%; }
+.il--2 { left: 23.814%; width: 14.124%; } .il--2 img { width: 708.029%; margin-left: -168.613%; }
+.il--3 { left: 37.938%; width: 16.186%; } .il--3 img { width: 617.834%; margin-left: -234.395%; }
+.il--4 { left: 54.124%; width: 14.742%; } .il--4 img { width: 678.322%; margin-left: -367.133%; }
+.il--5 { left: 68.866%; width: 15.052%; } .il--5 img { width: 664.384%; margin-left: -457.534%; }
+.il--6 { left: 83.918%; width: 16.082%; } .il--6 img { width: 621.795%; margin-left: -521.795%; }

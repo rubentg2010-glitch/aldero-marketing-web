@@ -89,7 +89,7 @@ def page(p):
   <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="preload" href="assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css?v=202611231829">
+  <link rel="stylesheet" href="assets/css/styles.css?v=202611231836">
   <script type="application/ld+json">
 {json.dumps(ld, ensure_ascii=False, indent=2)}
   </script>
@@ -177,8 +177,8 @@ def page(p):
     </section>
   </main>
 
-{footer()}{wa_float(p["wa"])}  <script src="assets/js/faq.js?v=202611231829" defer></script>
-  <script src="assets/js/cookies.js?v=202611231829" defer></script>
+{footer()}{wa_float(p["wa"])}  <script src="assets/js/faq.js?v=202611231836" defer></script>
+  <script src="assets/js/cookies.js?v=202611231836" defer></script>
 </body>
 </html>
 '''
