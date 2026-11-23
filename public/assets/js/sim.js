@@ -60,7 +60,7 @@
     var msg = form.elements.negocio.value.trim()
       ? "Hola, he probado el simulador de ALDERO MARKETING. Mi negocio es " + n + " (" + al + " en " + c + ") y quiero salir así en Google."
       : "Hola, he probado el simulador de ALDERO MARKETING y quiero salir así en Google con mi negocio.";
-    cta.href = "https://wa.me/34633772121?text=" + encodeURIComponent(msg);
+    cta.href = "https://wa.me/34711553395?text=" + encodeURIComponent(msg);
     typeQuery(al + " en " + c.toLowerCase());
     pop();
   }

@@ -15,7 +15,7 @@ from contenido_servicios import PAGES as SERVICIOS_BASE, STEPS  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent / "public"
 SITE = "https://aldero.es"
-WA = "https://wa.me/34633772121?text="
+WA = "https://wa.me/34711553395?text="
 TODAY = "2026-11-23"
 index = (ROOT / "index.html").read_text(encoding="utf-8")
 WA_ICON = re.search(r'<svg class="btn__wa".*?</svg>', index, re.S).group(0)
