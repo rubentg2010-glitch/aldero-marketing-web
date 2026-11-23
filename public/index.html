@@ -23,8 +23,7 @@
 
   <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="icon" href="assets/img/favicon-64.png" sizes="64x64" type="image/png">
-  <link rel="preload" href="assets/img/intro-bg.webp" as="image" type="image/webp">
-  <link rel="preload" href="assets/img/aldero-logo.webp" as="image" type="image/webp">
+  <link rel="preload" href="assets/img/aldero-wordmark-sm.webp" as="image" type="image/webp">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
 
@@ -179,20 +178,22 @@
   </script>
 </head>
 <body>
-  <!-- ================= INTRO CINEMATOGRÁFICA =================
-       Fondo: assets/img/intro-bg.webp · Logo: assets/img/aldero-logo.webp
-       Para usar un vídeo propio de fondo, cambia el <img class="intro__bg"> por
-       <video class="intro__bg" autoplay muted playsinline src="assets/video/intro.mp4"></video> -->
+  <!-- ================= INTRO CINEMATOGRÁFICA (≈2,8 s) =================
+       1 · una línea azul cruza la pantalla
+       2 · ALDERO sale letra a letra de la línea y se cierra el tracking
+       3 · la cámara atraviesa la "A": su hueco se abre y deja ver la portada
+       4 · la portada entra mientras el hueco termina de abrirse -->
   <div class="intro" data-intro aria-hidden="true">
-    <div class="intro__stage" data-intro-stage>
-      <img class="intro__bg" data-intro-bg src="assets/img/intro-bg.webp" width="1672" height="941" alt="" decoding="async">
-      <canvas class="intro__dust" data-intro-dust></canvas>
-      <div class="intro__logo" data-intro-logo>
-        <img src="assets/img/aldero-logo.webp" width="970" height="206" alt="" decoding="async">
-        <span class="intro__shine" data-intro-sweep></span>
-      </div>
+    <div class="intro__veil" data-intro-veil></div>
+    <div class="intro__line" data-intro-line></div>
+    <div class="intro__word" data-intro-word>
+        <span class="il il--a" data-il style="left:0.000%;width:23.814%"><span class="il__in" data-il-in><img src="assets/img/aldero-wordmark-sm.webp" alt="" style="width:419.913%;margin-left:0.000%" decoding="async"></span></span>
+        <span class="il" data-il style="left:23.814%;width:14.124%"><span class="il__in" data-il-in><img src="assets/img/aldero-wordmark-sm.webp" alt="" style="width:708.029%;margin-left:-168.613%" decoding="async"></span></span>
+        <span class="il" data-il style="left:37.938%;width:16.186%"><span class="il__in" data-il-in><img src="assets/img/aldero-wordmark-sm.webp" alt="" style="width:617.834%;margin-left:-234.395%" decoding="async"></span></span>
+        <span class="il" data-il style="left:54.124%;width:14.742%"><span class="il__in" data-il-in><img src="assets/img/aldero-wordmark-sm.webp" alt="" style="width:678.322%;margin-left:-367.133%" decoding="async"></span></span>
+        <span class="il" data-il style="left:68.866%;width:15.052%"><span class="il__in" data-il-in><img src="assets/img/aldero-wordmark-sm.webp" alt="" style="width:664.384%;margin-left:-457.534%" decoding="async"></span></span>
+        <span class="il" data-il style="left:83.918%;width:16.082%"><span class="il__in" data-il-in><img src="assets/img/aldero-wordmark-sm.webp" alt="" style="width:621.795%;margin-left:-521.795%" decoding="async"></span></span>
     </div>
-    <div class="intro__flash" data-intro-flash></div>
     <button class="intro__skip" type="button" data-intro-skip>Saltar intro</button>
   </div>
 
@@ -302,49 +303,104 @@
           <p class="srv-head__note" data-reveal>Cuatro cosas, bien hechas. Elige la que necesitas y escríbeme: te contesto yo.</p>
         </div>
 
-        <ol class="srv" data-srv>
-          <li class="srv__row" data-reveal>
-            <a class="srv__link" href="https://wa.me/34711553395?text=Hola%2C%20he%20visitado%20la%20web%20de%20ALDERO%20MARKETING%20y%20me%20interesa%20el%20servicio%20de%20dise%C3%B1o%20web." target="_blank" rel="noopener" data-icon="web">
-              <span class="srv__title">Diseño web</span>
-              <span class="srv__text">Una web rápida, que se vea bien en el móvil y que deje claro por qué tienen que llamarte a ti.</span>
-              <span class="srv__tags"><i>Diseño personalizado</i><i>Adaptación a móviles</i><i>Velocidad</i><i>Experiencia de usuario</i><i>Formularios y contacto</i><i>Conversión</i></span>
-              <span class="srv__go">Lo quiero <svg class="btn__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            </a>
-          </li>
-          <li class="srv__row" data-reveal>
-            <a class="srv__link" href="https://wa.me/34711553395?text=Hola%2C%20he%20visitado%20la%20web%20de%20ALDERO%20MARKETING%20y%20me%20interesa%20el%20servicio%20de%20posicionamiento%20SEO." target="_blank" rel="noopener" data-icon="seo">
-              <span class="srv__title">Posicionamiento SEO</span>
-              <span class="srv__text">Trabajo tu web y tu ficha de Google para que aparezcas cuando buscan lo que haces en tu zona.</span>
-              <span class="srv__tags"><i>Auditorías SEO</i><i>Palabras clave</i><i>SEO técnico</i><i>Contenidos</i><i>SEO local</i><i>Estrategia</i></span>
-              <span class="srv__go">Lo quiero <svg class="btn__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            </a>
-          </li>
-          <li class="srv__row" data-reveal>
-            <a class="srv__link" href="https://wa.me/34711553395?text=Hola%2C%20he%20visitado%20la%20web%20de%20ALDERO%20MARKETING%20y%20me%20interesa%20el%20servicio%20de%20estudios%20de%20mercado." target="_blank" rel="noopener" data-icon="mer">
-              <span class="srv__title">Estudios de mercado</span>
-              <span class="srv__text">Miro qué hace tu competencia, qué busca la gente y dónde hay hueco para ti.</span>
-              <span class="srv__tags"><i>Competidores</i><i>Investigación de mercado</i><i>Oportunidades</i><i>Posicionamiento</i><i>Crecimiento</i></span>
-              <span class="srv__go">Lo quiero <svg class="btn__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            </a>
-          </li>
-          <li class="srv__row" data-reveal>
-            <a class="srv__link" href="https://wa.me/34711553395?text=Hola%2C%20he%20visitado%20la%20web%20de%20ALDERO%20MARKETING%20y%20me%20interesa%20el%20servicio%20de%20estrategia%20digital." target="_blank" rel="noopener" data-icon="est">
-              <span class="srv__title">Estrategia digital</span>
-              <span class="srv__text">Un plan sencillo para que tu negocio se vea en internet y te lleguen más clientes.</span>
-              <span class="srv__tags"><i>Presencia digital</i><i>Captación</i><i>Conversiones</i><i>Consultoría digital</i></span>
-              <span class="srv__go">Lo quiero <svg class="btn__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            </a>
-          </li>
-        </ol>
-        <p class="srv-more" data-reveal>Más información: <a href="diseno-web-malaga">Diseño web en Málaga</a> <span aria-hidden="true">·</span> <a href="seo-local-malaga">SEO local en Málaga</a></p>
-      </div>
-
-      <!-- Visual que sigue al cursor (solo escritorio) -->
-      <div class="srv-float" data-srv-float aria-hidden="true">
-        <svg data-icon-svg="web" viewBox="0 0 64 64"><rect class="draw" x="6" y="12" width="52" height="40" rx="6"/><path class="draw" d="M6 22h52"/><rect class="draw" x="14" y="30" width="20" height="4" rx="2"/><rect class="fill" x="14" y="39" width="12" height="5" rx="2.5"/><path class="draw" d="m40 34 10 4-4 1.6L44.4 44Z"/></svg>
-        <svg data-icon-svg="seo" viewBox="0 0 64 64"><circle class="draw" cx="27" cy="27" r="17"/><path class="draw" d="m39.5 39.5 13 13"/><path class="draw" d="m17 33 7-7 5 4 9-10"/><path class="draw" d="M33 20h5v5"/></svg>
-        <svg data-icon-svg="mer" viewBox="0 0 64 64"><path class="draw" d="M8 56V8M8 56h48"/><circle class="fill" cx="20" cy="42" r="3"/><circle class="fill" cx="30" cy="46" r="3"/><circle class="fill" cx="26" cy="30" r="3"/><circle class="draw" cx="44" cy="20" r="8"/><path class="draw" d="M44 7v5M44 28v5M31 20h5M52 20h5"/></svg>
-        <svg data-icon-svg="est" viewBox="0 0 64 64"><circle class="draw" cx="12" cy="50" r="5"/><circle class="draw" cx="32" cy="30" r="5"/><circle class="fill" cx="52" cy="12" r="6"/><path class="draw" d="M16 46 28 34M36 26 47 16"/></svg>
+        <div class="chapters">
+          <div class="chap-stage" aria-hidden="true">
+          <div class="chap-stage__item" data-chap-visual="0"><div class="cv cv--web">
+              <picture class="cv__back"><source srcset="assets/img/proyecto-petrato.webp" type="image/webp"><img src="assets/img/proyecto-petrato.jpg" width="1440" height="900" alt="" loading="lazy" decoding="async"></picture>
+              <picture class="cv__front"><source srcset="assets/img/proyecto-oscar.webp" type="image/webp"><img src="assets/img/proyecto-oscar.jpg" width="1200" height="750" alt="" loading="lazy" decoding="async"></picture>
+              <span class="cv__cap">Webs reales: Oscar Posada y Petrato</span>
+            </div></div>
+          <div class="chap-stage__item" data-chap-visual="1"><div class="cv cv--seo">
+              <div class="serp">
+                <div class="serp__bar"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m10.4 10.4 3.4 3.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>diseño web málaga</span></div>
+                <div class="serp__res is-top"><span class="serp__url">tunegocio.es</span><span class="serp__t">Tu negocio · Lo que haces, en tu zona</span><span class="serp__d">Te encuentran, se fían y te escriben.</span></div>
+                <div class="serp__res"><span class="serp__url">competencia.es</span><span class="serp__t">La competencia</span><span class="serp__d"></span></div>
+                <div class="serp__res"><span class="serp__url">otro-sitio.com</span><span class="serp__t">Otra web cualquiera</span><span class="serp__d"></span></div>
+              </div>
+              <span class="cv__cap">Ilustración: así se ve estar arriba</span>
+            </div></div>
+          <div class="chap-stage__item" data-chap-visual="2"><div class="cv cv--mer">
+              <svg class="chart" viewBox="0 0 400 300" aria-hidden="true">
+                <path class="chart__grid" d="M40 40H380M40 110H380M40 180H380M40 250H380"/>
+                <path class="chart__line chart__line--b" d="M40 230 C 110 210, 150 170, 210 175 S 320 150, 380 140"/>
+                <path class="chart__line chart__line--a" d="M40 245 C 120 235, 170 205, 230 150 S 330 70, 380 55"/>
+                <rect class="chart__gap" x="250" y="58" width="110" height="84" rx="6"/>
+                <text class="chart__lbl" x="250" y="46">Hueco para ti</text>
+              </svg>
+              <span class="cv__cap">Ilustración: dónde hay hueco</span>
+            </div></div>
+          <div class="chap-stage__item" data-chap-visual="3"><div class="cv cv--est">
+              <ol class="route">
+                <li><span class="route__dot"></span>Que te encuentren</li>
+                <li><span class="route__dot"></span>Que se fíen de ti</li>
+                <li class="is-end"><span class="route__dot"></span>Que te escriban</li>
+              </ol>
+              <span class="cv__cap">Un plan con tres pasos</span>
+            </div></div>
+          </div>
+          <div class="chap-list">
+          <article class="chap" data-chap="0">
+            <div class="chap__media"><div class="cv cv--web">
+              <picture class="cv__back"><source srcset="assets/img/proyecto-petrato.webp" type="image/webp"><img src="assets/img/proyecto-petrato.jpg" width="1440" height="900" alt="" loading="lazy" decoding="async"></picture>
+              <picture class="cv__front"><source srcset="assets/img/proyecto-oscar.webp" type="image/webp"><img src="assets/img/proyecto-oscar.jpg" width="1200" height="750" alt="" loading="lazy" decoding="async"></picture>
+              <span class="cv__cap">Webs reales: Oscar Posada y Petrato</span>
+            </div></div>
+            <p class="chap__k">Que te vean</p>
+            <h3 class="chap__t" data-chap-title>Diseño web</h3>
+            <p class="chap__d">Una web rápida, que se vea bien en el móvil y que deje claro por qué tienen que llamarte a ti.</p>
+            <p class="chap__tags">Diseño personalizado · Adaptación a móviles · Velocidad · Experiencia de usuario · Contacto · Conversión</p>
+            <div class="chap__acts"><a class="chap__go" href="https://wa.me/34711553395?text=Hola%2C%20he%20visitado%20la%20web%20de%20ALDERO%20MARKETING%20y%20me%20interesa%20el%20servicio%20de%20dise%C3%B1o%20web." target="_blank" rel="noopener">Lo quiero <svg class="btn__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="chap__more" href="diseno-web-malaga">Diseño web en Málaga</a></div>
+          </article>
+          <article class="chap" data-chap="1">
+            <div class="chap__media"><div class="cv cv--seo">
+              <div class="serp">
+                <div class="serp__bar"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m10.4 10.4 3.4 3.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>diseño web málaga</span></div>
+                <div class="serp__res is-top"><span class="serp__url">tunegocio.es</span><span class="serp__t">Tu negocio · Lo que haces, en tu zona</span><span class="serp__d">Te encuentran, se fían y te escriben.</span></div>
+                <div class="serp__res"><span class="serp__url">competencia.es</span><span class="serp__t">La competencia</span><span class="serp__d"></span></div>
+                <div class="serp__res"><span class="serp__url">otro-sitio.com</span><span class="serp__t">Otra web cualquiera</span><span class="serp__d"></span></div>
+              </div>
+              <span class="cv__cap">Ilustración: así se ve estar arriba</span>
+            </div></div>
+            <p class="chap__k">Que te encuentren</p>
+            <h3 class="chap__t" data-chap-title>Posicionamiento SEO</h3>
+            <p class="chap__d">Trabajo tu web y tu ficha de Google para que aparezcas cuando buscan lo que haces en tu zona.</p>
+            <p class="chap__tags">Auditorías SEO · Palabras clave · SEO técnico · Contenidos · SEO local · Estrategia</p>
+            <div class="chap__acts"><a class="chap__go" href="https://wa.me/34711553395?text=Hola%2C%20he%20visitado%20la%20web%20de%20ALDERO%20MARKETING%20y%20me%20interesa%20el%20servicio%20de%20posicionamiento%20SEO." target="_blank" rel="noopener">Lo quiero <svg class="btn__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="chap__more" href="seo-local-malaga">SEO local en Málaga</a></div>
+          </article>
+          <article class="chap" data-chap="2">
+            <div class="chap__media"><div class="cv cv--mer">
+              <svg class="chart" viewBox="0 0 400 300" aria-hidden="true">
+                <path class="chart__grid" d="M40 40H380M40 110H380M40 180H380M40 250H380"/>
+                <path class="chart__line chart__line--b" d="M40 230 C 110 210, 150 170, 210 175 S 320 150, 380 140"/>
+                <path class="chart__line chart__line--a" d="M40 245 C 120 235, 170 205, 230 150 S 330 70, 380 55"/>
+                <rect class="chart__gap" x="250" y="58" width="110" height="84" rx="6"/>
+                <text class="chart__lbl" x="250" y="46">Hueco para ti</text>
+              </svg>
+              <span class="cv__cap">Ilustración: dónde hay hueco</span>
+            </div></div>
+            <p class="chap__k">Saber dónde estás</p>
+            <h3 class="chap__t" data-chap-title>Estudios de mercado</h3>
+            <p class="chap__d">Miro qué hace tu competencia, qué busca la gente y dónde hay hueco para ti.</p>
+            <p class="chap__tags">Competidores · Investigación de mercado · Oportunidades · Posicionamiento · Crecimiento</p>
+            <div class="chap__acts"><a class="chap__go" href="https://wa.me/34711553395?text=Hola%2C%20he%20visitado%20la%20web%20de%20ALDERO%20MARKETING%20y%20me%20interesa%20el%20servicio%20de%20estudios%20de%20mercado." target="_blank" rel="noopener">Lo quiero <svg class="btn__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+          </article>
+          <article class="chap" data-chap="3">
+            <div class="chap__media"><div class="cv cv--est">
+              <ol class="route">
+                <li><span class="route__dot"></span>Que te encuentren</li>
+                <li><span class="route__dot"></span>Que se fíen de ti</li>
+                <li class="is-end"><span class="route__dot"></span>Que te escriban</li>
+              </ol>
+              <span class="cv__cap">Un plan con tres pasos</span>
+            </div></div>
+            <p class="chap__k">Saber a dónde vas</p>
+            <h3 class="chap__t" data-chap-title>Estrategia digital</h3>
+            <p class="chap__d">Un plan sencillo para que tu negocio se vea en internet y te lleguen más clientes.</p>
+            <p class="chap__tags">Presencia digital · Captación · Conversiones · Consultoría digital</p>
+            <div class="chap__acts"><a class="chap__go" href="https://wa.me/34711553395?text=Hola%2C%20he%20visitado%20la%20web%20de%20ALDERO%20MARKETING%20y%20me%20interesa%20el%20servicio%20de%20estrategia%20digital." target="_blank" rel="noopener">Lo quiero <svg class="btn__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+          </article>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -513,6 +569,7 @@
           <span class="footer__note">WhatsApp solo mensajes</span>
         </div>
       </div>
+      <p class="footer__claim" data-reveal>Que te encuentren.<br><span>Que te elijan.</span></p>
       <img class="footer__logo" src="assets/img/aldero-logo.webp" width="1070" height="258" alt="" loading="lazy" decoding="async">
       <div class="footer__bottom">
         <p>© <span data-year>2026</span> ALDERO MARKETING</p>
