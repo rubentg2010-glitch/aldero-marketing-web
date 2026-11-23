@@ -220,6 +220,9 @@
     var inners = $$("[data-il-in]", introEl);
     var letterA = letters[0];
     var skipBtn = $("[data-intro-skip]", introEl);
+    var shine = $("[data-intro-shine]", introEl);
+    var subChars = $$("[data-intro-sub] span", introEl);
+    var heroInner = $(".hero .container");
     var finished = false;
     var spread = word.offsetWidth * 0.045;   // separación inicial proporcional al logo: cabe entero en cualquier pantalla
 
@@ -285,16 +288,24 @@
       .to(word, { scale: 1, duration: 1.2, ease: "power2.out" }, 0.32)
       .to(line, { scaleX: 0.0, opacity: 0, duration: 0.6, ease: "power3.in" }, 0.95)
 
+    // 2b · Un destello recorre el logotipo y aparece "MARKETING · MÁLAGA" letra a letra
+      .fromTo(shine, { backgroundPosition: "140% 0" }, { backgroundPosition: "-40% 0", duration: 0.75, ease: "power2.inOut" }, 0.9)
+      .set(shine, { opacity: 0 }, 1.66)
+      .fromTo(subChars, { opacity: 0, y: 8, filter: "blur(4px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.45, stagger: 0.024, ease: "power2.out" }, 0.98)
+      .to(subChars, { opacity: 0, y: -6, duration: 0.28, stagger: 0.01, ease: "power2.in" }, 1.5)
+
     // 3 · Momento wow: el resto de letras se abre y la cámara atraviesa la "A"
-      .add(function () { measure(); drawHole(); }, 1.24)
-      .to(inners.slice(1), { y: "-112%", duration: 0.5, ease: "power3.in", stagger: 0.035 }, 1.18)
-      .to(cam, { s: function () { return geo ? geo.S : 60; }, duration: 1.0, ease: "power3.in", onUpdate: function () { drawHole(); gsap.set(letterA, { scale: cam.s }); } }, 1.3)
-      .to(letterA, { opacity: 0, duration: 0.3, ease: "power1.in" }, 2.0)
-      .to(skipBtn, { opacity: 0, duration: 0.2 }, 1.3)
+      .add(function () { measure(); drawHole(); }, 1.58)
+      .to(inners.slice(1), { y: "-112%", duration: 0.5, ease: "power3.in", stagger: 0.035 }, 1.52)
+      .to(cam, { s: function () { return geo ? geo.S : 60; }, duration: 1.0, ease: "power3.in", onUpdate: function () { drawHole(); gsap.set(letterA, { scale: cam.s }); } }, 1.64)
+      .to(letterA, { opacity: 0, duration: 0.3, ease: "power1.in" }, 2.34)
+      .to(skipBtn, { opacity: 0, duration: 0.2 }, 1.64)
 
     // 4 · La portada entra mientras el hueco termina de abrirse
-      .add(function () { heroTl.play(0); }, 1.72)
-      .set(veil, { opacity: 0 }, 2.3);
+      .add(function () { heroTl.play(0); }, 2.04)
+      // la cámara "aterriza" en la portada
+      .fromTo(heroInner, { scale: 1.14, transformOrigin: "50% 35%" }, { scale: 1, duration: 1.3, ease: "power3.out", clearProps: "transform" }, 1.7)
+      .set(veil, { opacity: 0 }, 2.64);
 
     function skip() { if (!finished) { tl.progress(1, false); } }
     function onKey(e) { if (e.key === "Escape" || e.key === "Enter" || e.key === " ") skip(); }
