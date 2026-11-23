@@ -1096,3 +1096,21 @@ html:not(.anim-ok) .chart__gap, html:not(.anim-ok) .chart__lbl { opacity: 1; }
   .guide__n { padding-top: 0; }
   .case-steps li { grid-template-columns: 40px 1fr; }
 }
+
+/* ---------- Accesos visibles a casos y guía ---------- */
+.project__full { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 18px; border-radius: 999px; background: var(--blue); color: #fff; font-weight: 600; font-size: 14.5px; white-space: nowrap; transition: background-color .3s, transform .3s var(--ease); }
+.project__full:hover { background: #1F49E6; transform: translateX(2px); }
+.project__full .btn__arrow { width: 16px; height: 16px; }
+.guide-teaser { padding: clamp(70px, 9vw, 130px) 0 0; }
+.guide-teaser__card { position: relative; display: grid; gap: 14px; padding: clamp(28px, 4vw, 56px); border-radius: clamp(22px, 3vw, 36px); border: 1px solid var(--line-2); background: linear-gradient(135deg, #0F1424 0%, #07080B 65%); overflow: hidden; transition: border-color .4s, transform .6s var(--ease); }
+.guide-teaser__card::after { content: ""; position: absolute; right: -6%; top: -30%; width: 46%; aspect-ratio: 1; border-radius: 50%; border: 1px solid rgba(45, 91, 255, .35); box-shadow: 0 0 0 40px rgba(45, 91, 255, .04), 0 0 0 90px rgba(45, 91, 255, .03); pointer-events: none; }
+.guide-teaser__card:hover { border-color: var(--blue); transform: translateY(-3px); }
+.guide-teaser__k { font-family: var(--mono); font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--blue-hi); }
+.guide-teaser__t { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-stretch: 78%; font-optical-sizing: none; font-variation-settings: "opsz" 72; font-size: clamp(34px, 5vw, 76px); line-height: .9; color: var(--white); max-width: 16ch; }
+.guide-teaser__d { max-width: 52ch; color: #C9CBD2; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.55; }
+.guide-teaser__go { display: inline-flex; align-items: center; gap: 10px; justify-self: start; margin-top: 8px; min-height: 50px; padding: 0 24px; border-radius: 999px; background: var(--blue); color: #fff; font-weight: 600; }
+.guide-teaser__go .btn__arrow { width: 16px; height: 16px; }
+.guide-teaser__more { margin-top: 22px; color: var(--muted); font-size: 14.5px; line-height: 1.9; }
+.guide-teaser__more a { color: var(--text); text-decoration: underline; text-decoration-color: rgba(126, 155, 255, .5); text-underline-offset: .25em; }
+.guide-teaser__more a:hover { color: var(--blue-hi); }
+@media (max-width: 1180px) { .nav__links { gap: 18px; } }
