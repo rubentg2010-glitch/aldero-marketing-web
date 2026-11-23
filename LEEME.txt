@@ -1,0 +1,82 @@
+ALDERO MARKETING — WEB
+======================
+
+Contenido de la carpeta
+-----------------------
+index.html          Portada (todas las secciones)
+privacidad.html     Política de privacidad   -> se abre como /privacidad
+aviso-legal.html    Aviso legal              -> se abre como /aviso-legal
+cookies.html        Política de cookies      -> se abre como /cookies
+404.html            Página de error
+robots.txt, sitemap.xml, site.webmanifest
+_headers            Cabeceras de seguridad y caché para Netlify
+assets/             CSS, JS (GSAP + ScrollTrigger + SplitText en assets/js/vendor),
+                    tipografías alojadas en la propia web e imágenes
+
+ANTES DE PUBLICAR
+-----------------
+1) WHATSAPP: ya está puesto el 711 553 395 en todos los botones (con mensaje
+   predefinido). Email de contacto en legales y pie: drprov11@gmail.com.
+
+2) DOMINIO
+   Busca y reemplaza en TODOS los archivos:  https://www.tudominio.com
+   por tu dominio real (ej.: https://www.alderomarketing.com).
+   Está en index.html, en las páginas legales, robots.txt y sitemap.xml.
+
+3) LEGALES: titular "Rubén Torres", email y WhatsApp ya puestos (sin NIF ni
+   domicilio, como pediste). Si algún día te das de alta como autónomo o
+   creas empresa, añade NIF y domicilio en aviso-legal.html y privacidad.html.
+
+COOKIES Y ANALÍTICA
+-------------------
+- Hay un aviso de cookies (Aceptar / Rechazar / Configurar) que sale tras la
+  intro y se recuerda en el navegador. En el pie hay "Configurar cookies".
+- Para activar Google Analytics: abre assets/js/cookies.js y pon tu ID en
+  var GA_ID = "G-XXXXXXX";  Solo se carga si el visitante acepta.
+  Las cabeceras de seguridad (_headers) ya permiten Google Analytics.
+
+PUBLICAR EN NETLIFY
+-------------------
+- Entra en app.netlify.com -> "Add new site" -> "Deploy manually"
+  y arrastra esta carpeta entera.
+- Conecta tu dominio en "Domain management".
+- En Google Search Console añade el dominio y envía: /sitemap.xml
+
+PROBAR EN TU ORDENADOR
+----------------------
+Las rutas limpias (/privacidad) funcionan en Netlify. Para probar en local
+con esas rutas usa:  npx serve .   (dentro de esta carpeta)
+
+NOTAS
+-----
+- La web no usa cookies ni analítica. Si añades Google Analytics u otra
+  herramienta, necesitarás un banner de consentimiento y actualizar cookies.html.
+- No hay precios en ninguna parte: todos los presupuestos van por WhatsApp.
+- Tipografías: Bricolage Grotesque y Geist (licencia SIL OFL, incluidas en assets/fonts).
+
+IMÁGENES QUE DEBES SUSTITUIR
+----------------------------
+- Proyectos: las portadas están en assets/img/proyecto-oscar.* y proyecto-petrato.*
+  (1200×750). Si cambias el diseño de esas webs, sustituye las capturas.
+- Tu foto (Sobre mí): pon una foto vertical tuya en assets/img/ruben.webp
+  (1000×1250) y sigue el comentario "SUSTITUIR" de index.html.
+- Opinión de cliente: ya está la de Oscar en "Sobre mí". Para añadir más, copia
+  el bloque <blockquote class="quote"> de index.html.
+
+ANIMACIONES
+-----------
+- Usa GSAP (licencia gratuita estándar de GreenSock), incluido en la carpeta.
+- Si alguien tiene activado "reducir movimiento" en su móvil u ordenador, la web
+  se muestra completa y sin animaciones. Sin JavaScript también se ve entera.
+
+INTRO DE ENTRADA
+----------------
+- Dura unos 1,6 s en ordenador y 1,2 s en móvil. Se puede saltar con el botón
+  "Saltar intro", haciendo scroll, tocando la pantalla o con Esc/Enter.
+- Solo se ve la primera vez en cada sesión (sessionStorage "aldero-intro").
+  Al recargar o volver a la portada en la misma sesión, la web entra directa.
+- Con "reducir movimiento" activado no se muestra.
+- Fondo de la intro: assets/img/intro-bg.webp. Logo: assets/img/aldero-logo.webp.
+  Para usar un vídeo propio de fondo, cambia <img class="intro__bg"> por un
+  <video class="intro__bg" autoplay muted playsinline src="assets/video/intro.mp4"></video>
+  (hay un comentario en index.html).
