@@ -288,7 +288,7 @@
       .to(word, { scale: 1, duration: 1.2, ease: "power2.out" }, 0.32)
       .to(line, { scaleX: 0.0, opacity: 0, duration: 0.6, ease: "power3.in" }, 0.95)
 
-    // 2b · Un destello recorre el logotipo y aparece "MARKETING · MÁLAGA" letra a letra
+    // 2b · Un destello recorre el logotipo y aparece "AGENCIA DE MARKETING" letra a letra
       .fromTo(shine, { backgroundPosition: "140% 0" }, { backgroundPosition: "-40% 0", duration: 0.75, ease: "power2.inOut" }, 0.9)
       .set(shine, { opacity: 0 }, 1.66)
       .fromTo(subChars, { opacity: 0, y: 8, filter: "blur(4px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.45, stagger: 0.024, ease: "power2.out" }, 0.98)
