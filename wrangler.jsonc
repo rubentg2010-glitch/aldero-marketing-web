@@ -15,6 +15,11 @@
   "send_email": [
     { "name": "CONTACTO", "destination_address": "drprov11@gmail.com" }
   ],
+  // IA de Cloudflare (cupo gratis diario) para "Tu web de ejemplo"
+  "ai": { "binding": "AI" },
+  "kv_namespaces": [
+    { "binding": "BOCETOS", "id": "0bd7a0830677400abc0486c2638b8126" }
+  ],
   "vars": {
     "CONTACTO_DESTINO": "drprov11@gmail.com"
   },
