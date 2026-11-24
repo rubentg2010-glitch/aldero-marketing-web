@@ -1251,3 +1251,22 @@ body:has(.nav.is-hidden) .srv-tabs { top: 10px; }
 }
 @media (prefers-reduced-motion: reduce) { .chap.is-picked .chap__t { animation: none; } }
 .chap__t:focus { outline: none; }
+
+/* ---------- Formulario: selector de servicio ---------- */
+.cform select { width: 100%; padding: 15px 44px 15px 18px; border-radius: 14px; border: 1px solid var(--line-2); background: var(--bg-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' fill='none' stroke='%237E9BFF' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 16px center / 16px; color: var(--white); font: inherit; font-size: 16px; outline: none; -webkit-appearance: none; appearance: none; cursor: pointer; transition: border-color .25s, box-shadow .25s; }
+.cform select:invalid { color: #5B5F6A; }
+.cform select option { color: #111; }
+.cform select:focus { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(45, 91, 255, .18); }
+
+/* ---------- Cookies en móvil: barra compacta ---------- */
+@media (max-width: 640px) {
+  .cookie { left: 8px; right: 8px; bottom: calc(8px + env(safe-area-inset-bottom)); width: auto; padding: 12px 14px 12px; border-radius: 16px; }
+  .cookie__title { display: none; }
+  .cookie__text { margin-top: 0; font-size: 13px; line-height: 1.4; }
+  .cookie__actions { grid-template-columns: 1fr 1fr auto; gap: 6px; margin-top: 10px; }
+  .cookie__btn { min-height: 38px; font-size: 13px; padding: 0 12px; }
+  .cookie__btn--ghost { grid-column: auto; grid-row: auto; order: 3; border: 0; text-decoration: underline; text-underline-offset: 3px; padding: 0 6px; }
+}
+/* el botón de WhatsApp no se pisa con el aviso de cookies ni con el contacto */
+.wa-float { transition: transform .35s var(--ease), opacity .3s, background-color .2s; }
+html.ck-open .wa-float, html.wa-hide .wa-float { opacity: 0; transform: translateY(20px); pointer-events: none; }

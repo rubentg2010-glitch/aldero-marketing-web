@@ -76,12 +76,13 @@
   function open(withPrefs) {
     if (!banner) build();
     banner.classList.add("is-open");
+    root.classList.add("ck-open");
     if (withPrefs) {
       banner.querySelector(".cookie__prefs").hidden = false;
       banner.querySelector('[data-ck="config"]').textContent = "Guardar selección";
     }
   }
-  function close() { if (banner) banner.classList.remove("is-open"); }
+  function close() { if (banner) banner.classList.remove("is-open"); root.classList.remove("ck-open"); }
 
   // Enlaces "Configurar cookies" en el pie y en la política
   document.addEventListener("click", function (e) {

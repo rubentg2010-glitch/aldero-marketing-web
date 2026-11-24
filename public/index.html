@@ -30,7 +30,7 @@
 
   <link rel="preload" href="assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css?v=202611241930">
+  <link rel="stylesheet" href="assets/css/styles.css?v=202611241950">
   <script src="assets/js/flag.js?v=202611232330"></script>
 
   <script type="application/ld+json">
@@ -154,6 +154,30 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "No, y desconfía de quien te lo garantice: nadie controla Google. Lo que sí hacemos es trabajar todo lo que depende de ti para que tengas las mejores opciones."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cuánto tardáis en hacer una web?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Depende del tamaño de la web y de lo rápido que tengamos tus textos y fotos. Al darte el presupuesto te decimos la fecha de entrega por escrito, para que sepas desde el principio cuándo la tendrás."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué necesito tener para empezar?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Con lo que tengas nos vale: tu logo, fotos de tu trabajo, textos o simplemente ideas de lo que quieres. Lo que falte lo vemos juntos."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Os encargáis del mantenimiento?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. Si quieres, nos ocupamos de mantener tu web al día y de hacer los cambios que necesites, para que no tengas que preocuparte de nada."
           }
         },
         {
@@ -591,7 +615,7 @@
     <section class="faq-sec" id="preguntas" aria-labelledby="faq-title">
       <div class="container faq">
         <h2 class="svc-h2" id="faq-title" data-reveal>Preguntas frecuentes</h2>
-        <div class="faq__list" data-reveal><details class="faq__item"><summary>¿Cuánto cuesta una página web?</summary><p>Depende de lo que necesites: no es lo mismo una web de una página que una tienda online. Escríbenos por WhatsApp o por el formulario, cuéntanos tu caso y te pasamos un presupuesto cerrado y sin compromiso.</p></details><details class="faq__item"><summary>¿Qué incluye la auditoría gratis?</summary><p>Revisamos tu web, tu ficha de Google y a tu competencia, y te decimos qué mejoraríamos. Sin compromiso.</p></details><details class="faq__item"><summary>¿Me garantizáis salir el primero en Google?</summary><p>No, y desconfía de quien te lo garantice: nadie controla Google. Lo que sí hacemos es trabajar todo lo que depende de ti para que tengas las mejores opciones.</p></details><details class="faq__item"><summary>¿Trabajáis solo en Málaga?</summary><p>No. Estamos en Málaga, pero trabajamos con negocios de toda España. Todo se puede hacer por WhatsApp, email o videollamada.</p></details><details class="faq__item"><summary>¿Cómo os contacto?</summary><p>Por WhatsApp al 711 553 395 (solo mensajes, no llamadas), con el <a href="#contacto">formulario de contacto</a> o por email a hola@aldero.es. Te contesta una persona del equipo, no un bot.</p></details></div>
+        <div class="faq__list" data-reveal><details class="faq__item"><summary>¿Cuánto cuesta una página web?</summary><p>Depende de lo que necesites: no es lo mismo una web de una página que una tienda online. Escríbenos por WhatsApp o por el formulario, cuéntanos tu caso y te pasamos un presupuesto cerrado y sin compromiso.</p></details><details class="faq__item"><summary>¿Qué incluye la auditoría gratis?</summary><p>Revisamos tu web, tu ficha de Google y a tu competencia, y te decimos qué mejoraríamos. Sin compromiso.</p></details><details class="faq__item"><summary>¿Me garantizáis salir el primero en Google?</summary><p>No, y desconfía de quien te lo garantice: nadie controla Google. Lo que sí hacemos es trabajar todo lo que depende de ti para que tengas las mejores opciones.</p></details><details class="faq__item"><summary>¿Cuánto tardáis en hacer una web?</summary><p>Depende del tamaño de la web y de lo rápido que tengamos tus textos y fotos. Al darte el presupuesto te decimos la fecha de entrega por escrito, para que sepas desde el principio cuándo la tendrás.</p></details><details class="faq__item"><summary>¿Qué necesito tener para empezar?</summary><p>Con lo que tengas nos vale: tu logo, fotos de tu trabajo, textos o simplemente ideas de lo que quieres. Lo que falte lo vemos juntos.</p></details><details class="faq__item"><summary>¿Os encargáis del mantenimiento?</summary><p>Sí. Si quieres, nos ocupamos de mantener tu web al día y de hacer los cambios que necesites, para que no tengas que preocuparte de nada.</p></details><details class="faq__item"><summary>¿Trabajáis solo en Málaga?</summary><p>No. Estamos en Málaga, pero trabajamos con negocios de toda España. Todo se puede hacer por WhatsApp, email o videollamada.</p></details><details class="faq__item"><summary>¿Cómo os contacto?</summary><p>Por WhatsApp al 711 553 395 (solo mensajes, no llamadas), con el <a href="#contacto">formulario de contacto</a> o por email a hola@aldero.es. Te contesta una persona del equipo, no un bot.</p></details></div>
       </div>
     </section>
 
@@ -614,7 +638,8 @@
           <form class="cform" action="/api/contacto" method="post" data-contact-form>
             <label class="cform__f"><span>Nombre</span><input name="nombre" required maxlength="80" autocomplete="name"></label>
             <label class="cform__f"><span>Email o teléfono</span><input name="contacto" required maxlength="120" autocomplete="email" inputmode="email"></label>
-            <label class="cform__f cform__f--full"><span>¿Qué necesitas?</span><textarea name="mensaje" required maxlength="3000" rows="4" placeholder="Cuéntanos a qué se dedica tu negocio y qué te gustaría conseguir."></textarea></label>
+            <label class="cform__f cform__f--full"><span>¿Qué necesitas?</span><select name="servicio" required><option value="" disabled selected>Elige una opción</option><option>Diseño web</option><option>Posicionamiento SEO</option><option>Estudio de mercado</option><option>Estrategia digital</option><option>Aún no lo sé, quiero que me aconsejéis</option></select></label>
+            <label class="cform__f cform__f--full"><span>Cuéntanos un poco más</span><textarea name="mensaje" required maxlength="3000" rows="4" placeholder="A qué se dedica tu negocio y qué te gustaría conseguir."></textarea></label>
             <label class="cform__hp" aria-hidden="true">No rellenes este campo<input name="web" tabindex="-1" autocomplete="off"></label>
             <input type="hidden" name="t" value="">
             <input type="hidden" name="pagina" value="Portada">
@@ -743,8 +768,8 @@
   <script src="assets/js/vendor/gsap.min.js" defer></script>
   <script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
   <script src="assets/js/vendor/SplitText.min.js" defer></script>
-  <script src="assets/js/main.js?v=202611241930" defer></script>
-  <script src="assets/js/servicios.js?v=202611241930" defer></script>
+  <script src="assets/js/main.js?v=202611241950" defer></script>
+  <script src="assets/js/servicios.js?v=202611241950" defer></script>
   <script src="assets/js/sim.js?v=202611232330" defer></script>
   <script src="assets/js/contacto.js?v=202611232330" defer></script>
   <script src="assets/js/faq.js?v=202611232330" defer></script>

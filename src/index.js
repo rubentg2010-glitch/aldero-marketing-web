@@ -4,7 +4,7 @@
 import { EmailMessage } from "cloudflare:email";
 
 const FROM = "web@aldero.es";
-const LIMITS = { nombre: 80, contacto: 120, mensaje: 3000 };
+const LIMITS = { nombre: 80, contacto: 120, servicio: 60, mensaje: 3000 };
 
 export default {
   async fetch(request, env) {
@@ -44,6 +44,7 @@ async function contacto(request, env) {
   const nombre = get("nombre").slice(0, LIMITS.nombre);
   const contacto = get("contacto").slice(0, LIMITS.contacto);
   const mensaje = get("mensaje").slice(0, LIMITS.mensaje);
+  const servicio = get("servicio").slice(0, LIMITS.servicio);
   if (!nombre || !contacto || !mensaje) return reply(false, "Rellena tu nombre, cómo contactarte y el mensaje.", 400);
   if (!get("acepto")) return reply(false, "Tienes que aceptar la política de privacidad.", 400);
   if (/https?:\/\//i.test(nombre)) return reply(true, "Mensaje enviado.");
@@ -55,6 +56,7 @@ async function contacto(request, env) {
     "",
     `Nombre: ${nombre}`,
     `Contacto: ${contacto}`,
+    servicio ? `Servicio: ${servicio}` : null,
     pagina ? `Página: ${pagina}` : null,
     "",
     "Mensaje:",
@@ -68,7 +70,7 @@ async function contacto(request, env) {
     `From: "Web Aldero" <${FROM}>`,
     `To: ${env.CONTACTO_DESTINO || "hola@aldero.es"}`,
     esEmail ? `Reply-To: ${clean(contacto)}` : null,
-    `Subject: ${encodeWord(`Nuevo contacto web: ${nombre}`)}`,
+    `Subject: ${encodeWord(`Nuevo contacto web: ${nombre}${servicio ? " · " + servicio : ""}`)}`,
     `Date: ${new Date().toUTCString().replace("GMT", "+0000")}`,
     `Message-ID: <${crypto.randomUUID()}@aldero.es>`,
     "MIME-Version: 1.0",

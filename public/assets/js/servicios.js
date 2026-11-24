@@ -38,3 +38,14 @@
     a.addEventListener("click", function (e) { go(+a.getAttribute("data-goto"), e); });
   });
 })();
+/* esconde el botón flotante de WhatsApp cuando ya hay botones de contacto en pantalla */
+(function () {
+  var zones = document.querySelectorAll("#contacto, .footer, footer");
+  if (!zones.length || !("IntersectionObserver" in window)) return;
+  var vis = new Set();
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) vis.add(e.target); else vis.delete(e.target); });
+    document.documentElement.classList.toggle("wa-hide", vis.size > 0);
+  }, { threshold: .15 });
+  Array.prototype.forEach.call(zones, function (z) { io.observe(z); });
+})();
