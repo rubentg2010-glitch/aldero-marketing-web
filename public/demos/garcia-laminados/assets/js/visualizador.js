@@ -71,7 +71,7 @@ void main(){vec3 photo=texture2D(ph,uv).rgb;
  if(mode<.5){gl_FragColor=vec4(photo,1.);return;}
  vec3 s=H*vec3(uv,1.);vec2 t=s.xy/s.z;if(rot>.5)t=t.yx;
  vec3 m=texture2D(mt,t*rep).rgb;float l=dot(photo,vec3(.299,.587,.114));
- float k=clamp(l/mean,.3,1.75);vec3 c=m*k+max(l-mean*1.2,0.)*gloss;
+ float k=clamp(l/mean,.35,1.3);vec3 c=m*k+max(l-mean*1.2,0.)*gloss;
  gl_FragColor=vec4(c,texture2D(mk,uv).r);}`;
 
 class Viz {
@@ -96,8 +96,10 @@ class Viz {
     for (const s of this.S) {
       mx.filter = "none"; mx.fillStyle = "#000"; mx.fillRect(0, 0, W, H);
       mx.fillStyle = "#fff"; P(s.poly, W, H); mx.fill();
-      mx.fillStyle = "#000"; (s.occ || []).forEach(o => { P(o, W, H); mx.fill(); });
-      const t = document.createElement("canvas"); t.width = W; t.height = H; const tx = t.getContext("2d"); tx.filter = `blur(${Math.max(1, W / 900)}px)`; tx.drawImage(mc, 0, 0);
+      mx.fillStyle = "#000"; mx.strokeStyle = "#000"; mx.lineJoin = "round";
+      mx.lineWidth = Math.max(4, W / 220); P(s.poly, W, H); mx.stroke();          // encoge el borde para que no brille
+      (s.occ || []).forEach(o => { P(o, W, H); mx.fill(); mx.stroke(); });
+      const t = document.createElement("canvas"); t.width = W; t.height = H; const tx = t.getContext("2d"); tx.filter = `blur(${Math.max(1.5, W / 700)}px)`; tx.drawImage(mc, 0, 0);
       s.tMask = this.tex(t, false);
       // luminancia media dentro de la máscara
       const sm = document.createElement("canvas"); sm.width = lc.width; sm.height = lc.height; const sx = sm.getContext("2d", {willReadFrequently: true}); sx.drawImage(mc, 0, 0, sm.width, sm.height);

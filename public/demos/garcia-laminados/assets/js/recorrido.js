@@ -40,7 +40,7 @@ const FLOOR = ["helvetic", "pure", "rigid", "elemental"];
 const ROOMS = [
   {k: "entrada", n: "Entrada y recibidor", h: "La primera <em>impresión</em>", p: "El suelo marca el tono de toda la casa desde el primer paso. Pulsa el punto del suelo y prueba los tonos.", cr: "Clay Banks",
    fb: {img: B + "assets/img/nos-espacio.webp", pos: [50, 88], hs: [{x: 52, y: 80, l: "Suelo", s: "suelo", c: FLOOR}],
-    viz: [{id: "suelo", poly: [[0, 61.5], [100, 59.5], [100, 100], [0, 100]], occ: [[[6, 55], [39, 55], [39, 66], [6, 66]], [[83, 53], [100, 53], [100, 63], [83, 63]]], quad: [[-40, 100], [140, 100], [81.5, 60], [18.5, 60]], rep: [3.2, 1.6]}]}},
+    viz: [{id: "suelo", poly: [[0, 61.5], [100, 59.5], [100, 100], [0, 100]], quad: [[-40, 100], [140, 100], [81.5, 60], [18.5, 60]], rep: [3.2, 1.6]}]}},
   {k: "salon", n: "Salón", h: "Donde la casa <em>se vive</em>", p: "Amplitud, calidez y una madera que no lo es. Cambia el suelo y la pared y mira cómo cambia el ambiente.", cr: "Spacejoy",
    fb: {img: B + "assets/img/gal-salon.webp", hs: [{x: 14, y: 66, l: "Suelo", s: "suelo", c: FLOOR}, {x: 53, y: 42, l: "Pared", s: "pared", c: ["kobert"]}],
     viz: [{id: "suelo", poly: [[0, 59.5], [27.5, 61], [27.5, 70.5], [46, 71.5], [46.5, 65.5], [53.5, 66], [53.5, 70.5], [100, 69.5], [100, 92], [60, 84.5], [30, 78.5], [0, 73.5]], quad: [[-10, 92], [110, 92], [100, 58], [0, 58]], rep: [1.1, .95], rot: 1},
@@ -113,8 +113,16 @@ const place = () => rooms.forEach(el => {
   const pos = ROOMS[+el.dataset.i].cfg.pos || [50, 50], ox = (W - w) * pos[0] / 100, oy = (H - h) * pos[1] / 100;
   el.querySelectorAll(".hs").forEach(b => {
     const x = ox + w * (+b.style.getPropertyValue("--x")) / 100, y = oy + h * (+b.style.getPropertyValue("--y")) / 100;
-    b.style.left = Math.min(Math.max(x, 28), W - 28) + "px"; b.style.top = Math.min(Math.max(y, 90), H - 40) + "px";
-    b.classList.toggle("l", x > W * .62);
+    let X = Math.min(Math.max(x, 28), W - 28), Y = Math.min(Math.max(y, 120), H - 60);
+    /* que no caiga encima de los textos ni de las flechas */
+    for (const sel of [".t-copy", ".t-nav"]) {
+      const z = T.querySelector(sel).getBoundingClientRect(), m = 34;
+      if (X > z.left - m && X < z.right + m && Y > z.top - m && Y < z.bottom + m) {
+        if (sel === ".t-copy" && z.right + m + 40 < W * .8) X = z.right + m + 40; else Y = z.top - m - 10;
+      }
+    }
+    b.style.left = X + "px"; b.style.top = Y + "px";
+    b.classList.toggle("l", X > W * .62);
   });
 });
 rooms.forEach(r => r.querySelector(".t-pic img").addEventListener("load", () => open && place()));
@@ -148,6 +156,7 @@ const show = (i, dir = 1) => {
   place();
 };
 const openTour = (i = 0) => {
+  const cu = D.getElementById("cur"); if (cu) cu.style.opacity = 0;
   T.querySelectorAll(".t-pic img[data-src]").forEach(im => { im.src = im.dataset.src; im.removeAttribute("data-src"); });
   lastFocus = D.activeElement; open = true; T.hidden = false;
   D.body.classList.add("locked"); window.GL_LENIS && window.GL_LENIS.stop();
@@ -162,7 +171,7 @@ const openTour = (i = 0) => {
 };
 const closeTour = then => {
   closePanel();
-  const done = () => { T.hidden = true; open = false; D.body.classList.remove("locked"); window.GL_LENIS && window.GL_LENIS.start(); if (then) then(); else lastFocus && lastFocus.focus(); };
+  const done = () => { const cu = D.getElementById("cur"); if (cu) cu.style.opacity = ""; T.hidden = true; open = false; D.body.classList.remove("locked"); window.GL_LENIS && window.GL_LENIS.start(); if (then) then(); else lastFocus && lastFocus.focus(); };
   if (G()) gsap.to(T, {opacity: 0, duration: .45, ease: "power2.out", onComplete: () => { gsap.set(T, {clearProps: "opacity"}); done(); }}); else done();
 };
 

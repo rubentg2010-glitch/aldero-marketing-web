@@ -487,3 +487,13 @@ footer .col .btn{justify-self:start;margin-top:8px;min-height:46px;padding:10px 
 .top .brand{margin-right:0}
 .wm{position:fixed;inset:0;z-index:150;pointer-events:none;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='260'><text x='210' y='140' text-anchor='middle' transform='rotate(-24 210 130)' font-family='Arial,sans-serif' font-size='22' font-weight='700' letter-spacing='6' fill='%23888'>DEMO · ALDERO</text></svg>");opacity:.06}
 .top .brand{flex:none;white-space:nowrap}
+/* páginas legales */
+.legal .top{color:var(--ink)}.legal .top .wrap{justify-content:space-between}
+.legal-main{padding-top:150px;max-width:900px;margin:0 auto}
+.legal-main h1{font-size:clamp(44px,6vw,80px);margin:26px 0 10px}
+.legal-main .upd{color:var(--muted);font-size:14px;margin-bottom:40px}
+.gl-content{font-size:17px;color:#3a352f}
+.gl-content h2{font-size:clamp(28px,3vw,38px);margin:44px 0 12px}
+.gl-content p,.gl-content ul{margin:0 0 16px}
+.gl-content li{margin-bottom:6px}
+.pend{background:#fbe9e7;color:#b3261e;border-radius:6px;padding:1px 6px;font-weight:600;font-size:.92em}
