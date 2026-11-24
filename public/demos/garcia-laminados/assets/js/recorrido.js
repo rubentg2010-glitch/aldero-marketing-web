@@ -71,7 +71,7 @@ if (strip_) strip_.innerHTML = ROOMS.map((r, i) => `<button class="rcard" type="
 const T = D.createElement("div");
 T.id = "tour"; T.setAttribute("role", "dialog"); T.setAttribute("aria-modal", "true"); T.setAttribute("aria-label", "Recorre tu hogar"); T.hidden = true;
 T.innerHTML = `
-<div class="t-stage">${ROOMS.map((r, i) => `<div class="t-room" data-i="${i}"><div class="t-pic" style="--op:${(r.cfg.pos || [50, 50]).map(v => v + "%").join(" ")}"><img src="${esc(r.cfg.img)}" alt="${esc(r.n)}" ${i ? 'loading="lazy"' : ""}><canvas class="t-viz" hidden aria-hidden="true"></canvas><img class="t-look" alt="" hidden></div><span class="t-sim" hidden>Simulación orientativa</span><div class="t-hs">${r.cfg.hs.map((h, j) => `<button class="hs" type="button" data-h="${j}" style="--x:${h.x};--y:${h.y}" aria-label="${esc(h.l)}: probar materiales"><i></i><span>${esc(h.l)}</span></button>`).join("")}</div></div>`).join("")}</div>
+<div class="t-stage">${ROOMS.map((r, i) => `<div class="t-room" data-i="${i}"><div class="t-pic" style="--op:${(r.cfg.pos || [50, 50]).map(v => v + "%").join(" ")}"><img data-src="${esc(r.cfg.img)}" alt="${esc(r.n)}"><canvas class="t-viz" hidden aria-hidden="true"></canvas><img class="t-look" alt="" hidden></div><span class="t-sim" hidden>Simulación orientativa</span><div class="t-hs">${r.cfg.hs.map((h, j) => `<button class="hs" type="button" data-h="${j}" style="--x:${h.x};--y:${h.y}" aria-label="${esc(h.l)}: probar materiales"><i></i><span>${esc(h.l)}</span></button>`).join("")}</div></div>`).join("")}</div>
 <div class="t-shade"></div>
 <header class="t-top">
   <div class="t-brand"><b>García</b><span>Recorre tu hogar</span></div>
@@ -148,6 +148,7 @@ const show = (i, dir = 1) => {
   place();
 };
 const openTour = (i = 0) => {
+  T.querySelectorAll(".t-pic img[data-src]").forEach(im => { im.src = im.dataset.src; im.removeAttribute("data-src"); });
   lastFocus = D.activeElement; open = true; T.hidden = false;
   D.body.classList.add("locked"); window.GL_LENIS && window.GL_LENIS.stop();
   rooms.forEach(r => r.classList.remove("on")); cur = i; rooms[i].classList.add("on"); setCopy(); place(); vizFor(i);

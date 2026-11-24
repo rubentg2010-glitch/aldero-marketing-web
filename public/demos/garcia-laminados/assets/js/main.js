@@ -149,17 +149,20 @@ const rm = el => el && el.remove();
 if (!intro) { heroIn(); return; }
 const phrase = D.getElementById("phrase");
 phrase.innerHTML = phrase.dataset.text.split(" ").map(w => `<span>${esc(w)}</span>`).join(" ");
-const PL = ["col-pure", "nos-detalle", "srv-armarios", "col-rigid", "col-elemental", "nos-detalle", "col-pure", "srv-armarios", "col-rigid"];
+const PL = [1, 2, 3, 4, 5, 2, 1, 3, 4];
 const nP = innerWidth < 700 ? 5 : 9;
 const planks = intro.querySelector(".planks");
-if (planks) planks.innerHTML = PL.slice(0, nP).map(n => `<i style="background-image:url(${BASE}assets/img/${n}.webp)"></i>`).join("");
+const urls = PL.slice(0, nP).map(n => `${BASE}assets/img/intro/p${n}.webp`);
+if (planks) planks.innerHTML = urls.map(u => `<i style="background-image:url(${u})"></i>`).join("");
+/* espera a que las tablas estén decodificadas (máx. 700 ms) para que la animación vaya fluida */
+const ready = Promise.race([Promise.all([...new Set(urls)].map(u => { const im = new Image(); im.src = u; return im.decode().catch(() => {}); })), new Promise(r => setTimeout(r, 700))]);
 const endIntro = () => {
   mark(); B.classList.remove("locked");
   if (!hasG) { rm(intro); rm(curtain); heroIn(); return; }
   /* salida: las tablas se abren en direcciones alternas y descubren la portada */
   intro.style.background = "transparent";
   gsap.timeline({onComplete: () => { rm(intro); rm(curtain); refresh(); }})
-    .to("#intro .in, #intro .bar, #intro .skip", {opacity: 0, scale: 1.04, duration: .3, ease: "power2.in"})
+    .to("#intro .in, #intro .bar, #intro .skip", {opacity: 0, y: -12, duration: .3, ease: "power2.in"})
     .to("#intro .planks i", {yPercent: i => i % 2 ? 102 : -102, duration: .7, stagger: {each: .035, from: "center"}, ease: "power4.inOut"}, "-=.1")
     .add(heroIn, "-=.55");
 };
@@ -168,13 +171,14 @@ else {
   B.classList.add("locked"); intro.classList.add("on");
   gsap.set("#intro .planks i", {yPercent: 102, y: 0});
   /* intro de 3 s: tablas que se instalan, logotipo, frase y apertura */
-  const tl = gsap.timeline({onComplete: endIntro});
+  const tl = gsap.timeline({paused: true, onComplete: endIntro, defaults: {force3D: true}});
   tl.to("#bar", {width: "100%", duration: 2.1, ease: "none"}, 0)
     .to("#intro .planks i", {yPercent: 0, duration: .75, stagger: .05, ease: "power4.out"}, 0)
     .to("#intro .logo span", {y: 0, duration: .8, ease: "power4.out"}, .5)
     .to("#intro .sub", {opacity: 1, duration: .5}, .85)
-    .to("#phrase span", {opacity: 1, y: 0, filter: "blur(0px)", stagger: .05, duration: .45, ease: "power2.out"}, .95)
+    .to("#phrase span", {opacity: 1, y: 0, stagger: .05, duration: .45, ease: "power2.out"}, .95)
     .to({}, {duration: .15});
+  ready.then(() => requestAnimationFrame(() => tl.play()));
   const stop = e => { e && e.preventDefault(); tl.kill(); endIntro(); };
   D.getElementById("skip").addEventListener("click", stop);
   addEventListener("keydown", e => { if (e.key === "Escape" && D.getElementById("intro")) stop(); });
