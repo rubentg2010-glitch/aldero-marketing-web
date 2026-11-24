@@ -110,12 +110,18 @@ D.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener("click", e =>
 
 /* ---------- titular por palabras ---------- */
 const h1 = D.getElementById("h1");
-const splitWords = el => { const walk = n => [...n.childNodes].map(c => c.nodeType === 3 ? c.textContent.split(/(\s+)/).map(w => w.trim() ? `<span class="w"><span>${w}</span></span>` : w).join("") : (c.innerHTML = walk(c), c.outerHTML)).join(""); el.innerHTML = walk(el); };
-if (hasG && h1) splitWords(h1);
+/* el titular se escribe letra a letra (palabras agrupadas para que no se partan) */
+const splitChars = el => { const walk = n => [...n.childNodes].map(c => c.nodeType === 3 ? c.textContent.split(/(\s+)/).map(w => w.trim() ? `<span class="w">${[...w].map(ch => `<span class="ch">${ch}</span>`).join("")}</span>` : w).join("") : (c.innerHTML = walk(c), c.outerHTML)).join(""); el.innerHTML = walk(el) + '<span class="caret" aria-hidden="true"></span>'; };
+if (hasG && h1) { h1.setAttribute("aria-label", h1.textContent); splitChars(h1); gsap.set("#h1 .ch", {opacity: 0}); }
 const heroIn = () => {
   if (!hasG || !h1) return;
-  gsap.from("#h1 .w>span", {yPercent: 115, duration: 1.2, stagger: .07, ease: "power4.out"});
-  gsap.from(".hero .side", {y: 30, opacity: 0, duration: 1, delay: .55, ease: "power3.out"});
+  const chars = h1.querySelectorAll(".ch"), caret = h1.querySelector(".caret"), per = Math.min(.05, 1.5 / chars.length);
+  gsap.timeline()
+    .set(caret, {opacity: 1})
+    .to(chars, {opacity: 1, duration: .01, stagger: {each: per, onStart() { this.targets()[0].after(caret); }}, ease: "none"})
+    .to(caret, {opacity: 0, duration: .25, repeat: 3, yoyo: true, ease: "steps(1)"})
+    .to(caret, {opacity: 0, duration: .2});
+  gsap.from(".hero .side", {y: 30, opacity: 0, duration: 1, delay: .7, ease: "power3.out"});
   gsap.from(".hero .ph", {scale: 1.12, duration: 2.2, ease: "power3.out"});
 };
 
@@ -164,8 +170,9 @@ const endIntro = () => {
   gsap.timeline({onComplete: () => { rm(intro); rm(curtain); refresh(); }})
     .to("#intro .in, #intro .bar, #intro .skip", {opacity: 0, y: -14, duration: .35, ease: "power2.in"})
     .add(() => intro.classList.remove("on"), "<")          /* las maderas se aclaran y se ven a todo color */
-    .to("#intro .planks i", {yPercent: i => i % 2 ? 103 : -103, duration: 1.05, stagger: {each: .07, from: "center"}, ease: "power3.inOut"}, "+=.25")
-    .add(heroIn, "-=.75");
+    .add("abrir", "+=.25")
+    .to("#intro .planks i", {yPercent: i => i % 2 ? 103 : -103, duration: 1.05, stagger: {each: .07, from: "center"}, ease: "power3.inOut"}, "abrir")
+    .add(heroIn, "abrir+=.15");                            /* el titular se escribe mientras se retiran las láminas */
 };
 if (seen || !hasG) { rm(intro); rm(curtain); heroIn(); }
 else {
