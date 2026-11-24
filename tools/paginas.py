@@ -57,6 +57,7 @@ def shell(*, slug, title, description, ld, body, wa_msg, back=("./#servicios", "
   <meta property="og:image" content="{SITE}/{og_image}">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="assets/img/favicon-192.png" sizes="192x192" type="image/png">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="preload" href="assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/styles.css?v={VERSION}">
