@@ -1304,14 +1304,3 @@ html:not(.anim-ok) .chart__gap, html:not(.anim-ok) .chart__lbl { opacity: 1; }
   .wxb__mock:hover { transform: translateY(-4px); }
 }
 @media (prefers-reduced-motion: reduce) { .wxb__h { animation: none; } }
-
-/* Accesos a "Tu web de ejemplo" */
-.nav__links a.nav__new { color: var(--white); }
-.nav__links a.nav__new::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 8px; border-radius: 50%; background: #FFC400; box-shadow: 0 0 0 0 rgba(255, 196, 0, .6); animation: navPing 2s infinite; vertical-align: 1px; }
-@keyframes navPing { 70% { box-shadow: 0 0 0 7px rgba(255, 196, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 196, 0, 0); } }
-.hero__audit--wx { margin-left: 8px; }
-.hero__audit--wx .hero__audit-tag { background: #FFC400; color: #111; }
-.nav__links a { white-space: nowrap; }
-@media (max-width: 1260px) { .nav__links a { padding: 8px 9px; font-size: 14px; } .nav__links a[href="#inicio"], .nav__links a[href="#como-trabajamos"] { display: none; } }
-@media (max-width: 700px) { .hero__audit--wx { margin-left: 0; margin-top: 10px; } }
-@media (prefers-reduced-motion: reduce) { .nav__links a.nav__new::before { animation: none; } }
