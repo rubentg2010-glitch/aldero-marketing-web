@@ -58,6 +58,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 #intro .planks{position:absolute;inset:0;display:flex}
 #intro .planks i{flex:1;height:100%;background-size:cover;background-position:center;will-change:transform;backface-visibility:hidden;box-shadow:inset 2px 0 0 rgb(30 18 8/.45),inset 3px 0 0 rgb(255 255 255/.12)}
 #intro .planks::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,rgb(14 11 8/.35),rgb(14 11 8/.72));opacity:0;pointer-events:none}
+#intro .planks::after{transition:opacity .35s ease}
 #intro.on .planks::after{opacity:1;transition:opacity .8s .5s}
 #intro .in{position:relative;text-align:center;padding:24px}
 #intro .logo{font-family:var(--serif);font-size:clamp(46px,8vw,110px);line-height:1;overflow:hidden;padding-bottom:.05em}

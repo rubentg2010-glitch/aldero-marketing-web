@@ -162,9 +162,10 @@ const endIntro = () => {
   /* salida: las tablas se abren en direcciones alternas y descubren la portada */
   intro.style.background = "transparent";
   gsap.timeline({onComplete: () => { rm(intro); rm(curtain); refresh(); }})
-    .to("#intro .in, #intro .bar, #intro .skip", {opacity: 0, y: -12, duration: .3, ease: "power2.in"})
-    .to("#intro .planks i", {yPercent: i => i % 2 ? 102 : -102, duration: .7, stagger: {each: .035, from: "center"}, ease: "power4.inOut"}, "-=.1")
-    .add(heroIn, "-=.55");
+    .to("#intro .in, #intro .bar, #intro .skip", {opacity: 0, y: -14, duration: .35, ease: "power2.in"})
+    .add(() => intro.classList.remove("on"), "<")          /* las maderas se aclaran y se ven a todo color */
+    .to("#intro .planks i", {yPercent: i => i % 2 ? 103 : -103, duration: 1.05, stagger: {each: .07, from: "center"}, ease: "power3.inOut"}, "+=.25")
+    .add(heroIn, "-=.75");
 };
 if (seen || !hasG) { rm(intro); rm(curtain); heroIn(); }
 else {
@@ -172,12 +173,12 @@ else {
   gsap.set("#intro .planks i", {yPercent: 102, y: 0});
   /* intro de 3 s: tablas que se instalan, logotipo, frase y apertura */
   const tl = gsap.timeline({paused: true, onComplete: endIntro, defaults: {force3D: true}});
-  tl.to("#bar", {width: "100%", duration: 2.1, ease: "none"}, 0)
+  tl.to("#bar", {width: "100%", duration: 1.75, ease: "none"}, 0)
     .to("#intro .planks i", {yPercent: 0, duration: .75, stagger: .05, ease: "power4.out"}, 0)
     .to("#intro .logo span", {y: 0, duration: .8, ease: "power4.out"}, .5)
     .to("#intro .sub", {opacity: 1, duration: .5}, .85)
-    .to("#phrase span", {opacity: 1, y: 0, stagger: .05, duration: .45, ease: "power2.out"}, .95)
-    .to({}, {duration: .15});
+    .to("#phrase span", {opacity: 1, y: 0, stagger: .045, duration: .4, ease: "power2.out"}, .85)
+    .to({}, {duration: .1});
   ready.then(() => requestAnimationFrame(() => tl.play()));
   const stop = e => { e && e.preventDefault(); tl.kill(); endIntro(); };
   D.getElementById("skip").addEventListener("click", stop);
