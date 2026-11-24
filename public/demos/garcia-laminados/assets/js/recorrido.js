@@ -41,13 +41,14 @@ const ROOMS = [
   {k: "entrada", n: "Entrada y recibidor", h: "La primera <em>impresión</em>", p: "El suelo marca el tono de toda la casa desde el primer paso. Pulsa el punto del suelo y prueba los tonos.", cr: "Clay Banks",
    fb: {img: B + "assets/img/nos-espacio.webp", pos: [50, 88], hs: [{x: 52, y: 80, l: "Suelo", s: "suelo", c: FLOOR}],
     viz: [{id: "suelo", poly: [[0, 61.5], [100, 59.5], [100, 100], [0, 100]], quad: [[-40, 100], [140, 100], [81.5, 60], [18.5, 60]], rep: [3.2, 1.6]}]}},
-  {k: "salon", n: "Salón", h: "Donde la casa <em>se vive</em>", p: "Amplitud, calidez y una madera que no lo es. Cambia el suelo y mira cómo cambia el ambiente.", cr: "Spacejoy",
-   fb: {img: B + "assets/img/gal-salon.webp", hs: [{x: 14, y: 66, l: "Suelo", s: "suelo", c: FLOOR}],
+  {k: "salon", n: "Salón", h: "Donde la casa <em>se vive</em>", p: "Amplitud, calidez y una madera que no lo es. Cambia el suelo y las paredes y mira cómo cambia el ambiente.", cr: "Spacejoy",
+   fb: {img: B + "assets/img/gal-salon.webp", hs: [{x: 14, y: 66, l: "Suelo", s: "suelo", c: FLOOR}, {x: 51, y: 30, l: "Pared", s: "pared,pared2", c: ["kobert"]}, {x: 90, y: 27, l: "Pared", s: "pared,pared2", c: ["kobert"]}],
     viz: [{id: "suelo", poly: [[0, 59.5], [27.5, 61], [27.5, 70.5], [46, 71.5], [46.5, 65.5], [53.5, 66], [53.5, 70.5], [100, 69.5], [100, 92], [60, 84.5], [30, 78.5], [0, 73.5]], quad: [[-10, 92], [110, 92], [100, 58], [0, 58]], rep: [1.1, .95], rot: 1},
-          {id: "pared", poly: [[24.5, 0], [59.5, 0], [59.5, 57], [47, 63], [46.5, 36], [27, 36], [24.5, 31]], occ: [[[24, 15.5], [36, 13.5], [49, 13], [50, 21], [47.5, 31], [44, 37], [28, 37.5], [25, 31], [23.8, 23]], [[29.5, 0], [46.5, 0], [44.5, 7], [39, 9.5], [37.5, 16], [33.5, 16], [32.5, 9.5], [30, 6.5]]], quad: [[22, 63], [62, 63], [62, 0], [22, 0]], rep: [1.5, .75]}]}},
+          {id: "pared", poly: [[24.5, 0], [57.2, 0], [57.2, 57], [52.5, 57.3], [47, 63], [46.5, 36], [27, 36], [24.5, 31]], occ: [[[24, 15.5], [36, 13.5], [49, 13], [50, 21], [47.5, 31], [44, 37], [28, 37.5], [25, 31], [23.8, 23]], [[29.5, 0], [46.5, 0], [44.5, 7], [39, 9.5], [37.5, 16], [33.5, 16], [32.5, 9.5], [30, 6.5]]], quad: [[22, 63], [62, 63], [62, 0], [22, 0]], rep: [1.5, .75], soft: .5},
+          {id: "pared2", poly: [[57.2, 0], [100, 0], [100, 61], [57.2, 57.3]], occ: [[[74.6, 5.6], [100, 5.6], [100, 10.3], [74.6, 9.9]], [[70.2, 18.1], [100, 18.4], [100, 23.4], [70.2, 22.3]], [[64.7, 29.8], [100, 31.3], [100, 37], [64.7, 34.6]], [[59.2, 43], [100, 45.8], [100, 52], [59.2, 48.1]], [[52, 56.7], [100, 60.2], [100, 68], [52, 62.8]]], quad: [[57, 61], [100, 61], [100, 0], [57, 0]], rep: [1.3, .72], soft: .55}]}},
   {k: "cocina", n: "Cocina", h: "Resistente <em>al agua</em>, cálida al pisar", p: "En la cocina mandan el agua y el uso intensivo: vinílicos SPC o laminado con Aquastop. Pruébalos aquí.", cr: "Zac Gudakov",
    fb: {img: B + "assets/img/hero-cocina.webp", hs: [{x: 42, y: 84, l: "Suelo", s: "suelo", c: ["rigid", "elemental", "helvetic"]}, {x: 89, y: 34, l: "Pared", s: "pared", c: ["kobert"]}],
-    viz: [{id: "suelo", poly: [[12, 44], [26, 42.5], [38, 47], [70, 61.5], [76, 64], [77, 68], [100, 71], [100, 100], [0, 100], [0, 76], [7, 75], [9.5, 64.5], [12, 64]], occ: [[[17.8, 38.5], [22, 38], [25.6, 41.5], [26.2, 45.8], [24.2, 48.2], [19.2, 48], [17.6, 44.5]]], quad: [[-60, 100], [110, 100], [43.4, 55], [-2.2, 55]], rep: [1.7, .9]},
+    viz: [{id: "suelo", poly: [[12.6, 43.6], [18, 43.1], [26, 41.8], [38, 47.6], [70, 61.5], [76, 64], [77, 68], [100, 71], [100, 100], [0, 100], [0, 76], [7, 75.8], [7.5, 65.9], [12.6, 65.7]], quad: [[-60, 100], [110, 100], [43.4, 55], [-2.2, 55]], rep: [1.7, .9]},
           {id: "pared", poly: [[78, 0], [100, 0], [100, 66.8], [78, 63.8]], quad: [[78, 63.8], [100, 66.8], [100, 0], [78, 0]], rep: [1.1, 1.1], soft: .45}]}},
   {k: "dormitorio", n: "Dormitorio", h: "El lugar <em>más sereno</em>", p: "Tonos naturales y tacto cálido. Un suelo que invita a descalzarse: elige el tono que más te calma.", cr: "laura adai",
    fb: {img: B + "assets/img/srv-puertas.webp", pos: [50, 92], hs: [{x: 30, y: 84, l: "Suelo", s: "suelo", c: ["pure", "helvetic", "rigid", "elemental"]}],
@@ -96,7 +97,8 @@ const vizFor = i => {
 };
 async function apply(surface, mat, label) {
   const z = vizFor(cur); if (!z) return false;
-  const any = await z.viz.set(surface, mat);
+  let any = false;
+  for (const s of surface.split(",")) any = await z.viz.set(s, mat);
   if (mat) z.applied[surface] = label; else delete z.applied[surface];
   const room = rooms[cur];
   room.querySelector(".t-viz").hidden = !any; room.querySelector(".t-sim").hidden = !any;
