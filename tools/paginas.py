@@ -36,7 +36,7 @@ def footer():
     return f.replace('href="#', 'href="./#')
 
 
-def shell(*, slug, title, description, ld, body, wa_msg, back=("./#servicios", "Todos los servicios"), og_image="assets/img/og-image.png", og_type="website", extra_js=()):
+def shell(*, slug, title, description, ld, body, wa_msg, back=("./#servicios", "Todos los servicios"), og_image="assets/img/og-image.png", og_type="website"):
     url = f"{SITE}/{slug}"
     return f'''<!doctype html>
 <html lang="es">
@@ -84,7 +84,7 @@ def shell(*, slug, title, description, ld, body, wa_msg, back=("./#servicios", "
 
 {footer()}  <a class="wa-float" href="{wa(wa_msg)}" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">{WA_ICON}<span class="wa-float__label">WhatsApp</span></a>
   <script src="assets/js/faq.js?v={VERSION}" defer></script>
-{"".join(f'  <script src="assets/js/{j}?v={VERSION}" defer></script>{chr(10)}' for j in extra_js)}  <script src="assets/js/cookies.js?v={VERSION}" defer></script>
+  <script src="assets/js/cookies.js?v={VERSION}" defer></script>
   <!-- Cloudflare Web Analytics (sin cookies) -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{{"token": "4c95ed329a6e4298943473999409b360"}}'></script>
 </body>
@@ -412,6 +412,3 @@ if __name__ == "__main__":
     for c in CASOS:
         (ROOT / f"{c['slug']}.html").write_text(case_page(c), encoding="utf-8")
         print("caso", c["slug"])
-    import web_ejemplo
-    (ROOT / "web-de-ejemplo.html").write_text(web_ejemplo.pagina(shell=shell, crumbs=crumbs, breadcrumb_ld=breadcrumb_ld, faq_html=faq_html, faq_ld=faq_ld, SITE=SITE, ORG=ORG, ARROW=ARROW), encoding="utf-8")
-    print("pagina web-de-ejemplo")
