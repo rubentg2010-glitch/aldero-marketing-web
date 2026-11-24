@@ -30,7 +30,7 @@
 
   <link rel="preload" href="assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css?v=202611232330">
+  <link rel="stylesheet" href="assets/css/styles.css?v=202611241930">
   <script src="assets/js/flag.js?v=202611232330"></script>
 
   <script type="application/ld+json">
@@ -303,9 +303,20 @@
         <div class="section-top srv-head">
           <p class="kicker srv-head__k" data-reveal>Servicios</p>
           <h2 class="srv-head__t" id="servicios-title" data-split>Lo que hacemos para que te <span class="srv-head__hl">elijan a ti.</span></h2>
-          <p class="srv-head__note" data-reveal>Cuatro cosas, bien hechas. Elige la que necesitas y escríbenos: te contesta una persona, no un bot.</p>
+          <p class="srv-head__note" data-reveal>Cuatro servicios, bien hechos. Dinos qué te pasa y te llevamos al que necesitas; si dudas, escríbenos: te contesta una persona, no un bot.</p>
         </div>
 
+
+        <div class="srv-guide" data-reveal>
+          <p class="srv-guide__q">¿Qué necesitas ahora mismo?</p>
+          <div class="srv-guide__opts">
+            <a class="srv-guide__o" href="#srv-web" data-goto="0"><b>No tengo web, o la mía no me trae clientes</b><span>Diseño web <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+            <a class="srv-guide__o" href="#srv-seo" data-goto="1"><b>Tengo web, pero en Google no me encuentran</b><span>Posicionamiento SEO <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+            <a class="srv-guide__o" href="#srv-mercado" data-goto="2"><b>Quiero saber si mi idea o mi zona tienen hueco</b><span>Estudios de mercado <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+            <a class="srv-guide__o" href="#srv-estrategia" data-goto="3"><b>No sé por dónde empezar</b><span>Estrategia digital <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+          </div>
+        </div>
+        <nav class="srv-tabs" aria-label="Nuestros servicios"><a href="#srv-web" data-tab="0"><i>01</i><span>Diseño web</span><small>Que te vean</small></a><a href="#srv-seo" data-tab="1"><i>02</i><span>Posicionamiento SEO</span><small>Que te encuentren</small></a><a href="#srv-mercado" data-tab="2"><i>03</i><span>Estudios de mercado</span><small>Saber dónde estás</small></a><a href="#srv-estrategia" data-tab="3"><i>04</i><span>Estrategia digital</span><small>Saber a dónde vas</small></a></nav>
         <div class="chapters">
           <div class="chap-stage" aria-hidden="true">
           <div class="chap-stage__item" data-chap-visual="0"><div class="cv cv--web">
@@ -342,19 +353,20 @@
             </div></div>
           </div>
           <div class="chap-list">
-          <article class="chap" data-chap="0">
+          <article class="chap" data-chap="0" id="srv-web">
             <div class="chap__media"><div class="cv cv--web">
               <picture class="cv__back"><source srcset="assets/img/proyecto-petrato.webp" type="image/webp"><img src="assets/img/proyecto-petrato.jpg" width="1440" height="900" alt="" loading="lazy" decoding="async"></picture>
               <picture class="cv__front"><source srcset="assets/img/proyecto-oscar.webp" type="image/webp"><img src="assets/img/proyecto-oscar.jpg" width="1200" height="750" alt="" loading="lazy" decoding="async"></picture>
               <span class="cv__cap">Webs reales: Oscar Posada y Petrato</span>
             </div></div>
+            <p class="chap__n">01 / 04</p>
             <p class="chap__k">Que te vean</p>
             <h3 class="chap__t" data-chap-title>Diseño web</h3>
             <p class="chap__d">Una web rápida, que se vea bien en el móvil y que deje claro por qué tienen que llamarte a ti.</p>
-            <p class="chap__tags">Diseño personalizado · Adaptación a móviles · Velocidad · Experiencia de usuario · Contacto · Conversión</p>
+            <ul class="chap__tags" aria-label="Incluye"><li>Diseño personalizado</li><li>Adaptación a móviles</li><li>Velocidad</li><li>Experiencia de usuario</li><li>Contacto</li><li>Conversión</li></ul>
             <div class="chap__acts"><a class="chap__go" href="https://wa.me/34711553395?text=Hola%2C%20he%20visitado%20la%20web%20de%20ALDERO%20MARKETING%20y%20me%20interesa%20el%20servicio%20de%20dise%C3%B1o%20web." target="_blank" rel="noopener">Lo quiero <svg class="btn__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="chap__more" href="diseno-web-malaga">Diseño web en Málaga</a></div>
           </article>
-          <article class="chap" data-chap="1">
+          <article class="chap" data-chap="1" id="srv-seo">
             <div class="chap__media"><div class="cv cv--seo">
               <div class="serp">
                 <div class="serp__bar"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m10.4 10.4 3.4 3.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>diseño web málaga</span></div>
@@ -364,13 +376,14 @@
               </div>
               <span class="cv__cap">Ilustración: así se ve estar arriba</span>
             </div></div>
+            <p class="chap__n">02 / 04</p>
             <p class="chap__k">Que te encuentren</p>
             <h3 class="chap__t" data-chap-title>Posicionamiento SEO</h3>
             <p class="chap__d">Trabajamos tu web y tu ficha de Google para que aparezcas cuando buscan lo que haces en tu zona.</p>
-            <p class="chap__tags">Auditorías SEO · Palabras clave · SEO técnico · Contenidos · SEO local · Estrategia</p>
+            <ul class="chap__tags" aria-label="Incluye"><li>Auditorías SEO</li><li>Palabras clave</li><li>SEO técnico</li><li>Contenidos</li><li>SEO local</li><li>Estrategia</li></ul>
             <div class="chap__acts"><a class="chap__go" href="https://wa.me/34711553395?text=Hola%2C%20he%20visitado%20la%20web%20de%20ALDERO%20MARKETING%20y%20me%20interesa%20el%20servicio%20de%20posicionamiento%20SEO." target="_blank" rel="noopener">Lo quiero <svg class="btn__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="chap__more" href="seo-local-malaga">SEO local en Málaga</a></div>
           </article>
-          <article class="chap" data-chap="2">
+          <article class="chap" data-chap="2" id="srv-mercado">
             <div class="chap__media"><div class="cv cv--mer">
               <svg class="chart" viewBox="0 0 400 300" aria-hidden="true">
                 <path class="chart__grid" d="M40 40H380M40 110H380M40 180H380M40 250H380"/>
@@ -381,13 +394,14 @@
               </svg>
               <span class="cv__cap">Ilustración: dónde hay hueco</span>
             </div></div>
+            <p class="chap__n">03 / 04</p>
             <p class="chap__k">Saber dónde estás</p>
             <h3 class="chap__t" data-chap-title>Estudios de mercado</h3>
             <p class="chap__d">Miramos qué hace tu competencia, qué busca la gente y dónde hay hueco para ti.</p>
-            <p class="chap__tags">Competidores · Investigación de mercado · Oportunidades · Posicionamiento · Crecimiento</p>
+            <ul class="chap__tags" aria-label="Incluye"><li>Competidores</li><li>Investigación de mercado</li><li>Oportunidades</li><li>Posicionamiento</li><li>Crecimiento</li></ul>
             <div class="chap__acts"><a class="chap__go" href="https://wa.me/34711553395?text=Hola%2C%20he%20visitado%20la%20web%20de%20ALDERO%20MARKETING%20y%20me%20interesa%20el%20servicio%20de%20estudios%20de%20mercado." target="_blank" rel="noopener">Lo quiero <svg class="btn__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="chap__more" href="estudios-de-mercado">Más sobre estudios de mercado</a></div>
           </article>
-          <article class="chap" data-chap="3">
+          <article class="chap" data-chap="3" id="srv-estrategia">
             <div class="chap__media"><div class="cv cv--est">
               <ol class="route">
                 <li><span class="route__dot"></span>Que te encuentren</li>
@@ -396,10 +410,11 @@
               </ol>
               <span class="cv__cap">Un plan con tres pasos</span>
             </div></div>
+            <p class="chap__n">04 / 04</p>
             <p class="chap__k">Saber a dónde vas</p>
             <h3 class="chap__t" data-chap-title>Estrategia digital</h3>
             <p class="chap__d">Un plan sencillo para que tu negocio se vea en internet y te lleguen más clientes.</p>
-            <p class="chap__tags">Presencia digital · Captación · Conversiones · Consultoría digital</p>
+            <ul class="chap__tags" aria-label="Incluye"><li>Presencia digital</li><li>Captación</li><li>Conversiones</li><li>Consultoría digital</li></ul>
             <div class="chap__acts"><a class="chap__go" href="https://wa.me/34711553395?text=Hola%2C%20he%20visitado%20la%20web%20de%20ALDERO%20MARKETING%20y%20me%20interesa%20el%20servicio%20de%20estrategia%20digital." target="_blank" rel="noopener">Lo quiero <svg class="btn__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="chap__more" href="estrategia-digital">Más sobre estrategia digital</a></div>
           </article>
           </div>
@@ -728,7 +743,8 @@
   <script src="assets/js/vendor/gsap.min.js" defer></script>
   <script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
   <script src="assets/js/vendor/SplitText.min.js" defer></script>
-  <script src="assets/js/main.js?v=202611232330" defer></script>
+  <script src="assets/js/main.js?v=202611241930" defer></script>
+  <script src="assets/js/servicios.js?v=202611241930" defer></script>
   <script src="assets/js/sim.js?v=202611232330" defer></script>
   <script src="assets/js/contacto.js?v=202611232330" defer></script>
   <script src="assets/js/faq.js?v=202611232330" defer></script>
