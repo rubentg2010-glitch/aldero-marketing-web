@@ -33,7 +33,16 @@ async function plankTex(key, src) {
 async function panelTex(key, kind, src) {
   if (TEX[key]) return TEX[key];
   const N = 1024, c = document.createElement("canvas"); c.width = c.height = N; const x = c.getContext("2d");
-  if (src) { const S = await loadImg(src); x.drawImage(S, 0, 0, N, N); }
+  if (src) {
+    const S = await loadImg(src); x.filter = "contrast(1.5) brightness(.9) saturate(.6)"; x.drawImage(S, 0, 0, N, N); x.filter = "none";
+    /* vetas de piedra pulida */
+    let sd = 3; const rr = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
+    for (let v = 0; v < 7; v++) {
+      x.beginPath(); let px = rr() * N, py = 0; x.moveTo(px, py);
+      while (py < N) { px += (rr() - .5) * 120; py += 40 + rr() * 60; x.lineTo(px, py); }
+      x.strokeStyle = `rgba(${rr() > .5 ? "90,82,74" : "160,150,140"},${.25 + rr() * .3})`; x.lineWidth = .8 + rr() * 2.2; x.filter = "blur(.6px)"; x.stroke(); x.filter = "none";
+    }
+  }
   else {
     const base = kind === "ultra" ? [92, 86, 80] : [196, 178, 154];
     x.fillStyle = `rgb(${base})`; x.fillRect(0, 0, N, N);
@@ -66,12 +75,12 @@ function homography(q) {
 
 const VS = `attribute vec2 p;varying vec2 uv;void main(){uv=vec2(p.x*.5+.5,.5-p.y*.5);gl_Position=vec4(p,0.,1.);}`;
 const FS = `precision highp float;varying vec2 uv;
-uniform sampler2D ph,mt,mk;uniform mat3 H;uniform vec2 rep;uniform float rot,mean,gloss,mode;
+uniform sampler2D ph,mt,mk;uniform mat3 H;uniform vec2 rep;uniform float rot,mean,gloss,mode,soft;
 void main(){vec3 photo=texture2D(ph,uv).rgb;
  if(mode<.5){gl_FragColor=vec4(photo,1.);return;}
  vec3 s=H*vec3(uv,1.);vec2 t=s.xy/s.z;if(rot>.5)t=t.yx;
  vec3 m=texture2D(mt,t*rep).rgb;float l=dot(photo,vec3(.299,.587,.114));
- float k=clamp(l/mean,.35,1.3);vec3 c=m*k+max(l-mean*1.2,0.)*gloss;
+ float k=mix(1.,clamp(l/mean,.4,1.25),soft);vec3 c=m*k+max(l-mean*1.15,0.)*gloss*.6;
  gl_FragColor=vec4(c,texture2D(mk,uv).r);}`;
 
 class Viz {
@@ -97,9 +106,8 @@ class Viz {
       mx.filter = "none"; mx.fillStyle = "#000"; mx.fillRect(0, 0, W, H);
       mx.fillStyle = "#fff"; P(s.poly, W, H); mx.fill();
       mx.fillStyle = "#000"; mx.strokeStyle = "#000"; mx.lineJoin = "round";
-      mx.lineWidth = Math.max(4, W / 220); P(s.poly, W, H); mx.stroke();          // encoge el borde para que no brille
-      (s.occ || []).forEach(o => { P(o, W, H); mx.fill(); mx.stroke(); });
-      const t = document.createElement("canvas"); t.width = W; t.height = H; const tx = t.getContext("2d"); tx.filter = `blur(${Math.max(1.5, W / 700)}px)`; tx.drawImage(mc, 0, 0);
+      (s.occ || []).forEach(o => { P(o, W, H); mx.fill(); });
+      const t = document.createElement("canvas"); t.width = W; t.height = H; const tx = t.getContext("2d"); tx.filter = `blur(${Math.max(1, W / 1500)}px)`; tx.drawImage(mc, 0, 0);
       s.tMask = this.tex(t, false);
       // luminancia media dentro de la máscara
       const sm = document.createElement("canvas"); sm.width = lc.width; sm.height = lc.height; const sx = sm.getContext("2d", {willReadFrequently: true}); sx.drawImage(mc, 0, 0, sm.width, sm.height);
@@ -137,7 +145,7 @@ class Viz {
       gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, s.tex); gl.uniform1i(U("mt"), 1);
       gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, s.tMask); gl.uniform1i(U("mk"), 2);
       gl.uniformMatrix3fv(U("H"), false, s.H); gl.uniform2f(U("rep"), s.rep[0], s.rep[1]);
-      gl.uniform1f(U("rot"), s.rot ? 1 : 0); gl.uniform1f(U("mean"), s.mean); gl.uniform1f(U("gloss"), s.gloss || 0);
+      gl.uniform1f(U("rot"), s.rot ? 1 : 0); gl.uniform1f(U("mean"), s.mean); gl.uniform1f(U("gloss"), s.gloss || 0); gl.uniform1f(U("soft"), s.soft == null ? .85 : s.soft);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     }
   }
