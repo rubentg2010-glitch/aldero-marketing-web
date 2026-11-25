@@ -15,14 +15,14 @@
       '<button class="rec__x" type="button" data-rec-close aria-label="Cerrar">×</button>' +
       '<div class="rec__badge" aria-hidden="true">' +
         '<svg class="rec__gift" viewBox="0 0 64 64"><rect x="10" y="26" width="44" height="30" rx="4" fill="rgba(255,255,255,.16)" stroke="#fff" stroke-width="2"/><rect x="6" y="18" width="52" height="10" rx="3" fill="rgba(255,255,255,.24)" stroke="#fff" stroke-width="2"/><path d="M32 18v38" stroke="#fff" stroke-width="2"/><path class="rec__bow" d="M32 18c-6-10-18-10-16-3 1 4 10 3 16 3zm0 0c6-10 18-10 16-3-1 4-10 3-16 3z" fill="#fff"/></svg>' +
-        '<b><span class="rec__num">-10</span><small>%</small></b><span class="rec__for">para ti <i>+</i> para él</span>' +
+        '<b><span class="rec__num">-15</span><small>%</small></b><span class="rec__for">para ti <i>+</i> para él</span>' +
         '<span class="rec__days" data-days></span>' +
       '</div>' +
       '<div class="rec__body">' +
         /* Vista 1: conseguir código */
         '<div class="rec__view" data-view="code">' +
           '<p class="rec__eyebrow">🎁 Promoción de lanzamiento</p><h2 id="recTitle" class="rec__title">Recomienda Aldero<br>y <em>ganáis los dos.</em></h2>' +
-          '<p class="rec__lead">No hace falta que pienses en nadie ahora. Te damos <b>tu código personal</b> y lo compartes cuando quieras: si alguien contrata su web con él, <b>os lleváis un 10 % de descuento cada uno</b>.</p>' +
+          '<p class="rec__lead">No hace falta que pienses en nadie ahora. Te damos <b>tu código personal</b> y lo compartes cuando quieras: si alguien contrata su web con él, <b>os lleváis un 15 % de descuento cada uno</b>.</p>' +
           '<form class="rec__form" data-form="code" novalidate>' +
             '<div class="rec__row">' +
               '<label class="rec__f"><span>Tu nombre</span><input name="nombre" required maxlength="80" autocomplete="name"></label>' +
@@ -37,7 +37,7 @@
         /* Vista 2: recomendar ya */
         '<div class="rec__view" data-view="ref" hidden>' +
           '<h2 class="rec__title">¿A quién nos<br><em>recomiendas?</em></h2>' +
-          '<p class="rec__lead">Déjanos sus datos y contactamos de tu parte. Si contrata, <b>10 % de descuento para los dos</b>.</p>' +
+          '<p class="rec__lead">Déjanos sus datos y contactamos de tu parte. Si contrata, <b>15 % de descuento para los dos</b>.</p>' +
           '<form class="rec__form" data-form="ref" novalidate>' +
             '<div class="rec__row">' +
               '<label class="rec__f"><span>Tu nombre</span><input name="nombre" required maxlength="80" autocomplete="name"></label>' +
@@ -54,7 +54,7 @@
         /* Vista 3: tu código */
         '<div class="rec__view" data-view="mine" hidden>' +
           '<p class="rec__title rec__title--sm">Este es <em>tu código.</em></p>' +
-          '<p class="rec__lead">Compártelo cuando quieras con quien necesite web. Cuando contrate diciendo tu código, os aplicamos el 10 % a los dos.</p>' +
+          '<p class="rec__lead">Compártelo cuando quieras con quien necesite web. Cuando contrate diciendo tu código, os aplicamos el 15 % a los dos.</p>' +
           '<div class="rec__codebox"><span class="rec__code" data-code></span><button class="rec__copy" type="button" data-copy>Copiar</button></div>' +
           '<div class="rec__acts"><a class="btn btn--blue rec__share" data-share target="_blank" rel="noopener">Compartir por WhatsApp</a><button class="btn rec__later" type="button" data-rec-close>Lo guardo para luego</button></div>' +
           '<p class="rec__note">Lo tienes siempre en el botón del regalo 🎁 de abajo a la izquierda.</p>' +
@@ -62,7 +62,7 @@
         /* Vista 4: recomendación enviada */
         '<div class="rec__view" data-view="sent" hidden>' +
           '<p class="rec__title rec__title--sm">¡Recibido! <em>Gracias.</em></p>' +
-          '<p class="rec__lead">Contactaremos con el negocio de tu parte. Cuando contrate, os aplicamos el 10 % a los dos.</p>' +
+          '<p class="rec__lead">Contactaremos con el negocio de tu parte. Cuando contrate, os aplicamos el 15 % a los dos.</p>' +
           '<button class="btn btn--blue" type="button" data-rec-close>Seguir viendo la web</button>' +
         '</div>' +
         '<p class="rec__alt">¿Prefieres hablarlo por WhatsApp? <a href="' + WA_ME + '" target="_blank" rel="noopener">Escríbenos aquí</a></p>' +
@@ -76,7 +76,7 @@
     return "ALDERO-" + n.slice(0, 8) + "-" + String(Math.floor(100 + Math.random() * 900));
   }
   function shareUrl(code) {
-    var t = "Te paso esto por si necesitas web para tu negocio: Aldero Marketing hace webs en Málaga. Si les dices mi código *" + code + "* te llevas un 10 % de descuento 👉 " + SITE;
+    var t = "Te paso esto por si necesitas web para tu negocio: Aldero Marketing hace webs en Málaga. Si les dices mi código *" + code + "* te llevas un 15 % de descuento 👉 " + SITE;
     return "https://wa.me/?text=" + encodeURIComponent(t);
   }
   function show(view) {
@@ -119,7 +119,7 @@
       e.preventDefault(); if (!validate(fc)) return;
       var code = makeCode(fc.nombre.value); busy(fc, true, "Creando tu código…"); fc.querySelector(".rec__msg").textContent = "";
       post({ nombre: fc.nombre.value, contacto: fc.contacto.value, servicio: "Código de recomendación", pagina: "Ventana Recomienda y ganáis los dos",
-        mensaje: "NUEVO CÓDIGO DE RECOMENDACIÓN: " + code + "\nPertenece a: " + fc.nombre.value + " (" + fc.contacto.value + ")\nSi alguien contrata diciendo este código, 10 % de descuento para los dos." })
+        mensaje: "NUEVO CÓDIGO DE RECOMENDACIÓN: " + code + "\nPertenece a: " + fc.nombre.value + " (" + fc.contacto.value + ")\nSi alguien contrata diciendo este código, 15 % de descuento para los dos." })
         .then(function (j) {
           if (j && j.ok) { st.code = code; st.sent = true; save(); show("mine"); updatePill(); }
           else { fc.querySelector(".rec__msg").textContent = (j && j.msg) || "No se ha podido crear. Prueba por WhatsApp."; }
@@ -129,8 +129,8 @@
     fr.addEventListener("submit", function (e) {
       e.preventDefault(); if (!validate(fr)) return;
       busy(fr, true, "Enviando…"); fr.querySelector(".rec__msg").textContent = "";
-      post({ nombre: fr.nombre.value, contacto: fr.contacto.value, servicio: "Recomendación (−10 % los dos)", pagina: "Ventana Recomienda y ganáis los dos",
-        mensaje: "RECOMENDACIÓN (promo −10 % para los dos)\nNegocio recomendado: " + fr.negocio.value + "\nContacto del negocio: " + (fr.negocio_contacto.value || "no indicado") + "\nRecomienda: " + fr.nombre.value + " (" + fr.contacto.value + ")" + (st.code ? "\nSu código: " + st.code : "") })
+      post({ nombre: fr.nombre.value, contacto: fr.contacto.value, servicio: "Recomendación (−15 % los dos)", pagina: "Ventana Recomienda y ganáis los dos",
+        mensaje: "RECOMENDACIÓN (promo −15 % para los dos)\nNegocio recomendado: " + fr.negocio.value + "\nContacto del negocio: " + (fr.negocio_contacto.value || "no indicado") + "\nRecomienda: " + fr.nombre.value + " (" + fr.contacto.value + ")" + (st.code ? "\nSu código: " + st.code : "") })
         .then(function (j) {
           if (j && j.ok) { st.sent = true; save(); show("sent"); }
           else fr.querySelector(".rec__msg").textContent = (j && j.msg) || "No se ha podido enviar. Prueba por WhatsApp.";
@@ -150,8 +150,8 @@
   function daysLeft() { var end = new Date(2027, 0, 31, 23, 59).getTime(); return Math.max(0, Math.ceil((end - Date.now()) / 864e5)); }
   function countUp() {
     var n = box.querySelector(".rec__num"), t0 = null;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { n.textContent = "-10"; return; }
-    (function step(ts) { if (!t0) t0 = ts; var k = Math.min(1, (ts - t0) / 900), e = 1 - Math.pow(1 - k, 3); n.textContent = "-" + Math.round(10 * e); if (k < 1) requestAnimationFrame(step); })(performance.now());
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { n.textContent = "-15"; return; }
+    (function step(ts) { if (!t0) t0 = ts; var k = Math.min(1, (ts - t0) / 900), e = 1 - Math.pow(1 - k, 3); n.textContent = "-" + Math.round(15 * e); if (k < 1) requestAnimationFrame(step); })(performance.now());
   }
   function open() {
     if (!box) build();
@@ -175,8 +175,8 @@
       pill = d.createElement("button"); pill.type = "button"; pill.className = "rec-pill";
       pill.addEventListener("click", open); d.body.appendChild(pill);
     }
-    pill.innerHTML = st.code ? '<i aria-hidden="true">🎁</i><span>Tu código</span>' : '<i aria-hidden="true">🎁</i><span>Gana un 10 %</span>';
-    pill.setAttribute("aria-label", st.code ? "Ver tu código de recomendación" : "Recomienda Aldero y gana un 10 % de descuento");
+    pill.innerHTML = st.code ? '<i aria-hidden="true">🎁</i><span>Tu código</span>' : '<i aria-hidden="true">🎁</i><span>Gana un 15 %</span>';
+    pill.setAttribute("aria-label", st.code ? "Ver tu código de recomendación" : "Recomienda Aldero y gana un 15 % de descuento");
     requestAnimationFrame(function () { pill.classList.add("is-in"); });
   }
   var start = Date.now(), recent = st.seen && Date.now() - st.seen < DAYS * 864e5;
