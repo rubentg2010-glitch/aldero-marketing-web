@@ -76,28 +76,53 @@
     }
   });
 
-  /* ---------------- Intro + hero ---------------- */
+  /* ---------------- Intro "The art of transformation" + hero ---------------- */
   var intro = $("#intro");
+  var heroSoft = [".hero__sub", ".hero__ctas"], heroExtra = [".hero__rating", ".hero__coords", ".hero__scroll", ".hero__insp"];
   function heroIn(delay) {
     if (!hasG || reduce) return;
-    var tl = G.timeline({ delay: delay || 0 });
-    tl.fromTo(".hero__img", { scale: 1.18 }, { scale: 1.06, duration: 2.2, ease: "power3.out" }, 0)
-      .fromTo(".hero__title .ln>span", { y: 0, yPercent: 110 }, { y: 0, yPercent: 0, duration: 1.1, stagger: .09, ease: "power4.out" }, .05)
-      .fromTo([".hero__sub", ".hero__ctas"], { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .9, stagger: .1, ease: "power3.out" }, .5)
-      .fromTo([".hero__rating", ".hero__coords", ".hero__scroll", ".hero__insp"], { opacity: 0 }, { opacity: 1, duration: 1, stagger: .08 }, .7);
+    G.timeline({ delay: delay || 0 })
+      .fromTo(".hero__img", { scale: 1.18 }, { scale: 1.06, duration: 2.2, ease: "power3.out" }, 0)
+      .fromTo(".hero__title .w", { y: 0, yPercent: 115 }, { yPercent: 0, duration: 1.1, stagger: .06, ease: "power4.out" }, .05)
+      .fromTo(heroSoft, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .9, stagger: .1, ease: "power3.out" }, .5)
+      .fromTo(heroExtra, { opacity: 0 }, { opacity: 1, duration: 1, stagger: .08 }, .7);
   }
-  function finishIntro() { try { sessionStorage.setItem("rm-intro", "1"); } catch (e) {} if (intro) intro.classList.add("done"); }
-  if (!intro || h.classList.contains("no-intro") || !hasG || reduce) { finishIntro(); heroIn(.05); }
+  function finishIntro() {
+    try { sessionStorage.setItem("rm-intro", "1"); } catch (e) {}
+    if (intro) intro.classList.add("done");
+    h.classList.add("no-intro");
+    if (hasG) G.set(".hero__title", { clearProps: "transform" });
+    if (intro && intro.dataset.locked) { lock(false); intro.dataset.locked = ""; }
+  }
+  if (!intro || h.classList.contains("no-intro") || !hasG || reduce) { if (intro) intro.classList.add("done"); h.classList.add("no-intro"); heroIn(.05); }
   else {
-    G.set(".hero__title .ln>span", { y: 0, yPercent: 110 });
-    G.set([".hero__sub", ".hero__ctas", ".hero__rating", ".hero__coords", ".hero__scroll", ".hero__insp"], { opacity: 0 });
-    var it = G.timeline({ onComplete: finishIntro });
-    it.to(".intro__mark path", { strokeDashoffset: 0, duration: .6, ease: "power2.inOut", stagger: .1 })
-      .to(".intro__name", { clipPath: "inset(0% 0% 0% 0%)", duration: .55, ease: "power3.out" }, .2)
-      .to(".intro__id", { opacity: 0, duration: .3 }, .95)
-      .to(".intro__bar--t", { yPercent: -100, duration: .8, ease: "expo.inOut" }, 1.0)
-      .to(".intro__bar--b", { yPercent: 100, duration: .8, ease: "expo.inOut" }, 1.0)
-      .add(function () { heroIn(0); }, 1.05);
+    $$(".intro__row").forEach(function (r) { r.innerHTML = r.textContent.split("").map(function (c) { return '<span class="ch">' + c + "</span>"; }).join(""); });
+    var title = $(".hero__title"), r = title.getBoundingClientRect();
+    var dx = innerWidth / 2 - (r.left + r.width / 2), dy = innerHeight / 2 - (r.top + r.height / 2);
+    G.set(title, { x: dx, y: dy });
+    G.set(".hero__title .w", { y: 0, yPercent: 115 });
+    G.set(heroSoft.concat(heroExtra), { opacity: 0 });
+    G.set(".hero__img", { scale: 1.32 });
+    G.set(".hero__shade", { opacity: .35 });
+    lock(true); intro.dataset.locked = "1"; window.scrollTo(0, 0);
+    var it = G.timeline({ onComplete: finishIntro, defaults: { ease: "power3.out" } });
+    it.to(".intro__line", { scaleX: .07, duration: .6, ease: "power2.out" }, .1)
+      .from(".intro__name .ch", { yPercent: 105, opacity: 0, duration: .6, stagger: .028 }, .18)
+      .to(".intro__name .ch", { yPercent: -105, opacity: 0, duration: .4, stagger: .012, ease: "power2.in" }, .86)
+      .to(".intro__line", { scaleX: 1, duration: .75, ease: "expo.inOut" }, .82)
+      .to(".intro__panel--t", { yPercent: -100, duration: 1.05, ease: "expo.inOut" }, 1.3)
+      .to(".intro__panel--b", { yPercent: 100, duration: 1.05, ease: "expo.inOut" }, 1.3)
+      .to(".intro__line", { opacity: 0, duration: .35, ease: "none" }, 1.45)
+      .to(".hero__img", { scale: 1.08, duration: 2.6, ease: "power3.out" }, 1.3)
+      .to(".hero__title .w", { yPercent: 0, duration: 1, stagger: .075, ease: "power4.out" }, 1.95)
+      .fromTo(".intro__tag", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .6 }, 2.5)
+      .to(".intro__tag", { opacity: 0, y: -8, duration: .4, ease: "power2.in" }, 3.15)
+      .to(title, { x: 0, y: 0, duration: 1.05, ease: "expo.inOut" }, 3.1)
+      .to(".hero__shade", { opacity: 1, duration: 1, ease: "power2.inOut" }, 3.1)
+      .to(heroSoft, { opacity: 1, duration: .8, stagger: .1 }, 3.5)
+      .from(heroSoft, { y: 18, duration: .8, stagger: .1 }, 3.5)
+      .to(heroExtra, { opacity: 1, duration: .8, stagger: .06 }, 3.6)
+      .to(".nav", { opacity: 1, duration: .8 }, 3.5);
     $("#introSkip").addEventListener("click", function () { it.progress(1); });
   }
 
