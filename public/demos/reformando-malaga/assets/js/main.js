@@ -82,7 +82,7 @@
     if (!hasG || reduce) return;
     var tl = G.timeline({ delay: delay || 0 });
     tl.fromTo(".hero__img", { scale: 1.18 }, { scale: 1.06, duration: 2.2, ease: "power3.out" }, 0)
-      .fromTo(".hero__title .ln>span", { yPercent: 110 }, { yPercent: 0, duration: 1.1, stagger: .09, ease: "power4.out" }, .05)
+      .fromTo(".hero__title .ln>span", { y: 0, yPercent: 110 }, { y: 0, yPercent: 0, duration: 1.1, stagger: .09, ease: "power4.out" }, .05)
       .fromTo(".hero__kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .8, ease: "power3.out" }, .25)
       .fromTo([".hero__sub", ".hero__ctas"], { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .9, stagger: .1, ease: "power3.out" }, .5)
       .fromTo([".hero__rating", ".hero__coords", ".hero__scroll", ".hero__insp"], { opacity: 0 }, { opacity: 1, duration: 1, stagger: .08 }, .7);
@@ -90,7 +90,7 @@
   function finishIntro() { try { sessionStorage.setItem("rm-intro", "1"); } catch (e) {} if (intro) intro.classList.add("done"); }
   if (!intro || h.classList.contains("no-intro") || !hasG || reduce) { finishIntro(); heroIn(.05); }
   else {
-    G.set(".hero__title .ln>span", { yPercent: 110 });
+    G.set(".hero__title .ln>span", { y: 0, yPercent: 110 });
     G.set([".hero__kicker", ".hero__sub", ".hero__ctas", ".hero__rating", ".hero__coords", ".hero__scroll", ".hero__insp"], { opacity: 0 });
     var it = G.timeline({ onComplete: finishIntro });
     it.to(".intro__mark path", { strokeDashoffset: 0, duration: .6, ease: "power2.inOut", stagger: .1 })
