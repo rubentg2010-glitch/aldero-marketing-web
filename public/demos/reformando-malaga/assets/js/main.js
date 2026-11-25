@@ -123,6 +123,7 @@
       .from(heroSoft, { y: 18, duration: .8, stagger: .1 }, 3.5)
       .to(heroExtra, { opacity: 1, duration: .8, stagger: .06 }, 3.6)
       .to(".nav", { opacity: 1, duration: .8 }, 3.5);
+    window.__introTl = it;
     $("#introSkip").addEventListener("click", function () { it.progress(1); });
   }
 
