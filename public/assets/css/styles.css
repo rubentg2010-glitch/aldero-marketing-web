@@ -1343,3 +1343,54 @@ html.rec-open .wa-float { opacity: 0; pointer-events: none; }
 html.ck-open .rec-pill, html.rec-open .rec-pill, html.menu-open .rec-pill { opacity: 0; pointer-events: none; }
 @media (max-width: 720px) { .rec-pill { left: 12px; bottom: 14px; padding: 10px 14px 10px 11px; font-size: 12.5px; } .rec__acts .btn { width: 100%; justify-content: center; } }
 @media (max-width: 720px) { .rec-pill { width: 50px; height: 50px; padding: 0; justify-content: center; } .rec-pill span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); } .rec-pill i { font-size: 20px; } }
+
+/* ---- Ventana más llamativa ---- */
+.rec__bg { background: radial-gradient(60% 60% at 50% 50%, rgba(45,91,255,.28), rgba(4,5,8,.82) 70%); }
+.rec__card { border: 0; isolation: isolate; transform: translateY(40px) scale(.9); transition: opacity .45s var(--ease), transform .8s cubic-bezier(.2,1.4,.35,1); }
+.rec__card::before { content: ""; position: absolute; inset: -2px; z-index: -1; border-radius: 24px; background: conic-gradient(from var(--recA, 0deg), #2D5BFF, #7E9BFF, #25D366, #ffffff, #2D5BFF); animation: recBorder 4s linear infinite; }
+.rec__card::after { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: 22px; background: var(--bg-2); }
+@property --recA { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@keyframes recBorder { to { --recA: 360deg; } }
+.rec.is-in .rec__card { animation: recGlow 3s ease-in-out infinite; }
+@keyframes recGlow { 0%,100% { box-shadow: 0 40px 120px -30px rgba(45,91,255,.45), 0 30px 80px -20px rgba(0,0,0,.8); } 50% { box-shadow: 0 40px 150px -20px rgba(45,91,255,.75), 0 30px 80px -20px rgba(0,0,0,.8); } }
+.rec__badge { gap: 8px; }
+.rec__badge::before { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.35) 45%, transparent 60%); transform: translateX(-120%); animation: recShine 3.2s 1s ease-in-out infinite; z-index: 1; }
+@keyframes recShine { 0% { transform: translateX(-120%); } 45%,100% { transform: translateX(120%); } }
+.rec__gift { position: relative; z-index: 2; width: 66px; height: 66px; filter: drop-shadow(0 8px 18px rgba(0,0,0,.35)); animation: recFloat 2.6s ease-in-out infinite; }
+.rec__bow { transform-origin: 32px 18px; animation: recBow 2.6s ease-in-out infinite; }
+@keyframes recFloat { 0%,100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-8px) rotate(4deg); } }
+@keyframes recBow { 0%,100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+.rec__badge b { z-index: 2; font-size: clamp(76px, 9vw, 108px); text-shadow: 0 10px 40px rgba(0,0,0,.35); }
+.rec__for { z-index: 2; position: relative; }
+.rec__for i { font-style: normal; color: #b9ffcf; }
+.rec__days { position: relative; z-index: 2; margin-top: 8px; padding: 7px 12px; border-radius: 999px; background: rgba(0,0,0,.28); border: 1px solid rgba(255,255,255,.3); font: 600 12px var(--body); letter-spacing: .02em; }
+.rec__days::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #ff5b4a; margin-right: 7px; vertical-align: 1px; box-shadow: 0 0 0 0 rgba(255,91,74,.7); animation: recPing 1.6s infinite; }
+.rec__days[hidden] { display: none; }
+@keyframes recPing { 70% { box-shadow: 0 0 0 8px rgba(255,91,74,0); } 100% { box-shadow: 0 0 0 0 rgba(255,91,74,0); } }
+.rec__eyebrow { display: inline-block; margin: 0 0 12px; padding: 6px 12px; border-radius: 999px; background: rgba(45,91,255,.14); border: 1px solid rgba(126,155,255,.35); color: var(--blue-hi); font: 600 12px var(--body); }
+.rec__title em { background: linear-gradient(90deg, #7E9BFF, #b9c9ff, #7E9BFF); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: recText 3s linear infinite; }
+@keyframes recText { to { background-position: -200% 0; } }
+.rec__glow { position: relative; overflow: hidden; box-shadow: 0 12px 30px -8px rgba(45,91,255,.8); animation: recPulse 2.2s ease-in-out infinite; }
+.rec__glow::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.35) 50%, transparent 65%); transform: translateX(-120%); animation: recShine 2.6s 1.2s ease-in-out infinite; }
+@keyframes recPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.025); } }
+.rec-pill { animation: recPillPulse 2.4s ease-in-out infinite; }
+@keyframes recPillPulse { 0%,100% { box-shadow: 0 14px 34px -12px rgba(45,91,255,.55), 0 0 0 0 rgba(126,155,255,.5); } 50% { box-shadow: 0 14px 34px -12px rgba(45,91,255,.55), 0 0 0 8px rgba(126,155,255,0); } }
+@media (max-width: 720px) {
+  .rec__card { transform: translateY(100%); transition: opacity .3s, transform .6s cubic-bezier(.2,1.1,.35,1); }
+  .rec__card::before, .rec__card::after { border-radius: 24px 24px 0 0; }
+  .rec__badge { display: grid; grid-template-columns: auto auto; grid-template-rows: auto auto; justify-content: start; column-gap: 14px; row-gap: 2px; padding: 16px 64px 16px 18px; }
+  .rec__gift { width: 46px; height: 46px; grid-row: span 2; }
+  .rec__badge b { font-size: 56px; }
+  .rec__days { grid-column: 1 / -1; justify-self: start; margin-top: 8px; }
+}
+@media (prefers-reduced-motion: reduce) { .rec__card::before, .rec.is-in .rec__card, .rec__badge::before, .rec__gift, .rec__bow, .rec__title em, .rec__glow, .rec__glow::after, .rec-pill, .rec__days::before { animation: none; } }
+.rec__badge b .rec__num { font: inherit; letter-spacing: inherit; text-transform: none; opacity: 1; position: static; }
+.rec__badge .rec__days { font: 600 12.5px var(--body); letter-spacing: 0; text-transform: none; opacity: 1; }
+@media (max-width: 720px) {
+  .rec__badge { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; padding: 16px 70px 16px 18px; }
+  .rec__gift { width: 44px; height: 44px; }
+  .rec__badge b { font-size: 54px; line-height: 1; }
+  .rec__for { flex: 1 1 80px; font-size: 11px; line-height: 1.4; }
+  .rec__days { flex-basis: 100%; margin-top: 6px; width: max-content; flex-grow: 0; }
+}
+@media (max-width: 720px) { .rec__badge .rec__days { flex: none; width: auto; } .rec__for { letter-spacing: .12em; } }

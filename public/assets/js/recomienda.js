@@ -13,11 +13,15 @@
     '<div class="rec__bg" data-rec-close></div>' +
     '<div class="rec__card" role="dialog" aria-modal="true" aria-labelledby="recTitle">' +
       '<button class="rec__x" type="button" data-rec-close aria-label="Cerrar">×</button>' +
-      '<div class="rec__badge" aria-hidden="true"><b>-10<small>%</small></b><span>para los dos</span></div>' +
+      '<div class="rec__badge" aria-hidden="true">' +
+        '<svg class="rec__gift" viewBox="0 0 64 64"><rect x="10" y="26" width="44" height="30" rx="4" fill="rgba(255,255,255,.16)" stroke="#fff" stroke-width="2"/><rect x="6" y="18" width="52" height="10" rx="3" fill="rgba(255,255,255,.24)" stroke="#fff" stroke-width="2"/><path d="M32 18v38" stroke="#fff" stroke-width="2"/><path class="rec__bow" d="M32 18c-6-10-18-10-16-3 1 4 10 3 16 3zm0 0c6-10 18-10 16-3-1 4-10 3-16 3z" fill="#fff"/></svg>' +
+        '<b><span class="rec__num">-10</span><small>%</small></b><span class="rec__for">para ti <i>+</i> para él</span>' +
+        '<span class="rec__days" data-days></span>' +
+      '</div>' +
       '<div class="rec__body">' +
         /* Vista 1: conseguir código */
         '<div class="rec__view" data-view="code">' +
-          '<h2 id="recTitle" class="rec__title">Recomienda Aldero<br>y <em>ganáis los dos.</em></h2>' +
+          '<p class="rec__eyebrow">🎁 Promoción de lanzamiento</p><h2 id="recTitle" class="rec__title">Recomienda Aldero<br>y <em>ganáis los dos.</em></h2>' +
           '<p class="rec__lead">No hace falta que pienses en nadie ahora. Te damos <b>tu código personal</b> y lo compartes cuando quieras: si alguien contrata su web con él, <b>os lleváis un 10 % de descuento cada uno</b>.</p>' +
           '<form class="rec__form" data-form="code" novalidate>' +
             '<div class="rec__row">' +
@@ -25,7 +29,7 @@
               '<label class="rec__f"><span>Tu WhatsApp o email</span><input name="contacto" required maxlength="120" autocomplete="tel"></label>' +
             '</div>' +
             '<label class="rec__ok"><input type="checkbox" name="acepto" value="1" required><span>Acepto la <a href="privacidad">política de privacidad</a>.</span></label>' +
-            '<button class="btn btn--blue rec__send" type="submit">Conseguir mi código</button>' +
+            '<button class="btn btn--blue rec__send rec__glow" type="submit">Conseguir mi código gratis →</button>' +
             '<p class="rec__msg" role="status" aria-live="polite"></p>' +
           '</form>' +
           '<button class="rec__switch" type="button" data-go="ref">¿Ya tienes a alguien en mente? Recomiéndalo ahora →</button>' +
@@ -119,8 +123,8 @@
         .then(function (j) {
           if (j && j.ok) { st.code = code; st.sent = true; save(); show("mine"); updatePill(); }
           else { fc.querySelector(".rec__msg").textContent = (j && j.msg) || "No se ha podido crear. Prueba por WhatsApp."; }
-          busy(fc, false, "Conseguir mi código");
-        }).catch(function () { fc.querySelector(".rec__msg").textContent = "No se ha podido crear. Prueba por WhatsApp."; busy(fc, false, "Conseguir mi código"); });
+          busy(fc, false, "Conseguir mi código gratis →");
+        }).catch(function () { fc.querySelector(".rec__msg").textContent = "No se ha podido crear. Prueba por WhatsApp."; busy(fc, false, "Conseguir mi código gratis →"); });
     });
     fr.addEventListener("submit", function (e) {
       e.preventDefault(); if (!validate(fr)) return;
@@ -143,8 +147,16 @@
       }
     });
   }
+  function daysLeft() { var end = new Date(2027, 0, 31, 23, 59).getTime(); return Math.max(0, Math.ceil((end - Date.now()) / 864e5)); }
+  function countUp() {
+    var n = box.querySelector(".rec__num"), t0 = null;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { n.textContent = "-10"; return; }
+    (function step(ts) { if (!t0) t0 = ts; var k = Math.min(1, (ts - t0) / 900), e = 1 - Math.pow(1 - k, 3); n.textContent = "-" + Math.round(10 * e); if (k < 1) requestAnimationFrame(step); })(performance.now());
+  }
   function open() {
     if (!box) build();
+    var dl = daysLeft(), dd = box.querySelector("[data-days]"); dd.textContent = dl ? "Solo quedan " + dl + " días" : ""; dd.hidden = !dl;
+    setTimeout(countUp, 350);
     lastFocus = d.activeElement; st.opened = Date.now(); st.seen = Date.now(); save();
     show(st.code ? "mine" : "code");
     box.hidden = false; root.classList.add("rec-open");
@@ -168,6 +180,11 @@
     requestAnimationFrame(function () { pill.classList.add("is-in"); });
   }
   var start = Date.now(), recent = st.seen && Date.now() - st.seen < DAYS * 864e5;
+  if (recent || st.sent || st.code) {
+    var ready = function () { setTimeout(updatePill, 600); };
+    if (d.readyState === "loading") d.addEventListener("DOMContentLoaded", ready); else ready();
+    return;
+  }
   (function wait() {
     var blocked = root.classList.contains("ck-open") || root.classList.contains("menu-open");
     if (Date.now() - start < DELAY || blocked) return setTimeout(wait, 700);
