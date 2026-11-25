@@ -168,7 +168,7 @@
     box.classList.remove("is-in"); root.classList.remove("rec-open");
     setTimeout(function () { box.hidden = true; }, 450);
     if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
-    updatePill();
+    updatePill(); pill.dataset.force = "1"; pill.classList.add("is-shown");
   }
   function updatePill() {
     if (!pill) {
@@ -178,6 +178,11 @@
     pill.innerHTML = st.code ? '<i aria-hidden="true">🎁</i><span>Tu código</span>' : '<i aria-hidden="true">🎁</i><span>Gana un 15 %</span>';
     pill.setAttribute("aria-label", st.code ? "Ver tu código de recomendación" : "Recomienda Aldero y gana un 15 % de descuento");
     requestAnimationFrame(function () { pill.classList.add("is-in"); });
+    if (!pill.dataset.wired) {
+      pill.dataset.wired = "1";
+      var chk = function () { pill.classList.toggle("is-shown", (window.scrollY || 0) > 350 || !!pill.dataset.force); };
+      addEventListener("scroll", chk, { passive: true }); chk();
+    }
   }
   var start = Date.now(), recent = st.seen && Date.now() - st.seen < DAYS * 864e5;
   if (recent || st.sent || st.code) {

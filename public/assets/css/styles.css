@@ -1399,3 +1399,38 @@ html.ck-open .rec-pill, html.rec-open .rec-pill, html.menu-open .rec-pill { opac
 .hero__audit--price:hover { border-color: #25D366; background: rgba(37, 211, 102, .07); }
 .hero__copy .hero__audit { display: flex; width: fit-content; max-width: 100%; }
 .hero__audit-tag { white-space: nowrap; flex: none; }
+
+/* ---- Pegatina "desde 29 €" ---- */
+.hero__container { position: relative; }
+.hero__sticker { position: absolute; right: clamp(8px, 3vw, 48px); top: clamp(70px, 12vh, 140px); width: clamp(176px, 15vw, 232px); aspect-ratio: 1; z-index: 3; display: grid; place-items: center; text-decoration: none; color: #fff; border-radius: 50%; background: radial-gradient(circle, #0E1015 58%, rgba(14,16,21,.9) 60%); border: 1px solid rgba(126,155,255,.45); box-shadow: 0 30px 80px -20px rgba(45,91,255,.7), inset 0 0 0 10px rgba(45,91,255,.08); animation: stkIn 1s 1.4s cubic-bezier(.2,1.5,.35,1) both; transition: transform .4s var(--ease); }
+.hero__sticker:hover { transform: scale(1.06) rotate(-4deg); }
+@keyframes stkIn { from { opacity: 0; transform: scale(.2) rotate(-40deg); } to { opacity: 1; transform: none; } }
+.hero__sticker-ring { position: absolute; inset: 0; width: 100%; height: 100%; animation: stkSpin 16s linear infinite; }
+.hero__sticker-ring text { font: 600 13px var(--mono); letter-spacing: 0; fill: rgba(255,255,255,.85); }
+@keyframes stkSpin { to { transform: rotate(1turn); } }
+.hero__sticker-core { position: relative; width: 60%; aspect-ratio: 1; border-radius: 50%; display: grid; place-content: center; justify-items: center; gap: 2px; background: radial-gradient(120% 120% at 25% 15%, #7E9BFF, #2D5BFF 50%, #1A2E9E); box-shadow: 0 10px 30px -6px rgba(45,91,255,.9), inset 0 2px 10px rgba(255,255,255,.35); overflow: hidden; }
+.hero__sticker-core::after { content: ""; position: absolute; inset: 0; background: linear-gradient(120deg, transparent 35%, rgba(255,255,255,.45) 50%, transparent 65%); transform: translateX(-130%); animation: stkShine 3.4s 2.6s ease-in-out infinite; }
+@keyframes stkShine { 0% { transform: translateX(-130%); } 40%,100% { transform: translateX(130%); } }
+.hero__sticker-core small { font: 600 11px var(--mono); letter-spacing: .16em; text-transform: uppercase; opacity: .9; }
+.hero__sticker-core b { font: 800 clamp(40px, 3.6vw, 56px)/.9 var(--display); letter-spacing: -.03em; }
+.hero__sticker-core sup { font-size: .45em; margin-left: 2px; }
+.hero__sticker-core i { font-style: normal; font: 600 11px var(--body); background: rgba(0,0,0,.25); padding: 3px 9px; border-radius: 999px; margin-top: 4px; }
+/* ---- "¿Qué necesitas?" ---- */
+.hero__pick { margin-top: 26px; }
+.hero__pick-q { margin: 0 0 10px; font: 600 12px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--blue-hi); }
+.hero__pick-opts { display: flex; flex-wrap: wrap; gap: 10px; }
+.hero__pick-opts a { display: inline-flex; align-items: center; gap: 9px; padding: 12px 18px; border-radius: 14px; border: 1px solid var(--line-2); background: rgba(255,255,255,.03); font-weight: 600; font-size: 15px; text-decoration: none; color: var(--text); transition: border-color .25s, background-color .25s, transform .25s var(--ease); }
+.hero__pick-opts a:hover { border-color: var(--blue-hi); background: rgba(45,91,255,.12); transform: translateY(-2px); }
+.hero__pick-opts span { font-size: 18px; }
+@media (max-width: 720px) {
+  .hero__sticker { width: 112px; top: 132px; right: 6px; border-width: 1px; }
+  .hero__sticker-ring text { font-size: 15px; }
+  .hero__sticker-core b { font-size: 30px; }
+  .hero__sticker-core small { font-size: 8px; }
+  .hero__sticker-core i { display: none; }
+  .hero__pick-opts { display: grid; grid-template-columns: 1fr; }
+  .hero__pick-opts a { padding: 13px 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .hero__sticker, .hero__sticker-ring, .hero__sticker-core::after { animation: none; } }
+/* el regalo aparece al bajar un poco */
+.rec-pill:not(.is-shown) { opacity: 0; pointer-events: none; transform: translateY(16px); }
