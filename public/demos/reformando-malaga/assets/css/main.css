@@ -321,7 +321,8 @@ em{font-style:italic}
   .intro2__grid,.conf__grid,.zones__grid,.contact__grid{grid-template-columns:1fr}
   .intro2__pics{height:120vw;max-height:560px}
   .facts li{grid-template-columns:1fr;gap:2px}
-  .conf__stage{max-width:330px;width:82%;margin:0 auto;order:-1}
+  .conf__stage{max-width:250px;width:62%;margin:0 auto;order:-1;position:sticky;top:72px;z-index:3;box-shadow:0 24px 40px -18px rgba(0,0,0,.55)}
+  .conf__tag{font-size:10.5px;padding:6px 10px;bottom:10px}
   .conf__grid{gap:40px}
   .why__list{grid-template-columns:1fr}.why__list li{border-right:0;margin-right:0;border-bottom:1px solid var(--line);padding:28px 0}
   .rv__card{flex-basis:100%;min-height:260px}.rv__card p{font-size:22px}
