@@ -15,6 +15,10 @@
   "send_email": [
     { "name": "CONTACTO", "destination_address": "drprov11@gmail.com" }
   ],
+  // Estadísticas propias (sin cookies): eventos anónimos de visitas y clics.
+  "d1_databases": [
+    { "binding": "DB", "database_name": "aldero-estadisticas", "database_id": "ea7e6c03-6897-4459-8657-d3a7020e7de2" }
+  ],
   "vars": {
     "CONTACTO_DESTINO": "drprov11@gmail.com"
   },

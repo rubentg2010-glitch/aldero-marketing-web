@@ -1,7 +1,7 @@
 /* "Recomienda y ganáis los dos" — ventana + código personal para compartir cuando quieras */
 (function () {
   "use strict";
-  var KEY = "aldero-recomienda", DAYS = 14, DELAY = 5000;
+  var KEY = "aldero-recomienda", DAYS = 14, DELAY = 25000;
   var d = document, root = d.documentElement, SITE = "https://aldero.es";
   var st = {};
   try { st = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) {}
@@ -121,7 +121,7 @@
       post({ nombre: fc.nombre.value, contacto: fc.contacto.value, servicio: "Código de recomendación", pagina: "Ventana Recomienda y ganáis los dos",
         mensaje: "NUEVO CÓDIGO DE RECOMENDACIÓN: " + code + "\nPertenece a: " + fc.nombre.value + " (" + fc.contacto.value + ")\nSi alguien contrata diciendo este código, 15 % de descuento para los dos." })
         .then(function (j) {
-          if (j && j.ok) { st.code = code; st.sent = true; save(); show("mine"); updatePill(); }
+          if (j && j.ok) { st.code = code; st.sent = true; save(); show("mine"); updatePill(); if (window.alderoStat) alderoStat("codigo"); }
           else { fc.querySelector(".rec__msg").textContent = (j && j.msg) || "No se ha podido crear. Prueba por WhatsApp."; }
           busy(fc, false, "Conseguir mi código gratis →");
         }).catch(function () { fc.querySelector(".rec__msg").textContent = "No se ha podido crear. Prueba por WhatsApp."; busy(fc, false, "Conseguir mi código gratis →"); });
@@ -132,7 +132,7 @@
       post({ nombre: fr.nombre.value, contacto: fr.contacto.value, servicio: "Recomendación (−15 % los dos)", pagina: "Ventana Recomienda y ganáis los dos",
         mensaje: "RECOMENDACIÓN (promo −15 % para los dos)\nNegocio recomendado: " + fr.negocio.value + "\nContacto del negocio: " + (fr.negocio_contacto.value || "no indicado") + "\nRecomienda: " + fr.nombre.value + " (" + fr.contacto.value + ")" + (st.code ? "\nSu código: " + st.code : "") })
         .then(function (j) {
-          if (j && j.ok) { st.sent = true; save(); show("sent"); }
+          if (j && j.ok) { st.sent = true; save(); show("sent"); if (window.alderoStat) alderoStat("recomendacion"); }
           else fr.querySelector(".rec__msg").textContent = (j && j.msg) || "No se ha podido enviar. Prueba por WhatsApp.";
           busy(fr, false, "Enviar recomendación");
         }).catch(function () { fr.querySelector(".rec__msg").textContent = "No se ha podido enviar. Prueba por WhatsApp."; busy(fr, false, "Enviar recomendación"); });
@@ -153,8 +153,9 @@
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { n.textContent = "-15"; return; }
     (function step(ts) { if (!t0) t0 = ts; var k = Math.min(1, (ts - t0) / 900), e = 1 - Math.pow(1 - k, 3); n.textContent = "-" + Math.round(15 * e); if (k < 1) requestAnimationFrame(step); })(performance.now());
   }
-  function open() {
+  function open(auto) {
     if (!box) build();
+    if (auto === true && window.alderoStat) alderoStat("promo");
     var dl = daysLeft(), dd = box.querySelector("[data-days]"); dd.textContent = dl ? "Solo quedan " + dl + " días" : ""; dd.hidden = !dl;
     setTimeout(countUp, 350);
     lastFocus = d.activeElement; st.opened = Date.now(); st.seen = Date.now(); save();
@@ -192,8 +193,9 @@
   }
   (function wait() {
     var blocked = root.classList.contains("ck-open") || root.classList.contains("menu-open");
-    if (Date.now() - start < DELAY || blocked) return setTimeout(wait, 700);
-    if (recent || st.sent) updatePill(); else open();
+    var max = Math.max(1, root.scrollHeight - innerHeight), half = (window.scrollY || 0) / max > 0.45;
+    if ((Date.now() - start < DELAY && !half) || blocked) return setTimeout(wait, 700);
+    if (recent || st.sent) updatePill(); else open(true);
   })();
   window.AlderoRecomienda = { open: open };
 })();
