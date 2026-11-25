@@ -148,20 +148,20 @@
 
   /* ---------------- Gallery ---------------- */
   var GAL = [
-    ["reforma-de-banos-en-malaga", "ducha", "Mampara de cuadrícula negra y porcelánico efecto mármol", "x"],
-    ["banos-reformas-malaga", "integral", "Mueble de madera, lavabo sobre encimera y ducha", "t"],
-    ["malaga-reformas-de-banos", "detalle", "Lavabo de piedra y espejo con luz LED", "s"],
-    ["cambio-banera-por-ducha-malaga", "banera", "Bañera sustituida por plato de ducha extraplano", "w"],
-    ["reformando-malaga", "integral", "Espejo redondo retroiluminado y azulejo verde", "t"],
-    ["platos-de-ducha-malaga", "ducha", "Mampara corredera de perfil negro", "s"],
-    ["reforma-bano-malaga", "detalle", "Azulejo hidráulico en la zona de ducha", "t"],
-    ["cambio-banera-por-plato-de-ducha-en-malaga", "banera", "Plato de ducha con grifería negra", "w"],
-    ["banos-malaga", "integral", "Ducha con mampara y mueble suspendido", "x"],
-    ["duchas-costa-del-sol", "detalle", "Mueble de madera y espejo retroiluminado", "s"],
-    ["reforma-de-banos-costa-del-sol", "ducha", "Ducha de obra con azulejo verde", "t"],
-    ["malaga-reforma-banos", "banera", "Ducha con mampara y grifería negra", "s"],
-    ["duchas-malaga", "integral", "Baño renovado con lavabo sobre encimera", "w"],
-    ["platos-ducha-costa-del-sol", "ducha", "Ducha con mampara de cristal y mueble de madera", "t"]
+    ["reforma-de-banos-en-malaga", "ducha", "Mampara de cuadrícula negra y porcelánico efecto mármol", "c5"],
+    ["banos-reformas-malaga", "integral", "Mueble de madera, lavabo sobre encimera y ducha", "c4"],
+    ["malaga-reformas-de-banos", "detalle", "Lavabo de piedra y espejo con luz LED", "c3"],
+    ["cambio-banera-por-ducha-malaga", "banera", "Bañera sustituida por plato de ducha extraplano", "c6"],
+    ["reformando-malaga", "integral", "Espejo redondo retroiluminado y azulejo verde", "c6"],
+    ["platos-de-ducha-malaga", "ducha", "Mampara corredera de perfil negro", "c4"],
+    ["reforma-bano-malaga", "detalle", "Azulejo hidráulico en la zona de ducha", "c4"],
+    ["cambio-banera-por-plato-de-ducha-en-malaga", "banera", "Plato de ducha con grifería negra", "c4"],
+    ["banos-malaga", "integral", "Ducha con mampara y mueble suspendido", "c3"],
+    ["duchas-costa-del-sol", "detalle", "Mueble de madera y espejo retroiluminado", "c5"],
+    ["reforma-de-banos-costa-del-sol", "ducha", "Ducha de obra con azulejo verde", "c4"],
+    ["malaga-reforma-banos", "banera", "Ducha con mampara y grifería negra", "c4"],
+    ["duchas-malaga", "integral", "Baño renovado con lavabo sobre encimera", "c4"],
+    ["platos-ducha-costa-del-sol", "ducha", "Ducha con mampara de cristal y mueble de madera", "c4"]
   ];
   var CAT = { banera: "Cambio de bañera", integral: "Reforma integral", ducha: "Ducha moderna", detalle: "Detalle y acabado" };
   var gal = $("#gallery");
