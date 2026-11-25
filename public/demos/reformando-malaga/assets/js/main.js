@@ -395,6 +395,24 @@
   setTimeout(function () { Object.keys(TEX).forEach(function (k) { var im = new Image(); im.src = U(TEX[k][0], 900, 72); }); }, 2500);
   render();
 
+  /* ---------------- FAQ animado ---------------- */
+  $$(".faq details").forEach(function (det) {
+    var sum = det.querySelector("summary"), box = det.querySelector(".faq__a"), p = box.querySelector("p"), busy = false;
+    sum.addEventListener("click", function (e) {
+      if (!hasG || reduce) return;
+      e.preventDefault(); if (busy) return; busy = true;
+      if (det.open) {
+        G.to(p, { y: -10, opacity: 0, duration: .3, ease: "power2.in" });
+        G.to(box, { height: 0, duration: .55, ease: "power3.inOut", onComplete: function () { det.open = false; box.style.height = ""; G.set(p, { clearProps: "all" }); busy = false; if (ST) ST.refresh(); } });
+      } else {
+        $$(".faq details[open]").forEach(function (o) { if (o !== det) o.querySelector("summary").click(); });
+        det.open = true;
+        G.fromTo(box, { height: 0 }, { height: "auto", duration: .65, ease: "power3.out", onComplete: function () { box.style.height = ""; busy = false; if (ST) ST.refresh(); } });
+        G.fromTo(p, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: .6, delay: .12, ease: "power3.out" });
+      }
+    });
+  });
+
   /* ---------------- Quote panel ---------------- */
   var qp = $("#qp"), form = $("#form"), qpLast = null;
   function setTipo(t) { var s = form.tipo; for (var i = 0; i < s.options.length; i++) if (s.options[i].text === t) { s.selectedIndex = i; return; } }
