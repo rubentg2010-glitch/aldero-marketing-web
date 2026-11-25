@@ -1,0 +1,1 @@
+(function(d){var h=d.documentElement,r=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches,s=false;try{s=sessionStorage.getItem("rm-intro")==="1"}catch(e){}h.classList.add("js");if(r||s)h.classList.add("no-intro");setTimeout(function(){if(!window.__rmOK){h.classList.remove("js")}},4500)})(document);
