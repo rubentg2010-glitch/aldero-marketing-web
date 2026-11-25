@@ -110,7 +110,7 @@
     G.from(".mani__big .mw, .mani__big .pill", { yPercent: 70, opacity: 0, duration: 1.1, stagger: .06, ease: "power4.out", scrollTrigger: { trigger: ".mani__big", start: "top 80%" } });
     G.from(".mani__big .pill", { scaleX: 0, duration: 1.2, ease: "expo.out", stagger: .2, scrollTrigger: { trigger: ".mani__big", start: "top 75%" } });
 
-    var rv = ".label, .h2, .mani__p, .mani__facts div, .srv-feat__txt > *, .srv-row, .det__list li, .det__data div, .rev__main, .rev__c, .rev__g, .zon__p, .zon__links li, .faq details, .end__sub, .end__btn, .end__contact a, .cfg__panel, .prj__note, .filters";
+    var rv = ".label, .h2, .mani__p, .mani__facts div, .srv-feat__txt > *, .srv-row, .det__list li, .det__data div, .rev__main, .rev__c, .rev__g, .zon__p, .zon__links li, .faq details, .end__sub, .end__btn, .end__contact a, .cfg__intro, .studio, .prj__note, .filters";
     $$(rv).forEach(function (el) { if (el.closest(".hero") || el.closest(".qp") || el.closest(".drawer")) return; el.classList.add("rv"); });
     ST.batch(".rv", { start: "top 88%", once: true, onEnter: function (b) { G.to(b, { opacity: 1, y: 0, duration: 1.1, stagger: .08, ease: "power3.out", overwrite: true }); } });
 
@@ -209,7 +209,7 @@
   var tsx = null; lb.addEventListener("touchstart", function (e) { tsx = e.touches[0].clientX; }, { passive: true });
   lb.addEventListener("touchend", function (e) { if (tsx === null) return; var dx = e.changedTouches[0].clientX - tsx; if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1); tsx = null; });
 
-  /* ---------------- Configurator ---------------- */
+  /* ---------------- Configurator (3D studio) ---------------- */
   var TEX = {
     marmol: ["photo-1566041510394-cf7c8fe21800", "Mármol blanco"],
     travertino: ["photo-1780253460324-9d49f88c74fc", "Travertino"],
@@ -219,140 +219,149 @@
     hidraulico: ["photo-1624963839265-55161fbef7fe", "Hidráulico"]
   };
   var PLATO = { blanco: ["#F4F2EC", "Blanco"], arena: ["#D8CBB4", "Arena"], piedra: ["#A8A49B", "Gris piedra"], antracita: ["#3D3F3D", "Antracita"], negro: ["#1E1F1E", "Negro"] };
-  var METAL = { negro: ["#1B1B1B", "Negro mate"], cromo: ["#C2C7CA", "Cromo"], oro: ["#B8955F", "Oro cepillado"], gunmetal: ["#4B4D4E", "Gun metal"], blanco: ["#ECEBE6", "Blanco"] };
+  var METAL = { negro: ["#1A1A1A", "Negro mate", .12], cromo: ["#B9BFC3", "Cromo", .55], oro: ["#B8955F", "Oro cepillado", .4], gunmetal: ["#4B4D4E", "Gun metal", .25], blanco: ["#EAE9E4", "Blanco", .3] };
   var MAMP = { fija: "Fija · walk-in", corredera: "Corredera", abatible: "Abatible", industrial: "Cuadrícula industrial" };
   var GRIF = { empotrada: "Empotrada + rociador de techo", columna: "Columna termostática", barra: "Barra deslizante" };
+  var KICK = { pared: "Revestimiento", plato: "Plato de ducha", mampara: "Mampara", perfil: "Perfilería y grifería", grif: "Grifería" };
   var st = { pared: "marmol", plato: "blanco", mampara: "fija", perfil: "negro", grif: "empotrada" };
-  var NS = "http://www.w3.org/2000/svg", XL = "http://www.w3.org/1999/xlink";
-  function el(tag, at, parent) { var e = d.createElementNS(NS, tag); for (var k in at) e.setAttribute(k, at[k]); if (parent) parent.appendChild(e); return e; }
-  var layer = "A";
-  function setTex(which, id) {
-    var url = U(id, 900, 72);
-    ["tex" + which + "img", "texS" + which + "img"].forEach(function (n) { var im = d.getElementById(n); im.setAttribute("href", url); im.setAttributeNS(XL, "href", url); });
+  var scene = $("#scene"), stage = $("#cfgStage"), parts = $("#parts"), glassEl = $("#glass3d"), fixBack = $("#fixBack"), water = $("#water");
+
+  function fit() {
+    var W = stage.clientWidth, H = stage.clientHeight, s = Math.max(W / 1000, H / 640);
+    scene.style.transform = "translate(" + ((W - 1000 * s) / 2) + "px," + ((H - 640 * s) / 2) + "px) scale(" + s + ")";
   }
-  function wall(first) {
-    var id = TEX[st.pared][0];
-    if (first) { setTex("A", id); return; }
-    var next = layer === "A" ? "B" : "A";
-    setTex(next, id);
-    var pre = new Image(); pre.onload = pre.onerror = function () {
-      $("#walls" + next).setAttribute("opacity", "1"); $("#walls" + next).style.opacity = 1;
-      $("#walls" + layer).style.opacity = 0;
-      layer = next;
-    };
-    pre.src = U(id, 900, 72);
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(stage); else addEventListener("resize", fit);
+  fit();
+
+  function div(parent, cls, x, y, w, hh, tf, extra) {
+    var e = d.createElement("div"); e.className = cls;
+    e.style.cssText = "left:" + x + "px;top:" + y + "px;width:" + w + "px;height:" + hh + "px;" + (tf ? "transform:" + tf + ";" : "") + (extra || "");
+    parent.appendChild(e); return e;
   }
-  function metal(x, y, w, hgt, rx, g) {
-    var m = METAL[st.perfil][0];
-    el("rect", { x: x, y: y, width: w, height: hgt, rx: rx || 0, fill: m }, g);
-    el("rect", { x: x, y: y, width: w, height: hgt, rx: rx || 0, fill: "url(#gMetal)", opacity: st.perfil === "negro" ? .25 : .6 }, g);
+  function wallTex(first) {
+    var url = "url(" + U(TEX[st.pared][0], 900, 72) + ")";
+    $$(".wall", scene).forEach(function (w) {
+      var t = d.createElement("div"); t.className = "tex"; t.style.backgroundImage = url;
+      if (first) { var old0 = w.querySelector(".tex"); old0.style.backgroundImage = url; return; }
+      t.style.opacity = 0; w.insertBefore(t, w.firstChild.nextSibling);
+      var olds = $$(".tex", w).filter(function (x) { return x !== t; });
+      var im = new Image(); im.onload = im.onerror = function () {
+        requestAnimationFrame(function () { t.style.opacity = 1; });
+        setTimeout(function () { olds.forEach(function (o) { o.remove(); }); }, 1100);
+      };
+      im.src = U(TEX[st.pared][0], 900, 72);
+    });
   }
-  function glass(x, y, w, hgt, g) {
-    el("rect", { x: x, y: y, width: w, height: hgt, fill: "url(#gGlass)", stroke: "rgba(255,255,255,.32)", "stroke-width": 1 }, g);
-    el("polygon", { points: (x + w * .12) + "," + y + " " + (x + w * .3) + "," + y + " " + (x + w * .05) + "," + (y + hgt * .5) + " " + x + "," + (y + hgt * .5) + " " + x + "," + (y + hgt * .32), fill: "#fff", opacity: .07 }, g);
-    el("line", { x1: x + w * .62, y1: y + 30, x2: x + w * .92, y2: y + 160, stroke: "#fff", "stroke-opacity": .18, "stroke-width": 3 }, g);
-  }
-  function drawScreen() {
-    var g = $("#screen"); while (g.firstChild) g.removeChild(g.firstChild);
-    var T = 30, B = 812;
-    if (st.mampara === "fija") {
-      glass(330, T, 430, B - T, g);
-      metal(326, T, 6, B - T, 0, g); metal(756, T, 8, B - T, 0, g);
-      metal(332, 64, 468, 6, 3, g);
-      metal(330, B - 6, 430, 6, 0, g);
+  function buildGlass() {
+    glassEl.innerHTML = "";
+    var Z = "translateZ(-210px)", gl, f;
+    if (st.mampara === "fija" || st.mampara === "industrial") {
+      gl = div(glassEl, "gl", 470, 110, 530, 530, Z);
+      div(glassEl, "m", 992, 110, 8, 530, Z);
+      div(glassEl, "m mh", 470, 634, 530, 6, Z);
+      div(glassEl, "m mh", 470, 110, 550, 7, "translateZ(-210px) rotateY(90deg)", "transform-origin:0 50%");
+      if (st.mampara === "industrial") {
+        [[0, 0, 530, 9], [0, 521, 530, 9], [0, 0, 9, 530], [521, 0, 9, 530], [261, 0, 8, 530], [0, 175, 530, 8], [0, 350, 530, 8]].forEach(function (r) { div(gl, "m", r[0], r[1], r[2], r[3]); });
+      } else div(glassEl, "m", 466, 110, 5, 530, Z, "--shine:.1;opacity:.9");
     } else if (st.mampara === "corredera") {
-      metal(36, T - 8, 728, 10, 2, g);
-      glass(44, T + 2, 380, B - T - 6, g);
-      glass(384, T + 2, 376, B - T - 6, g);
-      metal(380, T + 2, 5, B - T - 6, 0, g); metal(420, T + 2, 5, B - T - 6, 0, g);
-      metal(396, 380, 7, 110, 3.5, g);
-      metal(36, B - 6, 728, 6, 0, g); metal(36, T - 8, 8, B - T + 8, 0, g); metal(756, T - 8, 8, B - T + 8, 0, g);
-    } else if (st.mampara === "abatible") {
-      glass(510, T, 250, B - T, g); metal(756, T, 8, B - T, 0, g);
-      glass(250, T + 4, 256, B - T - 8, g);
-      metal(500, 150, 16, 34, 3, g); metal(500, 640, 16, 34, 3, g);
-      metal(264, 360, 7, 150, 3.5, g);
-      metal(510, 64, 290, 6, 3, g);
+      div(glassEl, "gl", 0, 116, 540, 524, "translateZ(-202px)");
+      div(glassEl, "gl", 460, 116, 540, 524, "translateZ(-186px)");
+      div(glassEl, "m mh", 0, 104, 1000, 12, "translateZ(-194px)");
+      div(glassEl, "m mh", 0, 634, 1000, 6, "translateZ(-194px)");
+      div(glassEl, "m", 532, 116, 8, 524, "translateZ(-202px)");
+      div(glassEl, "m", 460, 116, 8, 524, "translateZ(-186px)");
+      div(glassEl, "m", 478, 320, 9, 140, "translateZ(-183px)", "border-radius:5px");
+      div(glassEl, "m", 512, 320, 9, 140, "translateZ(-205px)", "border-radius:5px");
     } else {
-      glass(330, T, 430, B - T, g);
-      var w = 9;
-      metal(326, T, w, B - T, 0, g); metal(755, T, w, B - T, 0, g); metal(326, T, 438, w, 0, g); metal(326, B - w, 438, w, 0, g);
-      metal(541, T, 7, B - T, 0, g);
-      [250, 470, 640].forEach(function (yy) { metal(330, yy, 430, 7, 0, g); });
+      div(glassEl, "gl", 650, 110, 350, 530, Z);
+      div(glassEl, "m", 992, 110, 8, 530, Z);
+      div(glassEl, "m mh", 650, 110, 550, 7, "translateZ(-210px) rotateY(90deg)", "transform-origin:0 50%");
+      var door = div(glassEl, "gl", 300, 112, 350, 526, "translateZ(-210px) rotateY(26deg)", "transform-origin:100% 50%");
+      div(door, "m", 20, 200, 9, 140, "", "border-radius:5px");
+      div(door, "m", 334, 50, 16, 46); div(door, "m", 334, 430, 16, 46);
     }
   }
-  function water(g, x, y, spread, len) {
-    var w = el("g", { class: "water", opacity: .5 }, g);
-    for (var i = -3; i <= 3; i++) el("line", { x1: x + i * spread / 7, y1: y, x2: x + i * spread / 4.2, y2: y + len, stroke: "#fff", "stroke-width": 1.2, "stroke-dasharray": "4 14", "stroke-linecap": "round" }, w);
-  }
-  function drawTaps() {
-    var g = $("#taps"); while (g.firstChild) g.removeChild(g.firstChild);
+  function buildTaps() {
+    parts.innerHTML = ""; fixBack.innerHTML = "";
+    var ceil = $("#rainCeil"); ceil.style.opacity = st.grif === "empotrada" ? 1 : 0;
     if (st.grif === "empotrada") {
-      metal(462, 70, 6, 60, 0, g);
-      el("ellipse", { cx: 465, cy: 134, rx: 78, ry: 11, fill: METAL[st.perfil][0] }, g);
-      el("ellipse", { cx: 465, cy: 134, rx: 78, ry: 11, fill: "url(#gMetal)", opacity: .4 }, g);
-      el("ellipse", { cx: 465, cy: 137, rx: 70, ry: 6, fill: "#000", opacity: .25 }, g);
-      water(g, 465, 145, 130, 520);
-      metal(444, 452, 48, 48, 4, g);
-      el("circle", { cx: 468, cy: 476, r: 11, fill: "#000", opacity: .2 }, g);
-      metal(466, 468, 26, 6, 3, g);
-      metal(520, 470, 16, 16, 8, g);
+      water.style.cssText = "left:420px;top:0;width:160px;height:640px;transform:translateZ(-530px);clip-path:polygon(28% 0,72% 0,100% 100%,0 100%)";
+      div(fixBack, "m", 640, 330, 64, 64, "", "border-radius:4px");
+      div(fixBack, "m", 660, 350, 24, 24, "", "border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,.4)");
+      div(fixBack, "m", 680, 358, 44, 8, "", "border-radius:4px");
+      div(fixBack, "m", 730, 352, 20, 20, "", "border-radius:50%");
     } else if (st.grif === "columna") {
-      metal(590, 150, 7, 400, 3.5, g);
-      metal(500, 150, 97, 7, 3.5, g);
-      el("ellipse", { cx: 500, cy: 162, rx: 52, ry: 8, fill: METAL[st.perfil][0] }, g);
-      el("ellipse", { cx: 500, cy: 162, rx: 52, ry: 8, fill: "url(#gMetal)", opacity: .4 }, g);
-      water(g, 500, 170, 90, 480);
-      metal(548, 540, 100, 22, 11, g);
-      el("circle", { cx: 556, cy: 551, r: 14, fill: METAL[st.perfil][0], stroke: "#000", "stroke-opacity": .2 }, g);
-      el("circle", { cx: 640, cy: 551, r: 14, fill: METAL[st.perfil][0], stroke: "#000", "stroke-opacity": .2 }, g);
-      el("path", { d: "M600 562 C 610 640, 660 620, 650 520", fill: "none", stroke: "#2a2a2a", "stroke-width": 3, opacity: .6 }, g);
-      metal(644, 470, 10, 54, 5, g);
+      water.style.cssText = "left:504px;top:158px;width:120px;height:482px;transform:translateZ(-640px);clip-path:polygon(30% 0,70% 0,100% 100%,0 100%)";
+      div(fixBack, "m", 560, 150, 9, 330, "", "border-radius:4px");
+      div(fixBack, "m mh", 506, 470, 120, 24, "", "border-radius:12px");
+      div(fixBack, "m", 500, 466, 32, 32, "", "border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,.4)");
+      div(fixBack, "m", 600, 466, 32, 32, "", "border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,.4)");
+      div(parts, "m mh", 560, 148, 122, 8, "translateZ(-760px) rotateY(-90deg)", "transform-origin:0 50%");
+      div(parts, "m", 514, 104, 100, 100, "translateZ(-640px) rotateX(90deg)", "border-radius:50%;backface-visibility:visible;box-shadow:inset 0 0 0 5px rgba(0,0,0,.25)");
     } else {
-      metal(600, 260, 6, 300, 3, g);
-      metal(596, 252, 14, 10, 3, g); metal(596, 556, 14, 10, 3, g);
-      metal(606, 300, 16, 12, 3, g);
-      el("ellipse", { cx: 628, cy: 296, rx: 12, ry: 20, fill: METAL[st.perfil][0], transform: "rotate(-24 628 296)" }, g);
-      el("ellipse", { cx: 628, cy: 296, rx: 12, ry: 20, fill: "url(#gMetal)", opacity: .4, transform: "rotate(-24 628 296)" }, g);
-      water(g, 620, 312, 50, 400);
-      el("path", { d: "M622 312 C 650 420, 560 560, 590 610", fill: "none", stroke: "#2a2a2a", "stroke-width": 3, opacity: .55 }, g);
-      metal(566, 600, 60, 22, 6, g);
-      metal(586, 588, 24, 8, 4, g);
+      water.style.cssText = "left:600px;top:236px;width:90px;height:404px;transform:translateZ(-735px) rotate(6deg);clip-path:polygon(35% 0,65% 0,100% 100%,0 100%);opacity:.35";
+      div(fixBack, "m", 640, 190, 8, 330, "", "border-radius:4px");
+      div(fixBack, "m", 634, 186, 20, 14, "", "border-radius:3px"); div(fixBack, "m", 634, 512, 20, 14, "", "border-radius:3px");
+      div(fixBack, "m", 648, 236, 22, 14, "", "border-radius:3px");
+      div(fixBack, "m", 662, 196, 24, 54, "rotate(-22deg)", "border-radius:12px");
+      div(fixBack, "m", 610, 560, 70, 26, "", "border-radius:6px");
+      div(fixBack, "m", 630, 546, 30, 10, "", "border-radius:5px");
+      var hose = d.createElement("div"); hose.className = "hose";
+      hose.innerHTML = '<svg viewBox="0 0 120 380" width="120" height="380" style="position:absolute;left:600px;top:240px;overflow:visible"><path d="M70 10 C 120 120, 10 250, 40 340" fill="none" stroke="#2a2a2a" stroke-width="5" opacity=".7"/></svg>';
+      fixBack.appendChild(hose);
     }
   }
-  function renderSum() {
-    var rows = [["Revestimiento", TEX[st.pared][1]], ["Plato", PLATO[st.plato][1]], ["Mampara", MAMP[st.mampara]], ["Perfilería", METAL[st.perfil][1]], ["Grifería", GRIF[st.grif]]];
-    $("#cfgSum").innerHTML = rows.map(function (r) { return "<li><span>" + r[0] + "</span>" + r[1] + "</li>"; }).join("");
-    $("#cfgBadge").textContent = TEX[st.pared][1] + " · " + MAMP[st.mampara];
+  function apply() {
+    var m = METAL[st.perfil];
+    scene.style.setProperty("--metal", m[0]); scene.style.setProperty("--shine", m[2]);
+    scene.style.setProperty("--plato", PLATO[st.plato][0]);
+  }
+  function labels() {
+    var vals = [TEX[st.pared][1], PLATO[st.plato][1], MAMP[st.mampara], METAL[st.perfil][1], GRIF[st.grif].split(" +")[0]];
+    vals.forEach(function (v, i) { $("#t" + i).textContent = v; });
+    $("#cfgSum").textContent = TEX[st.pared][1] + ", plato " + PLATO[st.plato][1].toLowerCase() + ", mampara " + MAMP[st.mampara].toLowerCase() + " y acabados en " + METAL[st.perfil][1].toLowerCase() + ".";
   }
   function designText() { return "Revestimiento " + TEX[st.pared][1].toLowerCase() + ", plato " + PLATO[st.plato][1].toLowerCase() + ", mampara " + MAMP[st.mampara].toLowerCase() + ", perfilería " + METAL[st.perfil][1].toLowerCase() + " y grifería " + GRIF[st.grif].toLowerCase() + "."; }
+  function hud(k, name) {
+    $("#hudKicker").textContent = KICK[k]; var n = $("#hudName"); n.textContent = name;
+    if (hasG && !reduce) G.fromTo(n, { yPercent: 40, opacity: 0 }, { yPercent: 0, opacity: 1, duration: .6, ease: "power3.out" });
+  }
   function render(key) {
-    if (!key || key === "pared") wall(!key);
-    var pc = PLATO[st.plato][0]; $("#plato").setAttribute("fill", pc); $("#platoEdge").setAttribute("fill", pc);
-    $(".drain").setAttribute("fill", METAL[st.perfil][0]);
-    drawScreen(); drawTaps(); renderSum();
-    if (key) { var v = $("#cfgView"); v.classList.remove("flash"); void v.offsetWidth; v.classList.add("flash"); }
+    apply();
+    if (!key || key === "pared") wallTex(!key);
+    if (!key || key === "mampara") buildGlass();
+    if (!key || key === "grif") buildTaps();
+    labels();
+    if (key) {
+      stage.classList.remove("flash"); void stage.offsetWidth; stage.classList.add("flash");
+      if (key === "mampara" && hasG && !reduce) G.from("#glass3d > *", { opacity: 0, duration: .6, stagger: .03 });
+    }
   }
   $$("#cfgPanel [data-k]").forEach(function (grp) {
     grp.addEventListener("click", function (e) {
       var b = e.target.closest("button"); if (!b) return;
-      st[grp.dataset.k] = b.dataset.v;
+      var k = grp.dataset.k; st[k] = b.dataset.v;
       $$("button", grp).forEach(function (x) { x.setAttribute("aria-checked", String(x === b)); });
-      render(grp.dataset.k);
+      render(k); hud(k, b.querySelector("span").textContent);
     });
   });
-  var curStep = 0, stepBtns = $$(".cfg__steps button"), panes = $$(".cfg__pane");
+  $$(".hud--tr button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      $$(".hud--tr button").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+      scene.classList.remove("lit-warm", "lit-day", "lit-night"); scene.classList.add("lit-" + b.dataset.light);
+    });
+  });
+  var curStep = 0, tabs = $$(".tabs button"), panes = $$(".opts .pane");
   function goStep(i) {
-    stepBtns[curStep].classList.add("done");
     curStep = i;
-    stepBtns.forEach(function (b, k) { if (k === i) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current"); });
+    tabs.forEach(function (b, k) { b.setAttribute("aria-selected", String(k === i)); });
     panes.forEach(function (p, k) { p.classList.toggle("is-on", k === i); });
-    $("#cfgNext").innerHTML = i === panes.length - 1 ? "Volver al inicio <i>↺</i>" : "Siguiente paso <i>→</i>";
-    stepBtns[i].scrollIntoView({ block: "nearest", inline: "center" });
+    $("#cfgNext").textContent = i === panes.length - 1 ? "Volver al primer paso ↺" : "Siguiente paso →";
+    var tb = tabs[i]; if (tb.parentNode.parentNode.scrollWidth > tb.parentNode.parentNode.clientWidth) tb.parentNode.parentNode.scrollTo({ left: tb.parentNode.offsetLeft - 20, behavior: "smooth" });
   }
-  stepBtns.forEach(function (b, k) { b.addEventListener("click", function () { goStep(k); }); });
+  tabs.forEach(function (b, k) { b.addEventListener("click", function () { goStep(k); }); });
   $("#cfgNext").addEventListener("click", function () { goStep((curStep + 1) % panes.length); });
-  Object.keys(TEX).forEach(function (k) { var im = new Image(); im.src = U(TEX[k][0], 900, 72); });
+  setTimeout(function () { Object.keys(TEX).forEach(function (k) { var im = new Image(); im.src = U(TEX[k][0], 900, 72); }); }, 2500);
   render();
 
   /* ---------------- Quote panel ---------------- */
