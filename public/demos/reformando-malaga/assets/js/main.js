@@ -7,7 +7,7 @@
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   var G = window.gsap, ST = window.ScrollTrigger, hasG = !!(G && ST);
-  var REAL = "https://reformandomalaga.com/wp-content/uploads/2026/10/";
+  var REAL = "/api/obra/rm/";
   var U = function (id, w, q) { return "https://images.unsplash.com/" + id + "?auto=format&fit=crop&w=" + w + "&q=" + (q || 75); };
   var MAIL = "reformandomalaga@gmail.com", TEL = "600 72 04 87";
   var y = $("#y"); if (y) y.textContent = new Date().getFullYear();

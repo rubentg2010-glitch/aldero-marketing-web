@@ -13,9 +13,30 @@ export default {
       if (request.method !== "POST") return new Response("Método no permitido", { status: 405, headers: { Allow: "POST" } });
       return contacto(request, env);
     }
+    if (url.pathname.startsWith("/api/obra/rm/")) return obraRM(request, url);
     return env.ASSETS.fetch(request);
   },
 };
+
+// Fotos de obras de Reformando Málaga para su demo (/demos/reformando-malaga/).
+// Se piden una vez a su web y se sirven cacheadas desde aldero.es, para no
+// depender de su servidor en cada visita. Solo nombres .webp de su galería.
+async function obraRM(request, url) {
+  const name = url.pathname.slice("/api/obra/rm/".length);
+  if (request.method !== "GET" || !/^[a-z0-9-]{3,80}\.webp$/.test(name)) return new Response("No encontrado", { status: 404 });
+  const cache = caches.default;
+  const key = new Request(url.origin + "/api/obra/rm/" + name);
+  let res = await cache.match(key);
+  if (res) return res;
+  const up = await fetch("https://reformandomalaga.com/wp-content/uploads/2026/10/" + name, {
+    headers: { "User-Agent": "Mozilla/5.0 (compatible; AlderoDemo/1.0)", Accept: "image/webp,image/*" },
+    cf: { cacheTtl: 2592000, cacheEverything: true },
+  });
+  if (!up.ok || !(up.headers.get("content-type") || "").startsWith("image/")) return new Response("No disponible", { status: 502, headers: { "Cache-Control": "no-store" } });
+  res = new Response(up.body, { headers: { "Content-Type": "image/webp", "Cache-Control": "public, max-age=2592000, immutable", "X-Content-Type-Options": "nosniff" } });
+  await cache.put(key, res.clone());
+  return res;
+}
 
 async function contacto(request, env) {
   const wantsJson = (request.headers.get("accept") || "").includes("application/json");
