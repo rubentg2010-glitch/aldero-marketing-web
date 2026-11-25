@@ -83,7 +83,6 @@
     var tl = G.timeline({ delay: delay || 0 });
     tl.fromTo(".hero__img", { scale: 1.18 }, { scale: 1.06, duration: 2.2, ease: "power3.out" }, 0)
       .fromTo(".hero__title .ln>span", { y: 0, yPercent: 110 }, { y: 0, yPercent: 0, duration: 1.1, stagger: .09, ease: "power4.out" }, .05)
-      .fromTo(".hero__kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .8, ease: "power3.out" }, .25)
       .fromTo([".hero__sub", ".hero__ctas"], { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .9, stagger: .1, ease: "power3.out" }, .5)
       .fromTo([".hero__rating", ".hero__coords", ".hero__scroll", ".hero__insp"], { opacity: 0 }, { opacity: 1, duration: 1, stagger: .08 }, .7);
   }
@@ -91,7 +90,7 @@
   if (!intro || h.classList.contains("no-intro") || !hasG || reduce) { finishIntro(); heroIn(.05); }
   else {
     G.set(".hero__title .ln>span", { y: 0, yPercent: 110 });
-    G.set([".hero__kicker", ".hero__sub", ".hero__ctas", ".hero__rating", ".hero__coords", ".hero__scroll", ".hero__insp"], { opacity: 0 });
+    G.set([".hero__sub", ".hero__ctas", ".hero__rating", ".hero__coords", ".hero__scroll", ".hero__insp"], { opacity: 0 });
     var it = G.timeline({ onComplete: finishIntro });
     it.to(".intro__mark path", { strokeDashoffset: 0, duration: .6, ease: "power2.inOut", stagger: .1 })
       .to(".intro__name", { clipPath: "inset(0% 0% 0% 0%)", duration: .55, ease: "power3.out" }, .2)
@@ -179,6 +178,11 @@
     } });
   }
   var visible = GAL.map(function (_, i) { return i; });
+  gal.addEventListener("scroll", function () {
+    var items = $$(".g-item:not(.is-out)", gal); if (!items.length) return;
+    var w = items[0].getBoundingClientRect().width + 10, k = Math.round(gal.scrollLeft / w);
+    $("#galCount").textContent = Math.min(k + 1, items.length) + " / " + items.length;
+  }, { passive: true });
   $$(".filters button").forEach(function (btn) {
     btn.addEventListener("click", function () {
       $$(".filters button").forEach(function (x) { var on = x === btn; x.classList.toggle("is-on", on); x.setAttribute("aria-pressed", String(on)); });
@@ -186,6 +190,7 @@
       var show = function () {
         $$(".g-item").forEach(function (it) { var on = f === "todos" || it.dataset.cat === f; it.classList.toggle("is-out", !on); if (on) visible.push(+it.dataset.i); it.style.clipPath = ""; });
         if (hasG && !reduce) G.fromTo(".g-item:not(.is-out)", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .8, stagger: .05, ease: "power3.out" });
+        gal.scrollLeft = 0; $("#galCount").textContent = "1 / " + visible.length;
         if (ST) ST.refresh();
       };
       if (hasG && !reduce) G.to(".g-item:not(.is-out)", { opacity: 0, y: -10, duration: .25, stagger: .015, onComplete: show }); else show();
