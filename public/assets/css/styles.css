@@ -1325,3 +1325,21 @@ html.rec-open .wa-float { opacity: 0; pointer-events: none; }
   .rec__row { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) { .rec__card, .rec__bg { transition: none; } .rec__badge::after { animation: none; } }
+.rec__view[hidden] { display: none; }
+.rec__switch { display: block; margin: 14px 0 0; padding: 0; background: none; border: 0; color: var(--blue-hi); font: 500 14px var(--body); cursor: pointer; text-align: left; }
+.rec__switch:hover { text-decoration: underline; }
+.rec__codebox { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 4px 0 18px; }
+.rec__codebox .rec__code { margin: 0; }
+.rec__copy { border: 1px solid var(--line-2); background: rgba(255,255,255,.05); color: var(--text); border-radius: 999px; padding: 10px 16px; font: 600 13px var(--body); cursor: pointer; }
+.rec__copy:hover { background: rgba(255,255,255,.12); }
+.rec__acts { display: flex; flex-wrap: wrap; gap: 10px; }
+.rec__share { background: #25D366; color: #06210f; }
+.rec__later { background: transparent; color: var(--text); border: 1px solid var(--line-2); }
+.rec__note { font-size: 13px; color: var(--muted); margin: 14px 0 0; }
+.rec-pill { position: fixed; left: 18px; bottom: 18px; z-index: 8000; display: inline-flex; align-items: center; gap: 8px; padding: 11px 16px 11px 13px; border-radius: 999px; border: 1px solid rgba(126,155,255,.45); background: rgba(14,16,21,.88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: var(--text); font: 600 13.5px var(--body); cursor: pointer; box-shadow: 0 14px 34px -12px rgba(45,91,255,.55); opacity: 0; transform: translateY(16px); transition: opacity .5s var(--ease), transform .5s var(--ease), border-color .3s; }
+.rec-pill.is-in { opacity: 1; transform: none; }
+.rec-pill:hover { border-color: var(--blue-hi); }
+.rec-pill i { font-style: normal; font-size: 16px; }
+html.ck-open .rec-pill, html.rec-open .rec-pill, html.menu-open .rec-pill { opacity: 0; pointer-events: none; }
+@media (max-width: 720px) { .rec-pill { left: 12px; bottom: 14px; padding: 10px 14px 10px 11px; font-size: 12.5px; } .rec__acts .btn { width: 100%; justify-content: center; } }
+@media (max-width: 720px) { .rec-pill { width: 50px; height: 50px; padding: 0; justify-content: center; } .rec-pill span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); } .rec-pill i { font-size: 20px; } }
