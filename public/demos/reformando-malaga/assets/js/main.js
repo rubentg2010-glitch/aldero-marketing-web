@@ -169,7 +169,7 @@
   GAL.forEach(function (g, i) {
     var b = d.createElement("button"); b.type = "button"; b.className = "g-item " + g[3]; b.dataset.cat = g[1]; b.dataset.i = i;
     b.setAttribute("aria-label", "Ampliar: " + g[2]);
-    b.innerHTML = '<img loading="lazy" decoding="async" src="' + REAL + g[0] + '.webp" alt="' + g[2] + '" width="600" height="800"><span class="g-cap"><span>' + g[2] + "</span><b>" + CAT[g[1]] + "</b></span>";
+    b.innerHTML = '<img decoding="async" src="' + REAL + g[0] + '.webp" alt="' + g[2] + '" width="600" height="800"><span class="g-cap"><span>' + g[2] + "</span><b>" + CAT[g[1]] + "</b></span>";
     gal.appendChild(b);
   });
   if (hasG && !reduce) {
