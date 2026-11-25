@@ -21,7 +21,7 @@
       '<div class="rec__body">' +
         /* Vista 1: conseguir código */
         '<div class="rec__view" data-view="code">' +
-          '<p class="rec__eyebrow">🎁 Promoción de lanzamiento</p><h2 id="recTitle" class="rec__title">Recomienda Aldero<br>y <em>ganáis los dos.</em></h2>' +
+          '<h2 id="recTitle" class="rec__title">Recomienda Aldero<br>y <em>ganáis los dos.</em></h2>' +
           '<p class="rec__lead">No hace falta que pienses en nadie ahora. Te damos <b>tu código personal</b> y lo compartes cuando quieras: si alguien contrata su web con él, <b>os lleváis un 15 % de descuento cada uno</b>.</p>' +
           '<form class="rec__form" data-form="code" novalidate>' +
             '<div class="rec__row">' +
@@ -57,7 +57,7 @@
           '<p class="rec__lead">Compártelo cuando quieras con quien necesite web. Cuando contrate diciendo tu código, os aplicamos el 15 % a los dos.</p>' +
           '<div class="rec__codebox"><span class="rec__code" data-code></span><button class="rec__copy" type="button" data-copy>Copiar</button></div>' +
           '<div class="rec__acts"><a class="btn btn--blue rec__share" data-share target="_blank" rel="noopener">Compartir por WhatsApp</a><button class="btn rec__later" type="button" data-rec-close>Lo guardo para luego</button></div>' +
-          '<p class="rec__note">Lo tienes siempre en el botón del regalo 🎁 de abajo a la izquierda.</p>' +
+          '<p class="rec__note">Lo tienes siempre en el botón «Tu código» de abajo a la izquierda.</p>' +
         '</div>' +
         /* Vista 4: recomendación enviada */
         '<div class="rec__view" data-view="sent" hidden>' +
@@ -76,7 +76,7 @@
     return "ALDERO-" + n.slice(0, 8) + "-" + String(Math.floor(100 + Math.random() * 900));
   }
   function shareUrl(code) {
-    var t = "Te paso esto por si necesitas web para tu negocio: Aldero Marketing hace webs en Málaga. Si les dices mi código *" + code + "* te llevas un 15 % de descuento 👉 " + SITE;
+    var t = "Te paso esto por si necesitas web para tu negocio: Aldero Marketing hace webs en Málaga. Si les dices mi código *" + code + "* te llevas un 15 % de descuento: " + SITE;
     return "https://wa.me/?text=" + encodeURIComponent(t);
   }
   function show(view) {
@@ -176,7 +176,7 @@
       pill = d.createElement("button"); pill.type = "button"; pill.className = "rec-pill";
       pill.addEventListener("click", open); d.body.appendChild(pill);
     }
-    pill.innerHTML = st.code ? '<i aria-hidden="true">🎁</i><span>Tu código</span>' : '<i aria-hidden="true">🎁</i><span>Gana un 15 %</span>';
+    pill.innerHTML = '<svg class="rec-pill__ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11h16v9H4zM3 7h18v4H3zM12 7v13M12 7c-1.5-3-5-3.5-5-1.5S10 7 12 7zm0 0c1.5-3 5-3.5 5-1.5S14 7 12 7z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>' + (st.code ? '<span>Tu código</span>' : '<span>Gana un 15 %</span>');
     pill.setAttribute("aria-label", st.code ? "Ver tu código de recomendación" : "Recomienda Aldero y gana un 15 % de descuento");
     requestAnimationFrame(function () { pill.classList.add("is-in"); });
     if (!pill.dataset.wired) {
