@@ -147,7 +147,7 @@ em{font-style:italic}
 .card__link:hover i{transform:translateX(5px)}
 
 /* configurador */
-.conf{background:var(--olive);color:var(--paper);padding:clamp(90px,11vw,160px) var(--pad);position:relative;overflow:hidden}
+.conf{background:var(--olive);color:var(--paper);padding:clamp(90px,11vw,160px) var(--pad);position:relative;overflow:hidden;overflow:clip}
 .conf__grid{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,100px);align-items:center}
 .conf__lead{color:rgba(248,247,243,.78);max-width:46ch;margin:0 0 34px}
 .opts{display:grid;gap:22px}
