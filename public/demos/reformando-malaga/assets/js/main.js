@@ -114,15 +114,15 @@
       .to(".intro__panel--b", { yPercent: 100, duration: 1.05, ease: "expo.inOut" }, 1.3)
       .to(".intro__line", { opacity: 0, duration: .35, ease: "none" }, 1.45)
       .to(".hero__img", { scale: 1.08, duration: 2.6, ease: "power3.out" }, 1.3)
-      .to(".hero__title .w", { yPercent: 0, duration: 1, stagger: .075, ease: "power4.out" }, 1.95)
-      .fromTo(".intro__tag", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .6 }, 2.5)
-      .to(".intro__tag", { opacity: 0, y: -8, duration: .4, ease: "power2.in" }, 3.15)
-      .to(title, { x: 0, y: 0, duration: 1.05, ease: "expo.inOut" }, 3.1)
-      .to(".hero__shade", { opacity: 1, duration: 1, ease: "power2.inOut" }, 3.1)
-      .to(heroSoft, { opacity: 1, duration: .8, stagger: .1 }, 3.5)
-      .from(heroSoft, { y: 18, duration: .8, stagger: .1 }, 3.5)
-      .to(heroExtra, { opacity: 1, duration: .8, stagger: .06 }, 3.6)
-      .to([".nav", ".dock"], { opacity: 1, duration: .8 }, 3.5);
+      .to(".hero__title .w", { yPercent: 0, duration: 1, stagger: .07, ease: "power4.out" }, 1.85)
+      .fromTo(".intro__tag", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .55 }, 2.35)
+      .to(".intro__tag", { opacity: 0, y: -8, duration: .35, ease: "power2.in" }, 2.9)
+      .to(title, { x: 0, y: 0, duration: .95, ease: "expo.inOut" }, 2.9)
+      .to(".hero__shade", { opacity: 1, duration: .9, ease: "power2.inOut" }, 2.9)
+      .to(heroSoft, { opacity: 1, duration: .6, stagger: .1 }, 3.2)
+      .from(heroSoft, { y: 18, duration: .6, stagger: .1 }, 3.2)
+      .to(heroExtra, { opacity: 1, duration: .6, stagger: .05 }, 3.25)
+      .to([".nav", ".dock"], { opacity: 1, duration: .6 }, 3.2);
     window.__introTl = it;
     $("#introSkip").addEventListener("click", function () { it.progress(1); });
   }
