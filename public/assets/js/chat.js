@@ -33,7 +33,8 @@
     window.Tawk_API.onChatStarted = function () { if (window.alderoStat) window.alderoStat("chat"); };
     var s = document.createElement("script");
     s.async = true; s.src = SRC; s.charset = "UTF-8"; s.setAttribute("crossorigin", "*");
-    s.onerror = function () { loaded = false; btn.classList.remove("is-loading"); };
+    s.onload = function () { btn.remove(); };
+    s.onerror = function () { loaded = false; btn.classList.remove("is-loading"); if (!btn.isConnected) document.body.appendChild(btn); };
     document.head.appendChild(s);
   }
 
@@ -44,8 +45,8 @@
   });
 
   function init() {
+    if (remembered()) { load(); return; }
     document.body.appendChild(btn);
-    if (remembered()) load();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
 })();
