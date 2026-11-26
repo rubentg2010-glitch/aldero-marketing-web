@@ -1280,7 +1280,7 @@ html.ck-open .wa-float, html.wa-hide .wa-float { opacity: 0; transform: translat
 .rec.is-in .rec__card { opacity: 1; transform: none; }
 .rec__x { position: absolute; top: 12px; right: 14px; z-index: 2; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line-2); background: rgba(255,255,255,.04); color: var(--text); font-size: 22px; line-height: 1; cursor: pointer; transition: background .3s, transform .3s var(--ease); }
 .rec__x:hover { background: rgba(255,255,255,.12); transform: rotate(90deg); }
-.rec__badge { position: relative; overflow: hidden; display: grid; place-content: center; justify-items: center; gap: 6px; padding: 30px 20px; color: #fff; background: radial-gradient(120% 90% at 20% 10%, #7E9BFF 0%, #2D5BFF 45%, #1A2E9E 100%); border-radius: 21px 0 0 21px; }
+.rec__badge { position: relative; overflow: hidden; display: grid; place-content: center; justify-items: center; gap: 6px; padding: 30px 20px; color: #fff; background: radial-gradient(120% 90% at 20% 10%, #7E9BFF 0%, #2D5BFF 45%, #1A2E9E 100%); border-radius: 20px 0 0 20px; }
 .rec__badge::after { content: ""; position: absolute; inset: -40%; background: conic-gradient(from 0deg, transparent 0 70%, rgba(255,255,255,.22) 80%, transparent 90%); animation: recSpin 6s linear infinite; }
 @keyframes recSpin { to { transform: rotate(1turn); } }
 .rec__badge b { position: relative; z-index: 1; font: 800 clamp(64px, 8vw, 92px)/.9 var(--display); letter-spacing: -.04em; }
@@ -1346,9 +1346,9 @@ html.ck-open .rec-pill, html.rec-open .rec-pill, html.menu-open .rec-pill { opac
 
 /* ---- Ventana más llamativa ---- */
 .rec__bg { background: radial-gradient(60% 60% at 50% 50%, rgba(45,91,255,.28), rgba(4,5,8,.82) 70%); }
-.rec__card { border: 0; isolation: isolate; transform: translateY(40px) scale(.9); transition: opacity .45s var(--ease), transform .8s cubic-bezier(.2,1.4,.35,1); }
-.rec__card::before { content: ""; position: absolute; inset: -2px; z-index: -1; border-radius: 24px; background: conic-gradient(from var(--recA, 0deg), #2D5BFF, #7E9BFF, #25D366, #ffffff, #2D5BFF); animation: recBorder 4s linear infinite; }
-.rec__card::after { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: 22px; background: var(--bg-2); }
+.rec__card { border: 0; padding: 2px; isolation: isolate; overflow-x: hidden; transform: translateY(40px); transition: opacity .45s var(--ease), transform .7s var(--ease); }
+.rec__card::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: 22px; background: conic-gradient(from var(--recA, 0deg), #2D5BFF, #7E9BFF, #25D366, #ffffff, #2D5BFF); animation: recBorder 4s linear infinite; }
+.rec__card::after { content: ""; position: absolute; inset: 2px; z-index: -1; border-radius: 20px; background: var(--bg-2); }
 @property --recA { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
 @keyframes recBorder { to { --recA: 360deg; } }
 .rec.is-in .rec__card { animation: recGlow 3s ease-in-out infinite; }
@@ -1372,12 +1372,12 @@ html.ck-open .rec-pill, html.rec-open .rec-pill, html.menu-open .rec-pill { opac
 @keyframes recText { to { background-position: -200% 0; } }
 .rec__glow { position: relative; overflow: hidden; box-shadow: 0 12px 30px -8px rgba(45,91,255,.8); animation: recPulse 2.2s ease-in-out infinite; }
 .rec__glow::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.35) 50%, transparent 65%); transform: translateX(-120%); animation: recShine 2.6s 1.2s ease-in-out infinite; }
-@keyframes recPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.025); } }
+@keyframes recPulse { 0%,100% { box-shadow: 0 12px 30px -8px rgba(45,91,255,.8); } 50% { box-shadow: 0 14px 40px -6px rgba(45,91,255,1); } }
 .rec-pill { animation: recPillPulse 2.4s ease-in-out infinite; }
 @keyframes recPillPulse { 0%,100% { box-shadow: 0 14px 34px -12px rgba(45,91,255,.55), 0 0 0 0 rgba(126,155,255,.5); } 50% { box-shadow: 0 14px 34px -12px rgba(45,91,255,.55), 0 0 0 8px rgba(126,155,255,0); } }
 @media (max-width: 720px) {
   .rec__card { transform: translateY(100%); transition: opacity .3s, transform .6s cubic-bezier(.2,1.1,.35,1); }
-  .rec__card::before, .rec__card::after { border-radius: 24px 24px 0 0; }
+  .rec__card::before { border-radius: 22px 22px 0 0; } .rec__card::after { border-radius: 20px 20px 0 0; }
   .rec__badge { display: grid; grid-template-columns: auto auto; grid-template-rows: auto auto; justify-content: start; column-gap: 14px; row-gap: 2px; padding: 16px 64px 16px 18px; }
   .rec__gift { width: 46px; height: 46px; grid-row: span 2; }
   .rec__badge b { font-size: 56px; }
